@@ -1,0 +1,150 @@
+
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	width: 71px;
+	background: #d9d9d9;
+	border-radius: 13px;
+}
+
+.icon-container {
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: space-between; */
+	gap: 50px;
+	align-items: center;
+	padding: 15px;
+}
+
+.logo {
+	width: 34px;
+	height: 31px;
+	background-color: aliceblue;
+}
+
+.icon-container img {
+	width: 34px;
+	height: 31px;
+}
+
+.logout-container {
+	display: flex;
+	align-items: center;
+	padding: 15px;
+}
+
+.chat-list-container {
+	width: 100%;
+	padding: 0 0 0 33px;
+}
+
+.chat-list-container img {
+	cursor: pointer;
+}
+
+.chat-list-container input {
+	width: 100%;
+	height: 45px;
+	background: #d9d9d9;
+	border-radius: 10px;
+	border: 0px;
+
+	padding: 15px;
+	margin-top: 23px;
+}
+
+.chatbox {
+	display: flex;
+	align-items: center;
+
+	background: #efefef;
+	border-radius: 20px;
+
+	width: 100%;
+	height: 88px;
+
+	padding: 12px;
+	margin: 33px 0 0 0;
+}
+
+.chatbox .user-image {
+	width: 65px;
+	height: 65px;
+
+	background: #d6d6d6;
+	border-radius: 50%;
+}
+
+.chatbox-detail {
+	margin-left: 15px;
+}
+
+.chatbox-detail h4,
+.chatbox-detail p {
+	margin: 0;
+}
+
+.right-side {
+	width: 65%;
+}
+
+.topbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 117px;
+	background: #F6FBFF;
+
+	padding: 0 50px;
+}
+
+.profile-topbar {
+	display: flex;
+	align-items: center;
+}
+
+
+
+.profile-topbar-detail {
+	margin-left: 20px;
+}
+
+.profile-topbar-detail h4,
+.profile-topbar-detail p {
+	margin: 0;
+}
+
+.topbar-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100px;
+}
+
+.topbar-menu img:last-child {
+	cursor: pointer;
+}
+
+.profile-lawan-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 100%;
+	height: 250px;
+}
+
+.profile-lawan-img {
+	width: 123px;
+	height: 123px;
+
+	background: #d9d9d9;
+	border-radius: 50%;
+}
+

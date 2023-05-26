@@ -1,0 +1,10 @@
+.button{
+    width: "150px" !important;
+    height: "39px" !important;
+    background-image: "linear-gradient(.25turn, #f00, #00f)";
+    
+  }
+
+.content{
+    height: 120px !important;
+}

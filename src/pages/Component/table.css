@@ -1,0 +1,40 @@
+
+.table-wrapper{
+   
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+   
+   
+    white-space: wrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-bottom: 2px solid #9e9a9a !important;
+    border-top: 2px solid #9e9a9a !important;
+    font-size: 12px;
+    white-space:pre-wrap; word-wrap:break-word
+}
+
+.fl-table thead th {
+     color: #ffffff;
+    background: #1976D2 !important;
+}
+
+
+
+
+.fl-table tr:nth-child(even) {
+    background: #d7d5d5 !important;
+}

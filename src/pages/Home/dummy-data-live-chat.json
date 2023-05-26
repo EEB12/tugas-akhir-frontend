@@ -1,0 +1,104 @@
+[
+    {
+        "nama": "Hanif",
+        "number" : "081311330988",
+        "img" : "https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png",
+        "platform" : "Whatsapp",
+        "chats" : [
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum aku rayhan",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : false,
+                "message" : "Halo Waalaikumussalam aku taqarra",
+                "timestamp" : "21:30, 19-08-2022"
+            },
+            {
+                "from_me" : true,
+                "message" : "ada yang bisa dibantu",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : false,
+                "message" : "ini sepertinya ada gangguan di...",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : false,
+                "message" : "disalah satu service dari aplikasi yyy",
+                "timestamp" : "20:30, 19-08-2022"
+            }
+        ]
+    },
+    {
+        "nama": "Andi",
+        "number" : "081311330988",
+        "img" : "https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png",
+        "platform" : "Whatsapp",
+        "chats" : [
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : false,
+                "message" : "Halo Waalaikumussalam",
+                "timestamp" : "21:30, 19-08-2022"
+            }
+        ]
+    },
+    {
+        "nama": "Irfan",
+        "number" : "081311330988",
+        "img" : "https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png",
+        "platform" : "Whatsapp",
+        "chats" : [
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : false,
+                "message" : "Halo Waalaikumussalam",
+                "timestamp" : "21:30, 19-08-2022"
+            }
+        ]
+    },
+    {
+        "nama": "Taqarra",
+        "number" : "081311330987",
+        "platform" : "Telegram",
+        "img" : "https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png",
+        "chats" : [
+            {
+                "from_me" : true,
+                "message" : "Halo Assalamualaikum",
+                "timestamp" : "20:30, 19-08-2022"
+            },
+            {
+                "from_me" : false,
+                "message" : "Halo Waalaikumussalam",
+                "timestamp" : "21:30, 19-08-2022"
+            }
+        ]
+    }
+]
