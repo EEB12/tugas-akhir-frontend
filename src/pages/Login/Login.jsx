@@ -20,7 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 async function loginUser(credentials) {
 
     console.log(credentials)
-    return fetch('http://103.157.96.170:5000/api/login', {
+    return fetch('https://backend-ta.ndne.id/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

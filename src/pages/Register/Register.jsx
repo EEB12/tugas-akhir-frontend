@@ -17,7 +17,7 @@ import Paper from '@mui/material/Paper';
 async function registerUser(credentials) {
 
     console.log(credentials)
-    return fetch('http://103.157.96.170:5000/api/register', {
+    return fetch('https://backend-ta.ndne.id/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
