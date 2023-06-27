@@ -2,8 +2,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './table.css'
 export default function Table({ theadData, tbodyData }) {
     console.log(tbodyData)
+    console.log(theadData)
     return (
-        <table className=' fl-table  rounded rounded-3 '>
+        <table className=' fl-table   '>
 
             {/* 
             <colgroup>
@@ -17,10 +18,10 @@ export default function Table({ theadData, tbodyData }) {
                     {theadData.map(heading => {
 
                         return <>
-                            <th style={{ width: "10%" }} key={heading}>{heading}</th>
+                            <th style={{ width: "30%" }} key={heading}>{heading}</th>
                         </>
                     })}
-                    {/* <th style={{ width: "10%" }} >Action</th> */}
+                   
                 </tr>
             </thead>
             <tbody>
@@ -30,10 +31,7 @@ export default function Table({ theadData, tbodyData }) {
                             return <td className='ml-5' key={row[key]}>{row[key]}</td>
                         })}
 
-                        {/* <td>
-                            {" "}
-                            <button >{"delete"}</button>
-                        </td> */}
+                       
                     </tr>;
                 })}
             </tbody>

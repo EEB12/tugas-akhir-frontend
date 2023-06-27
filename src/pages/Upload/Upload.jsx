@@ -30,6 +30,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Navbar from '../Component/navbar';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import swal from 'sweetalert';
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -46,11 +49,18 @@ const mdTheme = createTheme();
 
 
 const Upload = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [filesToUpload, setFilesToUpload] = useState();
     const [data, setdata] = useState([]);
     const [age, setAge] = React.useState('');
+    const [namefile, setNamefile] = useState('')
 
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleToggle = () => {
+        setOpen(!open);
+    };
     const handleChange = (event) => {
         setAge(event.target.value);
     };
@@ -58,7 +68,9 @@ const Upload = () => {
         // Update chosen files
         setFilesToUpload(files[0])
     };
-
+    const handlename = (event) => {
+        setNamefile(event.target.value)
+    }
     const getHeadings = () => {
         return Object.keys(data[0]).reverse();
     }
@@ -66,18 +78,17 @@ const Upload = () => {
     const uploadFiles = async () => {
         // Create a form and post it to server
         let formData = new FormData()
-
-
+        handleToggle()
         formData.append("file", filesToUpload)
-        formData.append("title", 'teslagicuy')
-        formData.append("type_anotasi", 'auto')
-        console.log(filesToUpload)
-        console.log(formData.get('file'))
+        formData.append("title", namefile)
+        formData.append("type_anotasi", age)
+        // console.log(filesToUpload)
+        // console.log(formData.get('file'))
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
         const response = await axios({
             method: "post",
-            url: "http://localhost:5000/api/upload",
+            url: "http://103.157.96.170:5000/api/upload_penelitian",
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -87,10 +98,22 @@ const Upload = () => {
         console.log(response.data.data)
 
         const preview = response.data.data.slice(0, 5)
-        console.log("before", data.length)
+        
         setdata(preview)
-        console.log(data)
-        console.log("AFter", data.length)
+        handleClose()
+        if (response.data.message =='Data created successfully' ) {
+            swal("Success", "Data Penelitian berhasil diupload", "success", {
+              buttons: false,
+              timer: 2000,
+            })
+            .then((value) => {
+             
+             
+            });
+          } else {
+            swal("Failed", "Model Upload Failed", "error");
+          }
+       
     }
 
     useEffect(() => {
@@ -98,12 +121,13 @@ const Upload = () => {
 
     }, [data]);
     return (
-        <>
+        <>  
+
             <ThemeProvider theme={mdTheme}>
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
-                    <Navbar/>
-
+                    <Navbar />
+                    
                     <Box
                         component="main"
                         sx={{
@@ -116,8 +140,9 @@ const Upload = () => {
                             overflow: 'auto',
                         }}
                     >
-
+                        
                         <Toolbar />
+                        <div class="position-absolute">saffssafffasfs</div>
                         <Container maxWidth="lg" sx={{
                             mr: 50,
                             p: 2,
@@ -126,9 +151,10 @@ const Upload = () => {
 
                             alignItems: 'center'
                         }}>
-
+                            
                             <Grid container spacing={1}>
                                 {/* Chart */}
+                                
                                 <Grid item xs={12} md={8} lg={9}>
                                     <Paper elevation={0}
                                         sx={{
@@ -152,9 +178,10 @@ const Upload = () => {
                                                         multiFile={false}
                                                         onFilesChange={handleFilesChange}
                                                         maxUploadFiles={1}
+                                                        title="Mohon untuk upload file dengan format .CSV"
                                                         allowedExtensions={['csv']}
                                                         onContextReady={(context) => { }}
-                                                        title=""
+                                                        
                                                         PlaceholderImageDimension={{
                                                             xs: { width: 300, height: 128 },
                                                             sm: { width: 300, height: 128 },
@@ -175,7 +202,7 @@ const Upload = () => {
 
 
 
-                                                                width: 300,
+                                                                width: 350,
 
                                                             }}
                                                         >
@@ -187,8 +214,8 @@ const Upload = () => {
                                                                 label="Tipe Anotasi"
                                                                 onChange={handleChange}
                                                             >
-                                                                <MenuItem value={"auto"}>Auto</MenuItem>
-                                                                <MenuItem value={"manual"}>Manual</MenuItem>
+                                                                <MenuItem value={"AUTO"}>Auto</MenuItem>
+                                                                <MenuItem value={"MANUAL"}>Manual</MenuItem>
 
                                                             </Select>
                                                         </FormControl>
@@ -199,12 +226,12 @@ const Upload = () => {
                                                         noValidate
                                                         autoComplete="off"
                                                         sx={{
-                                                            mt:2,
-                                                            mb:3
+                                                            mt: 2,
+                                                            mb: 3
 
                                                         }}
                                                     >
-                                                        <TextField id="outlined-basic" label="Nama File" variant="outlined"
+                                                        <TextField onChange={handlename} id="outlined-basic" label="Nama File" variant="outlined"
                                                             inputProps={{
                                                                 style: {
                                                                     height: 50,
@@ -213,18 +240,25 @@ const Upload = () => {
                                                             }}
                                                             sx={{
 
-                                                                width: 300,
+                                                                width: 350,
 
                                                             }} />
 
                                                     </Box>
-                                                    <Button type="button" variant="contained" onClick={uploadFiles} className="ms-5 w-25">Upload</Button>
+                                                    <Button type="button" variant="contained" onClick={uploadFiles} className="ms-2 mt-3 w-25">Upload</Button>
+                                                    <Button type="button" variant="contained" onClick={uploadFiles} className="ms-5 mt-3 w-25">Upload</Button>
                                                 </div>
 
                                             </div>
 
 
+                                            <Backdrop
+                                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                                open={open}
 
+                                            >
+                                                <CircularProgress color="inherit" />
+                                            </Backdrop>
                                         </div>
 
 

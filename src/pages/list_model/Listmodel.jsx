@@ -35,7 +35,7 @@ import swal from 'sweetalert';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-
+import csvDownload from 'json-to-csv-export'
 const mdTheme = createTheme();
 
 
@@ -50,52 +50,18 @@ const bull = (
 
 
 const Listmodel = () => {
-
-    const getHeadings = () => {
-        return Object.keys(preview[0]).reverse();
-    }
     const [data, setData] = useState([]);
-    const [result, setResult] = useState([])
-    // const [data1, setData1] = useState(['a', 'b', 'c']);
-    const [preview, setPreview] = React.useState([]);
+    const [role, setRole] = useState('');
+    const [age, setAge] = React.useState('');
 
-
-
-
- 
-
-
-
-    // const handleFilesChange = (files) => {
-    //     // Update chosen files
-    //     console.log(files[0])
-    //     setmodel(files[0])
-    // };
-
-    const params = useParams();
-    const handleSubmit = async (id_model) => {
-
-        console.log("ini id", id_model)
-
-
-
-
+    const download = async(id)=>{
+        var token = localStorage.getItem('tokenAccess')
         let formData = new FormData()
 
-
-
-
-        formData.append("id_anotasi", params.id)
-        formData.append("id_model", id_model)
-
-
-
-        var token = localStorage.getItem('tokenAccess')
-
-
+        formData.append("id_anotasi",id)
         const response = await axios({
             method: "post",
-            url: "http://localhost:5000/api/anotate_model",
+            url: 'http://103.157.96.170:5000/api/get-data',
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -103,60 +69,52 @@ const Listmodel = () => {
             },
         }).then(data => data);
 
-        const preview1 = response.data.data.slice(0, 5)
-      
-        setPreview(preview1)
-
-
-        if (response.data) {
-            swal("Success", "Model Uploaded", "success", {
-                buttons: false,
-                timer: 2000,
-            })
-                .then((value) => {
-                    
-
-                });
-        } else {
-            swal("Failed", "Model Upload Failed", "error");
-        }
-    };
-
-
-
-    useEffect(() => {
-        // Update the document title using the browser API
-
-    }, [preview]);
+        var headers=Object.keys(response.data[0])
+          console.log(headers)
+          const dataToConvert = {
+            data: response.data,
+            filename: 'test download',
+            delimiter: ',',
+            headers: headers
+          }
+          csvDownload(dataToConvert)
+    }
     useEffect(() => {
 
         var token = localStorage.getItem('tokenAccess')
+        
         console.log(token)
 
-        const handlereceiver = async (event) => {
-
-            const response = await axios({
-                method: "post",
-                url: "http://localhost:5000/api/list_model",
-
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            }).then(data => data);
-
-            console.log(response.data)
-            setData(response.data)
+        var role = localStorage.getItem('role')
+        setRole(role)
+        const getModel = async (event) => {    
+            
+                const response = await axios({
+                    method: "get",
+                    url: "http://103.157.96.170:5000/api/list_model",
+    
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    },
+                }).then(data => data);
+    
+                console.log(response.data)
+                setData(response.data)
+            
+            
         };
 
 
 
-        handlereceiver()
+        getModel()
 
 
     }, []);
+
+
     return (
         <>
-            <ThemeProvider sx={{ display: 'flex', height: '1500vh', }} theme={mdTheme}>
+            <ThemeProvider theme={mdTheme}>
                 <Box sx={{ display: 'flex' }}>
 
                     <Navbar />
@@ -169,7 +127,7 @@ const Listmodel = () => {
                                     ? theme.palette.grey[100]
                                     : theme.palette.grey[900],
                             width: '100%',
-
+                            height: '100%',
                             overflowX: 'initial',
                         }}
                     >
@@ -201,41 +159,63 @@ const Listmodel = () => {
 
                                     >
                                         <div className='container-fluid'>
+                                            <div className='row mb-5'>
 
+
+                                                <Typography sx={{
+                                                    color: '#0285F1',
+                                                    fontWeight: 600, m: 1, fontSize: 60
+                                                }} variant="h3" gutterBottom>
+                                                    List Penelitian
+                                                </Typography>
+
+                                            </div>
                                             <div className='row'>
 
-                                                <div className='col-6'>
+                                                <div className='col-12'>
                                                     {data.map((item, index) =>
                                                         <>
                                                             <div className='row mb-4'>
-                                                                <Card sx={{ maxWidth: 800, Height: 200 }} variant='outlined'>
+                                                                <Card sx={{ maxWidth: 1500, Height: 200,boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',borderRadius: '10px', }} variant='outlined'>
                                                                     <CardContent>
 
-                                                                        <div className='container'>
+                                                                        <div className='container-fluid'>
                                                                             <div className='row'>
-                                                                                <div className='col'>
-                                                                                    <Typography variant="h5" component="div">
+                                                                                <div className='col-6 mt-3'>
 
-                                                                                        {item.title}
+                                                                                    <Typography component="div">
+
+                                                                                        Judul Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{item.title}
                                                                                     </Typography>
-                                                                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                                                                        {item.desc}
+                                                                                    <Typography component="div">
+
+                                                                                        Deskripsi   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{item.desc}
                                                                                     </Typography>
+
+                                                                                    <Typography component="div">
+
+                                                                                        Model Program&nbsp;&nbsp;&nbsp;:&nbsp;tes model
+                                                                                    </Typography>
+                                                                                    <Typography component="div">
+
+                                                                                        Vectorizer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;tes vectorizer
+                                                                                    </Typography>
+                                                                            
+
+
 
 
                                                                                 </div>
 
 
-                                                                                <div className='col'>
-                                                                                    <Button onClick={() => handleSubmit(item.id)} className=" w-75 me-5" variant="contained" sx={{
-                                                                                        height: '80px',
-                                                                                        ':hover': {
-                                                                                            bgcolor: 'primary.main', // theme.palette.primary.main
-                                                                                            color: 'black',
-
-                                                                                        },
-                                                                                    }}>Gunakan Model ini</Button>
-
+                                                                                <div className='col-6 d-flex justify-content-end'>
+                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .pickle</Box></button>
+                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
+                                                                                    
+                                                                                    {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
+                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
+                                                                                    
+                                                                                    
                                                                                 </div>
 
 
@@ -253,22 +233,7 @@ const Listmodel = () => {
                                                         </>
                                                     )}
                                                 </div>
-                                                <div className='col-6 ps-5'>
-                                                    {preview.length >0 ? <>
 
-                                                        <Table theadData={getHeadings()} tbodyData={preview}>
-
-                                                        </Table>
-
-                                                        {console.log(preview.length,"true")}
-
-                                                    </> : <>
-
-
-                                                    {console.log(preview,"false")}
-
-                                                    </>}
-                                                </div>
 
 
                                             </div>

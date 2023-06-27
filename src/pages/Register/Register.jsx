@@ -12,130 +12,216 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import swal from 'sweetalert';
+import Paper from '@mui/material/Paper';
+async function registerUser(credentials) {
+
+    console.log(credentials)
+    return fetch('http://103.157.96.170:5000/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+        .then(data => data.json())
+}
+
 
 const Register = () => {
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        // eslint-disable-next-line no-console
         console.log({
             email: data.get('email'),
             password: data.get('password'),
+            username: data.get('username'),
         });
+
+
+        var email = data.get('email')
+        var password = data.get('password')
+        var username = data.get('username')
+        const response = await registerUser({
+            "username": username,
+            "email": email,
+            "password": password
+        });
+
+        console.log(response.message)
+        if (response.message == 'User registered successfully') {
+            swal("Success", "User berhasil register", "success", {
+                buttons: false,
+                timer: 2000,
+            })
+                .then((value) => {
+
+                    window.location.href = "/login";
+                });
+        } else {
+            swal("Failed", "Model Upload Failed", "error");
+        }
     };
-    const theme = createTheme();
+
+    const defaultTheme = createTheme();
     return (
         <div>
-            <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xs">
+            <ThemeProvider theme={defaultTheme}>
+                <Grid container component="main" sx={{ height: '100vh' }}>
                     <CssBaseline />
-                    <Box
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        md={5}
                         sx={{
-                            marginTop: 8,
+                            backgroundImage: 'url(./loginregister.jpg)',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundColor: (t) =>
+                                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+
+                        }}
+                    >
+                        <Box sx={{
+                            my: 12,
+                            mx: 4,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign up
-                        </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        autoComplete="given-name"
-                                        name="firstName"
-                                        required
-                                        fullWidth
-                                        id="firstName"
-                                        label="First Name"
-                                        autoFocus
-                                        inputProps={{
-                                            style: {
-                                              height:50,
-                                             
-                                            },
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="lastName"
-                                        label="Last Name"
-                                        name="lastName"
-                                        autoComplete="family-name"
-                                        inputProps={{
-                                            style: {
-                                              height:50,
-                                             
-                                            },
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
-                                        autoComplete="email"
-                                        inputProps={{
-                                            style: {
-                                              height:50,
-                                             
-                                            },
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="new-password"
-                                        inputProps={{
-                                            style: {
-                                              height:50,
-                                             
-                                            },
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <FormControlLabel
-                                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                        label="I want to receive inspiration, marketing promotions and updates via email."
-                                    />
-                                </Grid>
-                            </Grid>
+                            alignContent: 'center',
+                        }}>
+                            <img src='./Logo-its.png'>
+
+                            </img>
+                            <Typography
+                                color="common.white"
+                                component="h1" variant="h5">
+                                <Box sx={{ fontWeight: 500, m: 1, fontSize: 40 }}>Selamat Datang</Box>
+                            </Typography>
+
+                            <Typography color="common.white" variant="subtitle1" gutterBottom>
+                                <Box sx={{ width: 350, textAlign: 'center', fontWeight: 400, m: 1, fontSize: 20 }}> Silahkan melakukan login setelah melakukan registrasi</Box>
+
+                            </Typography>
+
                             <Button
+
                                 type="submit"
                                 fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                variant="outlined"
+                                href='/login'
+                                sx={{border: 2 ,mt: 3,width:300, mb: 2,borderColor: 'common.white', borderRadius: '30px'  }}
                             >
-                                Sign Up
-                            </Button>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                    <Link href="/login" variant="body2">
-                                        Already have an account? Sign in
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Box>
+                                <Box color="common.white" sx={{ textAlign: 'center', fontWeight: 400, m:1}}>
+                                    Log in
+                                </Box>
 
-                </Container>
+                            </Button>
+                        </Box>
+
+
+                    </Grid>
+                    <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
+                        <Box
+                            sx={{
+                                my: 8,
+                                mx: 4,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+
+                            <Typography
+                                color="#02A9F1"
+                                component="h1" variant="h5">
+                                <Box sx={{ fontWeight: 1000, m: 1, fontSize: 48 }}>Create Account</Box>
+                            </Typography>
+                            <Typography color="#8F959D" variant="subtitle1" gutterBottom>
+                                Use your email for registration
+                            </Typography>
+
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+
+
+
+                                <TextField
+                                    margin='normal'
+                                    required
+                                    fullWidth
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
+                                    inputProps={{
+                                        style: {
+                                            height: 50,
+                                            
+                                        },
+                                    }}
+                                />
+                                <TextField
+                                    margin='normal'
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    inputProps={{
+                                        style: {
+                                            height: 50,
+
+                                        },
+                                    }}
+                                />
+                                <TextField
+                                    margin='normal'
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="new-password"
+                                    inputProps={{
+                                        style: {
+                                            height: 50,
+
+                                        },
+                                    }}
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary" />}
+                                    label="Remember me"
+                                />
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Sign up
+                                </Button>
+                                <Grid container>
+                                    <Grid item xs>
+
+                                    </Grid>
+                                    <Grid item>
+
+                                    </Grid>
+                                </Grid>
+                                {/* <Copyright sx={{ mt: 5 }} /> */}
+                            </Box>
+                        </Box>
+                    </Grid>
+                </Grid>
             </ThemeProvider>
         </div>
     );

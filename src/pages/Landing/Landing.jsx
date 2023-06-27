@@ -59,179 +59,263 @@ const Landing = () => {
   const handlemodel = () => {
     window.location.href = "/list-penelitian";
   };
-  const  handlemodelManual = () => {
+  const handlemodelManual = () => {
     window.location.href = "/list-penelitian-manual";
   };
- 
+
 
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="absolute" >
-          <Toolbar
 
-          >
-
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
-
-
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            width: '100%',
-
-            overflow: 'auto',
-          }}
+      <CssBaseline />
+      <AppBar style={{ background: 'transparent', boxShadow: 'none' }} position="absolute" >
+        <Toolbar
         >
+          <div className='container-fluid'>
+            <div className='row'>
+              <div className='col-6'>
 
-          <Toolbar />
-          <Container maxWidth="lg" sx={{
-            mr: 50,
-            p: 2,
-            display: 'flex',
+                <img className='logo-1' src='./Logo-its.png'>
 
+                </img>
+              </div>
 
-            alignItems: 'center'
-          }}>
+              <div className='col-6 d-flex justify-content-end'>
 
-            <Grid container spacing={1}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper elevation={0}
-                  sx={{
-                    p: 2,
-                    display: 'flex',
+                <Button href='/register' type="button" class="btn btn-light shadow-lg sign-up "><Box sx={{ color: '#02A9F1', fontWeight: 600, fontSize: 16 }}>Sign Up Free</Box></Button>
+              </div>
 
-                    height: 833,
-                    width: 1400,
-                    pb: 10,
-                    alignItems: 'center',
-                    backgroundColor: '#f5f5f5'
-                  }}
-
-                >
-
-                  <div className='container-fluid'>
-                    <div className='row'>
-                      <div className='content1 col  d-flex justify-content-center'>
-                        <Button href="/upload" className="button w-25 me-5" variant="contained" sx={{
-                          height: '100px',
-                          ':hover': {
-                            bgcolor: 'primary.main', // theme.palette.primary.main
-                            color: 'black',
-
-                          },
-                        }}>Upload data Penelitian</Button>
-
-                        <Button sx={{
-                          height: '100px',
-                          ':hover': {
-                            bgcolor: 'primary.main', // theme.palette.primary.main
-                            color: 'black',
-
-                          },
-                        }} variant="contained" className="button w-25">Dapatkan hasil Anotasi</Button>
+            </div>
 
 
-                      </div>
-
-                    </div>
-
-                    <div className='row mt-5'>
-                      <div className='content1 col  d-flex justify-content-center'>
-                        <Button
-                          id="demo-positioned-button"
-                          aria-controls={open ? 'demo-positioned-menu' : undefined}
-                          aria-haspopup="true"
-                          aria-expanded={open ? 'true' : undefined}
-                          onClick={handleClick}
-                          sx={{
-                            height: '100px',
-                            ':hover': {
-                              bgcolor: 'primary.main', // theme.palette.primary.main
-                              color: 'black',
-                              
-                            },
-                          }} variant="contained" className="button w-25 me-5"
-                        >
-                          Anotasi Data Penelitian
-                        </Button>
-                        <Menu
-                          id="demo-positioned-menu"
-                          aria-labelledby="demo-positioned-button"
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                          }}
-
-                          sx={{
-                           
-                           width:200
-                          }}
-                          className=" w-25 me-5"
-                        >
-                          <MenuItem onClick={handlemodel}>Model</MenuItem>
-                          <MenuItem onClick={handlemodelManual}>Manual</MenuItem>
-                          
-                        </Menu>
-
-                        <Button href="/upload-model"
-                          sx={{
-                            height: '100px',
-                            ':hover': {
-                              bgcolor: 'primary.main', // theme.palette.primary.main
-                              color: 'black',
-
-                            },
-                          }} variant="contained" className="button w-25">Upload Model</Button>
+          </div>
 
 
-                      </div>
+        </Toolbar>
+      </AppBar>
 
-                    </div>
+      <Box
+        component="main"
+        sx={{
+          backgroundImage: 'url(./Landing.jpg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: (t) =>
+            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+          backgroundSize: 'cover',
+          backgroundPosition: 'contain',
+          width: '100%',
+          height: '110vh',
+          marginBottom: '50px',
 
+          overflow: 'auto',
+        }}
+      >
+
+        <Toolbar />
+        <Toolbar />
+
+
+
+
+
+
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-6'>
+
+              <div className='col-12 triple-dot'>
+                <img className='ms-3  ' src='./Icon-1.png' />
+                <Typography sx={{
+                  color: '#0285F1',
+                  fontWeight: 600, m: 1, fontSize: 60
+                }} variant="h3" gutterBottom>
+                  About Website
+                </Typography>
+
+                <Box sx={{ width: 600, fontWeight: 400, marginTop: 4, marginLeft: 1, fontSize: 28 }}>Website Anotasi Data merupakan website yang menyediakan fitur
+                  anotasi data manual maupun otomatis untuk mahasiswa dalam melakaukan penelitian anotasi data. Website ini mendukung penggunaan model
+                  diberbagai penelitian.</Box>
+
+
+              </div>
+
+
+
+
+
+
+            </div>
+            <div className='col-6'>
+
+              <img className='hero' src='./Hero-1.png' />
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+      </Box>
+
+      <Box
+        component="main"
+        sx={{
+          backgroundImage: 'url(./Landing-2.jpg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: (t) =>
+            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+          backgroundSize: 'cover',
+          backgroundPosition: 'contain',
+          width: '100%',
+          height: '100vh',
+         
+
+          overflow: 'auto',
+        }}
+      >
+
+
+
+
+
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-12 mt-3'>
+              <div className='d-flex justify-content-center mt-5'>
+                <Box sx={{ fontWeight: 600, fontSize: 45 }}>Apa Saja Fitur yang Disediakan?</Box>
+              </div>
+
+            </div>
+          </div>
+
+          <div className='d-flex row card-group'>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 w-75 ms-5 ">
+
+
+              <div class="col ">
+                <div class="card w-100" style={{
+                  width: 500,
+                  height: 330,
+                }}>
+                  <div className='d-flex justify-content-center mt-4'>
+                    <img src="/card-1.png" style={{
+                      width: 83,
+                      height: 86,
+
+                    }} class=" " alt="..." />
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title text-center">Membuat Penelitian Data</h5>
+                    <Box sx={{ width: 269, textAlign: 'center', fontWeight: 400, m: 1, fontSize: 19, marginLeft: 9 }}> Peneliti dapat membuat penelitian data di website dengan upload data penelitian ke website</Box>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card  w-100" style={{
+                  width: 500,
+                  height: 330,
+                }}>
+                  <div className='d-flex justify-content-center mt-4'>
+                    <img src="/card-2.png" style={{
+                      width: 83,
+                      height: 86,
+
+                    }} class="card-img-top" alt="..." />
 
                   </div>
 
+                  <div class="card-body">
+                    <h5 class="card-title text-center">Melakukan Anotasi Data</h5>
 
-                </Paper>
-              </Grid>
+                    <Box sx={{ width: 269, textAlign: 'center', fontWeight: 400, m: 1, fontSize: 19, marginLeft: 9 }}> Dapat melakukan upgrade ke anotator. Anotator dapat melakukan proses anotasi data dengan program model</Box>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card  w-100" style={{
+                  width: 500,
+                  height: 330,
+
+                }}>
+
+                  <div className='d-flex justify-content-center mt-4'>
+                    <img src="/card-3.png" style={{
+                      width: 83,
+                      height: 86,
+
+                    }} class="card-img-top" alt="..." />
+
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title text-center">Export Data Hasil Anotasi</h5>
+                    <Box sx={{ width: 269, textAlign: 'center', fontWeight: 400, m: 1, fontSize: 19, marginLeft: 9 }}> Hasil data penelitian yang telah dianotasi dapat diexport menjadi csv</Box>
+
+                  </div>
+                </div>
+              </div>
 
 
-            </Grid>
 
-          </Container>
-        </Box>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+
+      
+
+
       </Box>
+
+
+      {/* footer */}
+
+      <Box
+        component="main"
+        sx={{
+          backgroundImage: 'url(./Landing-2.jpg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: (t) =>
+            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+          backgroundSize: 'cover',
+          backgroundPosition: 'contain',
+          width: '100%',
+          height: '53vh',
+         
+
+          overflow: 'hidden',
+        }}
+      >
+
+
+
+
+
+
+
+
+
+        <div>
+        <img src="/footer.png"  alt="..." />
+        </div>
+
+
+      </Box>
+
+
+
     </ThemeProvider>
   );
 }

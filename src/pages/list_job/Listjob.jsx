@@ -34,21 +34,14 @@ import swal from 'sweetalert';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import csvDownload from 'json-to-csv-export'
+
 const mdTheme = createTheme();
 
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
 
 
-const Listpenelitian = () => {
+
+const Listjob = () => {
 
     // const getHeadings = () => {
     //     return Object.keys(contoh[0]);
@@ -57,31 +50,15 @@ const Listpenelitian = () => {
     const [role, setRole] = useState('');
     const [age, setAge] = React.useState('');
 
-    const download = async(id)=>{
-        var token = localStorage.getItem('tokenAccess')
-        let formData = new FormData()
+   
 
-        formData.append("id_anotasi",id)
-        const response = await axios({
-            method: "post",
-            url: 'http://103.157.96.170:5000/api/get-data',
-            data: formData,
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-        }).then(data => data);
 
-        var headers=Object.keys(response.data[0])
-          console.log(headers)
-          const dataToConvert = {
-            data: response.data,
-            filename: 'test download',
-            delimiter: ',',
-            headers: headers
-          }
-          csvDownload(dataToConvert)
-    }
+
+
+
+
+
+
     useEffect(() => {
 
         var token = localStorage.getItem('tokenAccess')
@@ -90,11 +67,15 @@ const Listpenelitian = () => {
 
         var role = localStorage.getItem('role')
         setRole(role)
-        const getPenelitian = async (event) => {    
-            if(role == '"peneliti"' || role == '"anotator"'){
+        const handleSubmit = async (event) => {
+            
+           
+            
+
+           
                 const response = await axios({
                     method: "get",
-                    url: "http://103.157.96.170:5000/api/my_list_penelitian",
+                    url: "http://103.157.96.170:5000/api/list_job_penelitian",
     
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -103,26 +84,13 @@ const Listpenelitian = () => {
     
                 console.log(response.data)
                 setData(response.data)
-            }
-            else{
-                const response = await axios({
-                    method: "get",
-                    url: "http://103.157.96.170:5000/api/list_penelitian",
-    
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    },
-                }).then(data => data);
-    
-                console.log(response.data)
-                setData(response.data)
-            }
+            
             
         };
 
 
 
-        getPenelitian()
+        handleSubmit()
 
 
     }, []);
@@ -183,7 +151,7 @@ const Listpenelitian = () => {
                                                     color: '#0285F1',
                                                     fontWeight: 600, m: 1, fontSize: 60
                                                 }} variant="h3" gutterBottom>
-                                                    List Penelitian
+                                                    List Job Anotate
                                                 </Typography>
 
                                             </div>
@@ -202,16 +170,11 @@ const Listpenelitian = () => {
 
                                                                                     <Typography component="div">
 
-                                                                                        Nama Penelitian &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{item.title}
+                                                                                        Nama Penelitian :{item.title}
                                                                                     </Typography>
                                                                                     <Typography component="div">
 
-                                                                                        Type Anotasi Data  &nbsp; :&nbsp;{item.type_anotasi}
-                                                                                    </Typography>
-
-                                                                                    <Typography component="div">
-
-                                                                                        Deskripsi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; :&nbsp;{item.desc}
+                                                                                        Type Anotasi Data :{item.type_anotasi}
                                                                                     </Typography>
 
 
@@ -221,11 +184,14 @@ const Listpenelitian = () => {
 
 
                                                                                 <div className='col-6 d-flex justify-content-end'>
-                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .csv</Box></button>
-                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
                                                                                     
-                                                                                    {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
-                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
+                                                                                    {item.type_anotasi == 'manual'?
+                                                                                    <>  
+                                                                                    <Button href={`/mytable/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
+                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2}}>Anotate  </Box></Button></>
+                                                                                        : <><Button href={`/anotate-auto/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
+                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2}}>Anotate </Box></Button></>}
+                                                                                   
                                                                                     
                                                                                     
                                                                                 </div>
@@ -281,4 +247,4 @@ const Listpenelitian = () => {
     );
 }
 
-export default Listpenelitian;
+export default Listjob;

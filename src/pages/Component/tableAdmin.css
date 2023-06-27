@@ -4,13 +4,13 @@
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
 }
 
-.fl-table {
+.fl-tableAdmin {
    
     font-size: 12px;
     font-weight: normal;
     border: none;
-    width: 100%;
    
+    width: 100%;
     white-space: wrap;
     background-color: white;
     /* border-collapse:separate !important; */
@@ -18,20 +18,21 @@
     /* border-radius:6px !important; */
 }
 
-.fl-table td, .fl-table th {
+.fl-tableAdmin td, .fl-tableAdmin th {
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     /* border-radius: 5px; */
 }
 
-.fl-table td {
+.fl-tableAdmin td {
     border-bottom: 2px solid #9e9a9a !important;
     border-top: 2px solid #9e9a9a !important;
     font-size: 12px;
+    padding: 14px;
     white-space:pre-wrap; word-wrap:break-word
 }
 
-.fl-table thead th {
+.fl-tableAdmin thead th {
      color: #ffffff;
     background: #0285F1 !important;
 }
@@ -39,7 +40,7 @@
 
 
 
-.fl-table tr:nth-child(even) {
+.fl-tableAdmin tr:nth-child(even) {
     background: #d7d5d5 !important;
 }
 

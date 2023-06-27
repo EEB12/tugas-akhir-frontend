@@ -1,7 +1,6 @@
 import React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
+
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,11 +12,9 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+
 import Table from '../Component/Table';
+import TableAdmin from '../Component/TableAdmin';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import axios from 'axios';
@@ -34,7 +31,7 @@ import swal from 'sweetalert';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-
+import csvDownload from 'json-to-csv-export'
 const mdTheme = createTheme();
 
 
@@ -48,56 +45,89 @@ const bull = (
 );
 
 
-const AnotateManual = () => {
+const ListUser = () => {
 
     // const getHeadings = () => {
     //     return Object.keys(contoh[0]);
     // }
     const [data, setData] = useState([]);
-    const [result,setResult]=useState([])
-    const [data1, setData1] = useState(['a', 'b', 'c']);
+    const [header, setHeader] = useState([]);
+
+    const [role, setRole] = useState('');
     const [age, setAge] = React.useState('');
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+    const download = async (id) => {
+        var token = localStorage.getItem('tokenAccess')
+        let formData = new FormData()
 
+        formData.append("id_anotasi", id)
+        const response = await axios({
+            method: "post",
+            url: 'hhttp://103.157.96.170:5000/api/get-data',
+            data: formData,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(data => data);
 
+        var headers = Object.keys(response.data[0])
+        console.log(headers)
+        const dataToConvert = {
+            data: response.data,
+            filename: 'test download',
+            delimiter: ',',
+            headers: headers
+        }
+        csvDownload(dataToConvert)
+    }
 
-    
-    
-
-
-
+    const getHeadings = (header) => {
+        return Object.keys(header).reverse();
+    }
     useEffect(() => {
 
         var token = localStorage.getItem('tokenAccess')
+
         console.log(token)
 
-        const handleSubmit = async (event) => {
+        var role = localStorage.getItem('role')
+        setRole(role)
+        const getPenelitian = async (event) => {
+
 
             const response = await axios({
                 method: "get",
-                url: "http://103.157.96.170:5000/api/list_dataset",
+                url: "hhttp://103.157.96.170:5000/api/users",
 
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 },
             }).then(data => data);
 
-            console.log(response.data)
+            console.log(Object.keys(response?.data[0]).reverse())
             setData(response.data)
+
+            // var test = getHeadings(response?.data)
+            // console.log(test)
+            setHeader( Object.keys(response?.data[0]) )
         };
 
 
-
-        handleSubmit()
+        console.log(header)
+        getPenelitian()
 
 
     }, []);
 
+    useEffect(() => {
 
-    
+        
+
+    }, [data]);
+
+
+
     return (
         <>
             <ThemeProvider theme={mdTheme}>
@@ -113,7 +143,7 @@ const AnotateManual = () => {
                                     ? theme.palette.grey[100]
                                     : theme.palette.grey[900],
                             width: '100%',
-                            height:'100%',
+                            height: '100%',
                             overflowX: 'initial',
                         }}
                     >
@@ -135,7 +165,7 @@ const AnotateManual = () => {
                                         sx={{
                                             p: 2,
                                             display: 'flex',
-                                            
+
                                             height: '100vh',
                                             width: 1600,
                                             pb: 10,
@@ -145,22 +175,28 @@ const AnotateManual = () => {
 
                                     >
                                         <div className='container-fluid'>
+                                            <div className='row mb-5'>
 
+
+                                                <Typography sx={{
+                                                    color: '#0285F1',
+                                                    fontWeight: 600, m: 1, fontSize: 60
+                                                }} variant="h3" gutterBottom>
+                                                    List Penelitian
+                                                </Typography>
+
+                                            </div>
                                             <div className='row'>
 
-                                                <div className='col-6'>
-                                                    
+                                                <div className='col'></div>
+                                                <div className='col-10'>
+                                                    <TableAdmin theadData={header} tbodyData={data} flag="user">
+
+                                                    </TableAdmin>
                                                 </div>
-                                                <div className='col-6 ps-5'>
-                                                    {/* {data == 0 ? <></> : <>
 
-                                                        <Table theadData={getHeadings()} tbodyData={contoh}>
+                                                <div className='col'></div>
 
-                                                        </Table>
-
-
-                                                    </>} */}
-                                                </div>
 
 
                                             </div>
@@ -196,4 +232,4 @@ const AnotateManual = () => {
     );
 }
 
-export default AnotateManual;
+export default ListUser;
