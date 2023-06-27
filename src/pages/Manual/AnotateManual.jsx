@@ -78,7 +78,7 @@ const AnotateManual = () => {
 
             const response = await axios({
                 method: "get",
-                url: "http://103.157.96.170:5000/api/list_dataset",
+                url: "https://backend-ta.ndne.id/api/list_dataset",
 
                 headers: {
                     "Authorization": `Bearer ${token}`,

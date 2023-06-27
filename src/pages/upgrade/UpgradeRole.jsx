@@ -47,7 +47,7 @@ const UpgradeRole = () => {
         console.log(token)
         const response = await axios({
             method: "put",
-            url: "http://103.157.96.170:5000/api/update_role",
+            url: "https://backend-ta.ndne.id/api/update_role",
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,

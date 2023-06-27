@@ -99,7 +99,7 @@ const MyTable = () => {
             formData.append('id_anotasi', 12);
 
 
-            const response = await axios.post('http://103.157.96.170:5000/api/manual_anotate', formData, {
+            const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }
@@ -128,7 +128,7 @@ const MyTable = () => {
             formData.append('id_anotasi', 12);
 
 
-            const response = await axios.post('http://103.157.96.170:5000/api/manual_anotate', formData, {
+            const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }
@@ -223,7 +223,7 @@ const MyTable = () => {
 
             const response = await axios({
                 method: "get",
-                url: `http://103.157.96.170:5000/api/get-data-progress-pagination`,
+                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination`,
                 headers: {
                     "Authorization": `Bearer ${token}`,
 
@@ -258,7 +258,7 @@ const MyTable = () => {
 
             const response = await axios({
                 method: "get",
-                url: `http://103.157.96.170:5000/api/get-data-progress-pagination`,
+                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination`,
                 headers: {
                     "Authorization": `Bearer ${token}`,
 
@@ -278,7 +278,7 @@ const MyTable = () => {
 
             const responseBaseData = await axios({
                 method: "get",
-                url: `http://103.157.96.170:5000/api/get-data-progress/12`,
+                url: `https://backend-ta.ndne.id/api/get-data-progress/12`,
                 headers: {
                     "Authorization": `Bearer ${token}`,
 

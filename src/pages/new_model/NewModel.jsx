@@ -151,7 +151,7 @@ const NewModel = () => {
 
         const response = await axios({
             method: "post",
-            url: "http://103.157.96.170:5000/api/upload_model",
+            url: "https://backend-ta.ndne.id/api/upload_model",
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,

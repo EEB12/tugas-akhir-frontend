@@ -70,7 +70,7 @@ const DetailPenelitian = () => {
 
             const response = await axios({
                 method: "get",
-                url: `http://103.157.96.170:5000/api/get_detail_penelitian/${params.id}`,
+                url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
 
                 headers: {
                     "Authorization": `Bearer ${token}`,

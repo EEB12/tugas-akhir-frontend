@@ -93,7 +93,7 @@ const Profile = () => {
 
             const response = await axios({
                 method: "get",
-                url: `http://103.157.96.170:5000/api/profile`,
+                url: `https://backend-ta.ndne.id/api/profile`,
 
                 headers: {
                     "Authorization": `Bearer ${token}`,

@@ -64,7 +64,7 @@ const Listpenelitian = () => {
         formData.append("id_anotasi",id)
         const response = await axios({
             method: "post",
-            url: 'http://103.157.96.170:5000/api/get-data',
+            url: 'https://backend-ta.ndne.id/api/get-data',
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -94,7 +94,7 @@ const Listpenelitian = () => {
             if(role == '"peneliti"' || role == '"anotator"'){
                 const response = await axios({
                     method: "get",
-                    url: "http://103.157.96.170:5000/api/my_list_penelitian",
+                    url: "https://backend-ta.ndne.id/api/my_list_penelitian",
     
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -107,7 +107,7 @@ const Listpenelitian = () => {
             else{
                 const response = await axios({
                     method: "get",
-                    url: "http://103.157.96.170:5000/api/list_penelitian",
+                    url: "https://backend-ta.ndne.id/api/list_penelitian",
     
                     headers: {
                         "Authorization": `Bearer ${token}`,

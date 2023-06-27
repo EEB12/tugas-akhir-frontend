@@ -15,7 +15,7 @@ export default function TableAdmin({ theadData, tbodyData,flag }) {
         console.log("ini id",id)
         const response = await axios({
             method: "delete",
-            url: `http://103.157.96.170:5000/api/users/${id}`,
+            url: `https://backend-ta.ndne.id/api/users/${id}`,
           
             headers: {
                 "Authorization": `Bearer ${token}`,

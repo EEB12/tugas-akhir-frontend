@@ -86,7 +86,7 @@ const AnotateAuto = () => {
 
         const response = await axios({
             method: "post",
-            url: "http://103.157.96.170:5000/api/anotate_model",
+            url: "https://backend-ta.ndne.id/api/anotate_model",
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -121,7 +121,7 @@ const AnotateAuto = () => {
 
             const response = await axios({
                 method: "get",
-                url: "http://103.157.96.170:5000/api/list_model",
+                url: "https://backend-ta.ndne.id/api/list_model",
 
                 headers: {
                     "Authorization": `Bearer ${token}`,

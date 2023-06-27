@@ -47,7 +47,7 @@ const ListAnotator = () => {
         console.log(token)
         const response = await axios({
             method: "post",
-            url: "http://103.157.96.170:5000/api/add-anotator",
+            url: "https://backend-ta.ndne.id/api/add-anotator",
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -86,7 +86,7 @@ const ListAnotator = () => {
 
             const response = await axios({
                 method: "get",
-                url: "http://103.157.96.170:5000/api/anotators",
+                url: "https://backend-ta.ndne.id/api/anotators",
 
                 headers: {
                     "Authorization": `Bearer ${token}`,

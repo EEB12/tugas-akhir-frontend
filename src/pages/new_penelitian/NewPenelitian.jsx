@@ -96,7 +96,7 @@ const NewPenelitian = () => {
         console.log(token)
         const response = await axios({
             method: "post",
-            url: "http://103.157.96.170:5000/api/upload_penelitian",
+            url: "https://backend-ta.ndne.id/api/upload_penelitian",
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
