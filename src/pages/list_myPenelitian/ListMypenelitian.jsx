@@ -48,7 +48,7 @@ const bull = (
 );
 
 
-const Listpenelitian = () => {
+const ListMypenelitian = () => {
 
     // const getHeadings = () => {
     //     return Object.keys(contoh[0]);
@@ -221,8 +221,8 @@ const Listpenelitian = () => {
 
 
                                                                                 <div className='col-6 d-flex justify-content-end'>
-                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .csv</Box></button>
-                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
+                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn   interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .csv</Box></button>
+                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn   interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
                                                                                     
                                                                                     {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
                                                                                         <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
@@ -281,4 +281,4 @@ const Listpenelitian = () => {
     );
 }
 
-export default Listpenelitian;
+export default ListMypenelitian;

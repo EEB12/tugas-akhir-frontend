@@ -42,6 +42,24 @@ const AppBar = styled(MuiAppBar, {
 const mdTheme = createTheme();
 
 
+mdTheme.typography.h3 = {
+  color: '#0285F1', fontWeight: 600, mt: 1, fontSize: 60 ,
+  '@media (min-width:600px)': {
+    fontSize: 40,
+    textAlign: 'center',
+  },
+ 
+};
+
+mdTheme.typography.h4 = {
+  width: 600, fontWeight: 400, mt: 4, ml: 1, fontSize: 28  ,
+  '@media (min-width:600px)': {
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  
+};
+
 
 const Landing = () => {
 
@@ -64,42 +82,68 @@ const Landing = () => {
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <nav className="navbar navbar-expand-lg navbar-light navbar-transparent bg-transparent sticky-top">
-        <div className="container px-3">
-          <img className="img-fluid" src="./Logo-its.png" style={{ width: 'auto', height: '2rem' }} alt="ITS Logo" />
-          <div>
-            <Button type="button" href='/registe' className="btn btn-light shadow-sm fw-bold px-3">
-              Sign Up Free
-            </Button>
+
+      <div className="container-fluid p-0 pb-4">
+        <nav className="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+          <div className="container px-3">
+            <img className="img-fluid" src="./Logo-its.png" style={{ width: 'auto', height: '2rem' }} alt="ITS Logo" />
+            <div>
+              <a href="/register" className="btn btn-light shadow-sm fw-bold px-3" role="button">
+                Sign Up Free
+              </a>
+            </div>
           </div>
-        </div>
-      </nav>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-6'>
-          <div className='col-12 triple-dot'>
-            <img className='ms-3  ' src='./Icon-1.png' />
-            <Typography sx={{
-              color: '#0285F1',
-              fontWeight: 600, m: 1, fontSize: 60
-            }} variant="h3" gutterBottom>
+        </nav>
+        <div className="container-fluid" >
+          <div className="row">
+            <div className="col-lg-6 col-12 order-lg-1 order-2">
+              <img className="ms-3" src="./Icon-1.png" alt="Icon 1" />
+              <Typography variant="h3"  theme={mdTheme} >
+                About Website
+              </Typography>
+              <Typography variant='h4'theme={mdTheme} sx={{ width: 600, fontWeight: 400, mt: 4, ml: 1, fontSize: 28 }}>
+                Website Anotasi Data merupakan website yang menyediakan fitur anotasi data manual maupun otomatis untuk mahasiswa dalam melakukan penelitian anotasi data. Website ini mendukung penggunaan model dalam berbagai penelitian.
+              </Typography>
+            </div>
+            <div className="col-lg-6 col-12 order-lg-2 order-1">
+              <div classname='d-flex justify-content-center'>
+                <img className="hero" src="./Hero-1.png" alt="Hero 1" />
+              </div>
+            </div>
+          </div>
+          {/* <div classname="row">
+            <div className='col-6'>
+              <img className="ms-3" src="./Icon-1.png" alt="Icon 1" />
+              <Typography variant="h3" sx={{ color: '#0285F1', fontWeight: 600, mt: 1, fontSize: 60 }}>
+                About Website
+              </Typography>
+              <Box sx={{ width: 600, fontWeight: 400, mt: 4, ml: 1, fontSize: 28 }}>
+                Website Anotasi Data merupakan website yang menyediakan fitur anotasi data manual maupun otomatis untuk mahasiswa dalam melakukan penelitian anotasi data. Website ini mendukung penggunaan model dalam berbagai penelitian.
+              </Box>
+            </div>
+
+            <div className='col-6'>
+              <img className="hero" src="./Hero-1.png" alt="Hero 1" />
+            </div>
+          </div> */}
+          {/* <div classname="d-flex justify-content-around">
+
+            <img className="ms-3" src="./Icon-1.png" alt="Icon 1" />
+            <Typography variant="h3" sx={{ color: '#0285F1', fontWeight: 600, mt: 1, fontSize: 60 }}>
               About Website
             </Typography>
-
-            <Box sx={{ width: 600, fontWeight: 400, marginTop: 4, marginLeft: 1, fontSize: 28 }}>Website Anotasi Data merupakan website yang menyediakan fitur
-              anotasi data manual maupun otomatis untuk mahasiswa dalam melakaukan penelitian anotasi data. Website ini mendukung penggunaan model
-              diberbagai penelitian.</Box>
-
-
-          </div>
-          </div>
-          <div className='col-6'>
-            <img className='hero' src='./Hero-1.png' />
-          </div>
+            <Box sx={{ width: 600, fontWeight: 400, mt: 4, ml: 1, fontSize: 28 }}>
+              Website Anotasi Data merupakan website yang menyediakan fitur anotasi data manual maupun otomatis untuk mahasiswa dalam melakukan penelitian anotasi data. Website ini mendukung penggunaan model dalam berbagai penelitian.
+            </Box>
+            <img className="hero" src="./Hero-1.png" alt="Hero 1" />
+          </div> */}
         </div>
+
       </div>
 
-      <Box
+
+
+      {/* <Box
         component="main"
         sx={{
           backgroundImage: 'url(./Landing.jpg)',
@@ -147,7 +191,7 @@ const Landing = () => {
 
 
 
-      </Box>
+      </Box> */}
 
       <Box
         component="main"
@@ -160,7 +204,7 @@ const Landing = () => {
           backgroundPosition: 'contain',
           width: '100%',
           height: '100vh',
-         
+
 
           overflow: 'auto',
         }}
@@ -263,7 +307,7 @@ const Landing = () => {
 
 
 
-      
+
 
 
       </Box>
@@ -281,7 +325,7 @@ const Landing = () => {
           backgroundPosition: 'contain',
           width: '100%',
           height: '53vh',
-         
+
 
           overflow: 'hidden',
         }}
@@ -296,7 +340,7 @@ const Landing = () => {
 
 
         <div>
-        <img src="/footer.png"  alt="..." />
+          <img src="/footer.png" alt="..." />
         </div>
 
 

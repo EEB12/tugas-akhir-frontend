@@ -1,8 +1,9 @@
-html, body
-{
+html,
+body {
     width: 100%;
     height: 100%;
 }
+
 .content {
     height: 400px !important
 }
@@ -74,13 +75,34 @@ input[type=file]::file-selector-button {
     transition: background .2s ease-in-out;
 }
 
-.interactive-button{
+.interactive-button {
     background: #02A9F1;
-border-radius: 20px;
-padding-top:1px;
-padding-bottom: 1px;
+    border-radius: 20px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border: 0px;
+    height: 65px;
 }
-.detail{
-    margin-left: 20px;
-    width:120px
+
+
+.interactive-button :active {
+    background: #02A9F1;
+   
+}
+
+
+.detail {
+
+    width: 120px;
+    color: #FFFFFF;
+    text-decoration: none;
+    /* no underline */
+}
+
+button .detail:hover {
+
+    width: 120px;
+    color: #0C90C9;
+    text-decoration: none;
+    /* no underline */
 }

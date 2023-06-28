@@ -127,7 +127,7 @@ const Register = () => {
 
 
                     </Grid>
-                    <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
+                    <Grid item xs={12} sm={12} md={7} component={Paper} elevation={6} square>
                         <Box
                             sx={{
                                 my: 8,
@@ -197,10 +197,7 @@ const Register = () => {
                                         },
                                     }}
                                 />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                />
+                               
                                 <Button
                                     type="submit"
                                     fullWidth

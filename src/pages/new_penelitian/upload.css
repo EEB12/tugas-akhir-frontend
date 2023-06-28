@@ -75,15 +75,3 @@ input[type=file]::file-selector-button {
     cursor: pointer;
     transition: background .2s ease-in-out;
 }
-
-.interactive-button {
-    background: #02A9F1;
-    border-radius: 20px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-}
-
-.detail {
-    margin-left: 20px;
-    width: 120px
-}

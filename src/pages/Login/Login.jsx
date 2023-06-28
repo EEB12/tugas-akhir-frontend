@@ -82,7 +82,7 @@ const Login = () => {
             <ThemeProvider theme={defaultTheme}>
                 <Grid container component="main" sx={{ height: '100vh' }}>
                     <CssBaseline />
-                    <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
+                    <Grid item xs={12} sm={12} md={7} component={Paper} elevation={6} square>
                         <Box
                             sx={{
                                 my: 8,
@@ -167,6 +167,7 @@ const Login = () => {
                         direction="column"
                         alignItems="center"
                         justifyContent="center"
+                        
                         md={5}
                         sx={{
                             backgroundImage: 'url(./loginregister.jpg)',

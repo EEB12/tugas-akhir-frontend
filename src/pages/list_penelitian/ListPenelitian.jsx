@@ -220,9 +220,10 @@ const Listpenelitian = () => {
                                                                                 </div>
 
 
-                                                                                <div className='col-6 d-flex justify-content-end'>
-                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .csv</Box></button>
-                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
+                                                                                <div className='col-6 d-flex justify-content-end mt-3'>
+                                                                                    
+                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .csv</Box></button>
+                                                                                    <button href={`/detail-penelitian/`+item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/`+item.id_anotasi}>Detail</a> </Box></button>
                                                                                     
                                                                                     {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
                                                                                         <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
