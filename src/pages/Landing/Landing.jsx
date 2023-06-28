@@ -86,7 +86,7 @@ const Landing = () => {
   return (
     <ThemeProvider theme={mdTheme}>
       <div className="container-fluid p-0">
-        <nav className="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-light sticky-top"> 
           <div className="container px-3">
             <img
               className="img-fluid"
