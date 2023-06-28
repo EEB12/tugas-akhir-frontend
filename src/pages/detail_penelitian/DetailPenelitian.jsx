@@ -11,7 +11,8 @@ import Table from '../Component/Table';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
+import { Pie } from 'react-chartjs-2';
+import 'chart.js/auto';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useState, useEffect } from "react";
@@ -21,7 +22,26 @@ import TextField from '@mui/material/TextField';
 import Navbar from '../Component/navbar';
 import swal from 'sweetalert';
 
-
+const reviews = [
+    {
+        content:
+            "Update: After getting a response from the developer I would change my rating to 0 stars if possible. These guys hide behind confusing and opaque terms and refuse to budge at all. I'm so annoyed that my money has been lost to them! Really terrible customer experience. Original: Be very careful when signing up for a free trial of this app. If you happen to go over they automatically charge you for a full years subscription and refuse to refund. Terrible customer experience and the app is just OK.",
+        userName: 'Andrew Thomas',
+        result: 1,
+    },
+    {
+        content:
+            'Used it for a fair amount of time without any problems. Suddenly then asked me to create an account or log using Google or FB. I used my Google one only to discover everything was gone!',
+        userName: 'Craig Haines',
+        result: -1,
+    },
+    {
+        content:
+            "Your app sucks now!!!!! Used to be good but now doesn't update until I physically open it up and then close it then scroll and then it finally shows what I want to put on the list!!!!!! And I FRIGGEN paid for this garbage!!!!!!!",
+        userName: 'Steven Adkins',
+        result: 1,
+    },
+];
 const mdTheme = createTheme();
 
 
@@ -40,13 +60,13 @@ const DetailPenelitian = () => {
     const handleClose = () => {
         setOpen(false);
     };
-   
+
 
     const handleChangeTitle = (event) => {
         setNamefile(event.target.value);
     };
 
-   
+
 
     const handlename = (event) => {
         setNamefile(event.target.value)
@@ -68,22 +88,22 @@ const DetailPenelitian = () => {
 
         const handleSubmit = async (event) => {
 
-            const response = await axios({
-                method: "get",
-                url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
+            // const response = await axios({
+            //     method: "get",
+            //     url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
 
-                headers: {
-                    "Authorization": `Bearer ${token}`,
+            //     headers: {
+            //         "Authorization": `Bearer ${token}`,
 
-                },
-            }).then(data => data);
+            //     },
+            // }).then(data => data);
 
-            // console.log(response.data)
-            const preview1 = response.data[1].slice(0, 5)
-            // console.log(preview1)
-            setPreview(preview1)
-            // console.log(response.data[0])
-            setData(response.data[0])
+            // // console.log(response.data)
+            // const preview1 = response.data[1].slice(0, 5)
+            // // console.log(preview1)
+            // setPreview(preview1)
+            // // console.log(response.data[0])
+            // setData(response.data[0])
         };
 
 
@@ -93,7 +113,26 @@ const DetailPenelitian = () => {
     }, []);
 
 
-
+    const reviews = [
+        {
+            content:
+                "Update: After getting a response from the developer I would change my rating to 0 stars if possible. These guys hide behind confusing and opaque terms and refuse to budge at all. I'm so annoyed that my money has been lost to them! Really terrible customer experience. Original: Be very careful when signing up for a free trial of this app. If you happen to go over they automatically charge you for a full years subscription and refuse to refund. Terrible customer experience and the app is just OK.",
+            userName: 'Andrew Thomas',
+            result: 1,
+        },
+        {
+            content:
+                'Used it for a fair amount of time without any problems. Suddenly then asked me to create an account or log using Google or FB. I used my Google one only to discover everything was gone!',
+            userName: 'Craig Haines',
+            result: -1,
+        },
+        {
+            content:
+                "Your app sucks now!!!!! Used to be good but now doesn't update until I physically open it up and then close it then scroll and then it finally shows what I want to put on the list!!!!!! And I FRIGGEN paid for this garbage!!!!!!!",
+            userName: 'Steven Adkins',
+            result: 1,
+        },
+    ];
 
 
     useEffect(() => {
@@ -264,8 +303,25 @@ const DetailPenelitian = () => {
                                                                     Data Preview
                                                                 </Typography>
                                                             </div>
-                                                            <div className='row mt-2'>
-                                                                {preview.length > 0 ? <>
+                                                            <div className='row mt-2'  style={{ width: '500px', height: '400px' }}>
+
+                                                                <Pie
+                                                                    data={{
+                                                                        labels: ['Positive', 'Negative', 'Neutral'],
+                                                                        datasets: [
+                                                                            {
+                                                                                data: [
+                                                                                    reviews.filter((review) => review.result === 1).length,
+                                                                                    reviews.filter((review) => review.result === -1).length,
+                                                                                    reviews.filter((review) => review.result === 0).length,
+                                                                                ],
+                                                                                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                            },
+                                                                        ],
+                                                                    }}
+                                                                />
+                                                                {/* {preview.length > 0 ? <>
 
                                                                     <Table theadData={getHeadings()} tbodyData={preview}>
 
@@ -278,7 +334,7 @@ const DetailPenelitian = () => {
 
                                                                     {console.log(preview, "false")}
 
-                                                                </>}
+                                                                </>} */}
 
 
                                                             </div>
