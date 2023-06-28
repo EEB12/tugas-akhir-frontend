@@ -76,12 +76,14 @@ input[type=file]::file-selector-button {
 }
 
 .interactive-button {
+    margin-top: 10px;
     background: #02A9F1;
     border-radius: 20px;
     padding-top: 1px;
     padding-bottom: 1px;
     border: 0px;
-    height: 65px;
+    height: 45px;
+
 }
 
 
@@ -105,4 +107,8 @@ button .detail:hover {
     color: #0C90C9;
     text-decoration: none;
     /* no underline */
+}
+
+.text-deskripsi{
+    margin-right: 27px;
 }

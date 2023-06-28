@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <AppBar sx={{ bgcolor: '#FFFFFF' }} position="absolute" >
       <Toolbar
-
+      
       >
 
         <Typography

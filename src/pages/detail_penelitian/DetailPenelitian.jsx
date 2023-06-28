@@ -88,22 +88,22 @@ const DetailPenelitian = () => {
 
         const handleSubmit = async (event) => {
 
-            // const response = await axios({
-            //     method: "get",
-            //     url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
+            const response = await axios({
+                method: "get",
+                url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
 
-            //     headers: {
-            //         "Authorization": `Bearer ${token}`,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
 
-            //     },
-            // }).then(data => data);
+                },
+            }).then(data => data);
 
-            // // console.log(response.data)
-            // const preview1 = response.data[1].slice(0, 5)
-            // // console.log(preview1)
-            // setPreview(preview1)
-            // // console.log(response.data[0])
-            // setData(response.data[0])
+            // console.log(response.data)
+            const preview1 = response.data[1].slice(0, 5)
+            // console.log(preview1)
+            setPreview(preview1)
+            // console.log(response.data[0])
+            setData(response.data[0])
         };
 
 
@@ -164,7 +164,7 @@ const DetailPenelitian = () => {
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -173,16 +173,16 @@ const DetailPenelitian = () => {
                             alignItems: 'center'
                         }}>
 
-                            <Grid container spacing={1}>
+                            <Grid container xs={12} md={12} lg={12} spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100%',
-                                            width: 1600,
+                                            width: '100%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -209,8 +209,8 @@ const DetailPenelitian = () => {
                                                             p: 2,
                                                             display: 'flex',
 
-                                                            height: '130vh',
-                                                            width: 1600,
+                                                            height: '100%',
+                                                            width: '100%',
                                                             pb: 10,
                                                             flexDirection: 'column',
                                                             backgroundColor: '#fffff',
@@ -233,12 +233,21 @@ const DetailPenelitian = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+
+                                                                    width: '170vh',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.title} />
+
+
+                                                                }}
+                                                                    inputProps={{
+                                                                        style: {
+                                                                            fontSize: '20px', // Adjust the font size as needed
+                                                                        },
+                                                                    }}
+                                                                    onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.title} />
 
                                                                 <Typography sx={{
 
@@ -250,11 +259,16 @@ const DetailPenelitian = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '170vh',
+                                                                    height: '50px',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
+                                                                }} inputProps={{
+                                                                    style: {
+                                                                        fontSize: '20px', // Adjust the font size as needed
+                                                                    },
                                                                 }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.type_anotasi} />
 
 
@@ -268,11 +282,15 @@ const DetailPenelitian = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '170vh',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
+                                                                }} inputProps={{
+                                                                    style: {
+                                                                        fontSize: '20px', // Adjust the font size as needed
+                                                                    },
                                                                 }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.status} />
 
 
@@ -292,9 +310,32 @@ const DetailPenelitian = () => {
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
+                                                                }} inputProps={{
+                                                                    style: {
+                                                                        fontSize: '20px', // Adjust the font size as needed
+                                                                    },
                                                                 }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.anotator} />
 
+                                                                <section class="btn-group">
+                                        
+                                                                    <input type="radio"
+                                                                        class="btn-check"
+                                                                        name="btnradio"
+                                                                        id="gfg2" />
+                                                                    <label class="btn btn-outline-primary"
+                                                                        for="gfg2">
+                                                                        Table
+                                                                    </label>
 
+                                                                    <input type="radio"
+                                                                        class="btn-check"
+                                                                        name="btnradio"
+                                                                        id="gfg3" />
+                                                                    <label class="btn btn-outline-primary"
+                                                                        for="gfg3">
+                                                                        Chart
+                                                                    </label>
+                                                                </section>
 
                                                                 <Typography sx={{
 
@@ -303,9 +344,9 @@ const DetailPenelitian = () => {
                                                                     Data Preview
                                                                 </Typography>
                                                             </div>
-                                                            <div className='row mt-2'  style={{ width: '500px', height: '400px' }}>
+                                                            <div className='row mt-2' >
 
-                                                                <Pie
+                                                                {/* <Pie
                                                                     data={{
                                                                         labels: ['Positive', 'Negative', 'Neutral'],
                                                                         datasets: [
@@ -320,8 +361,8 @@ const DetailPenelitian = () => {
                                                                             },
                                                                         ],
                                                                     }}
-                                                                />
-                                                                {/* {preview.length > 0 ? <>
+                                                                /> */}
+                                                                {preview.length > 0 ? <>
 
                                                                     <Table theadData={getHeadings()} tbodyData={preview}>
 
@@ -334,7 +375,7 @@ const DetailPenelitian = () => {
 
                                                                     {console.log(preview, "false")}
 
-                                                                </>} */}
+                                                                </>}
 
 
                                                             </div>
