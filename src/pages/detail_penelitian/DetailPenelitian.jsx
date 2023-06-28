@@ -57,6 +57,7 @@ const DetailPenelitian = () => {
     const [namefile, setNamefile] = useState('')
     const [modelid, setModelid] = useState('')
     const [preview, setPreview] = React.useState([]);
+    const [display, setDisplay] = useState('table');
     const handleClose = () => {
         setOpen(false);
     };
@@ -66,13 +67,22 @@ const DetailPenelitian = () => {
         setNamefile(event.target.value);
     };
 
-
+    const handleInputChange = (event) => {
+        if (event.target.id === 'gfg2') {
+            setDisplay('table');
+        } else if (event.target.id === 'gfg3') {
+            setDisplay('chart');
+        }
+    };
 
     const handlename = (event) => {
         setNamefile(event.target.value)
     }
     const getHeadings = () => {
-        return Object.keys(preview[0]).reverse();
+        if (preview.length > 0) {
+            return Object.keys(preview[0]).reverse();
+        }
+        return [];
     }
 
     const params = useParams();
@@ -99,11 +109,11 @@ const DetailPenelitian = () => {
             }).then(data => data);
 
             // console.log(response.data)
-            const preview1 = response.data[1].slice(0, 5)
+            const preview1 = response?.data[1].slice(0, 5)
             // console.log(preview1)
             setPreview(preview1)
             // console.log(response.data[0])
-            setData(response.data[0])
+            setData(response?.data[0])
         };
 
 
@@ -139,6 +149,11 @@ const DetailPenelitian = () => {
         // Update the document title using the browser API
 
     }, [preview]);
+
+    useEffect(() => {
+        // Update the document title using the browser API
+
+    }, [display]);
 
 
 
@@ -317,11 +332,13 @@ const DetailPenelitian = () => {
                                                                 }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.anotator} />
 
                                                                 <section class="btn-group">
-                                        
+
                                                                     <input type="radio"
                                                                         class="btn-check"
                                                                         name="btnradio"
-                                                                        id="gfg2" />
+                                                                        id="gfg2"
+                                                                        checked={display === 'table'}
+                                                                        onChange={handleInputChange} />
                                                                     <label class="btn btn-outline-primary"
                                                                         for="gfg2">
                                                                         Table
@@ -330,7 +347,9 @@ const DetailPenelitian = () => {
                                                                     <input type="radio"
                                                                         class="btn-check"
                                                                         name="btnradio"
-                                                                        id="gfg3" />
+                                                                        id="gfg3"
+                                                                        checked={display === 'chart'}
+                                                                        onChange={handleInputChange} />
                                                                     <label class="btn btn-outline-primary"
                                                                         for="gfg3">
                                                                         Chart
@@ -346,23 +365,8 @@ const DetailPenelitian = () => {
                                                             </div>
                                                             <div className='row mt-2' >
 
-                                                                {/* <Pie
-                                                                    data={{
-                                                                        labels: ['Positive', 'Negative', 'Neutral'],
-                                                                        datasets: [
-                                                                            {
-                                                                                data: [
-                                                                                    reviews.filter((review) => review.result === 1).length,
-                                                                                    reviews.filter((review) => review.result === -1).length,
-                                                                                    reviews.filter((review) => review.result === 0).length,
-                                                                                ],
-                                                                                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-                                                                                hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-                                                                            },
-                                                                        ],
-                                                                    }}
-                                                                /> */}
-                                                                {preview.length > 0 ? <>
+
+                                                                {display === 'table' ? <>
 
                                                                     <Table theadData={getHeadings()} tbodyData={preview}>
 
@@ -372,8 +376,26 @@ const DetailPenelitian = () => {
 
                                                                 </> : <>
 
+                                                                    <div className='pie-chart-container' style={{}}>
 
-                                                                    {console.log(preview, "false")}
+                                                                        <Pie
+                                                                            data={{
+                                                                                labels: ['Positive', 'Negative', 'Neutral'],
+                                                                                datasets: [
+                                                                                    {
+                                                                                        data: [
+                                                                                            reviews.filter((review) => review.result === 1).length,
+                                                                                            reviews.filter((review) => review.result === -1).length,
+                                                                                            reviews.filter((review) => review.result === 0).length,
+                                                                                        ],
+                                                                                        backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                        hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                    },
+                                                                                ],
+                                                                            }}
+                                                                        />
+                                                                    </div>
+
 
                                                                 </>}
 

@@ -76,4 +76,11 @@ input[type=file]::file-selector-button {
     transition: background .2s ease-in-out;
 }
 
-
+.pie-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+     height: 500px 
+    /* Add other styling properties as needed */
+  }
