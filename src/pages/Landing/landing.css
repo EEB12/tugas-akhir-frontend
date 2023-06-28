@@ -44,17 +44,42 @@
 .content-landing{
   justify-content: end;
 }
-
+.bg-logo{
+  background-image: url('../../../public/Group-100.svg');
+  background-repeat: no-repeat;
+  background-size: 40% 120%;
+  display: flex;
+  justify-content: end !important;
+  background-position: right 80% ;
+  
+}
 @media (max-width: 1200px) {
   .content-landing {
     justify-content: center;
   }
+
+  .bg-logo{
+    background-image: none;
+   
+    
+  }
 }
 
-.bg-logo{
-  background-image: url('../../../public/Group-100.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: end !important;
+
+
+
+
+.content-area{
+  height: 800px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999; /* Optional: Use a higher value if needed */
+}
+
+.content-box{
+  margin-top: 200px;
 }

@@ -100,9 +100,9 @@ const Landing = () => {
           </div>
         </nav>
         <div className="container-fluid bg-logo">
-          <div className="container">
+          <div className="container content-area">
             <div className="row">
-              <div className="col-xl-6 col-12 order-xl-2 order-1">
+              <div className="col-xl-6 col-12 order-xl-2 order-1 content-box ">
                 <div className="d-flex content-landing col-12">
                   <img src="./Hero-1.png" alt="Hero 1" />
                 </div>
