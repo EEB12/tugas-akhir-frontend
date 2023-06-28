@@ -18,12 +18,6 @@
   margin-left:  180px;
 }
 
-
-.hero{
-  margin-left: 280px;
-  margin-top: 130px;
-}
-
 .sign-up{
   width: 135px !important;
   height:39px !important;
@@ -45,4 +39,22 @@
   color: #02A9F1 !important;
   background-color: white !important;
   border-radius: 2rem !important;
+}
+
+.content-landing{
+  justify-content: end;
+}
+
+@media (max-width: 1200px) {
+  .content-landing {
+    justify-content: center;
+  }
+}
+
+.bg-logo{
+  background-image: url('../../../public/Group-100.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: end !important;
 }
