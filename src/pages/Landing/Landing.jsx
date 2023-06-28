@@ -43,7 +43,6 @@ const mdTheme = createTheme();
 
 
 
-
 const Landing = () => {
 
 
@@ -63,37 +62,42 @@ const Landing = () => {
     window.location.href = "/list-penelitian-manual";
   };
 
-
-
   return (
     <ThemeProvider theme={mdTheme}>
+      <nav className="navbar navbar-expand-lg navbar-light navbar-transparent bg-transparent sticky-top">
+        <div className="container px-3">
+          <img className="img-fluid" src="./Logo-its.png" style={{ width: 'auto', height: '2rem' }} alt="ITS Logo" />
+          <div>
+            <Button type="button" href='/registe' className="btn btn-light shadow-sm fw-bold px-3">
+              Sign Up Free
+            </Button>
+          </div>
+        </div>
+      </nav>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-6'>
+          <div className='col-12 triple-dot'>
+            <img className='ms-3  ' src='./Icon-1.png' />
+            <Typography sx={{
+              color: '#0285F1',
+              fontWeight: 600, m: 1, fontSize: 60
+            }} variant="h3" gutterBottom>
+              About Website
+            </Typography>
 
-      <CssBaseline />
-      <AppBar style={{ background: 'transparent', boxShadow: 'none' }} position="absolute" >
-        <Toolbar
-        >
-          <div className='container-fluid'>
-            <div className='row'>
-              <div className='col-6'>
-
-                <img className='logo-1' src='./Logo-its.png'>
-
-                </img>
-              </div>
-
-              <div className='col-6 d-flex justify-content-end'>
-
-                <Button href='/register' type="button" class="btn btn-light shadow-lg sign-up "><Box sx={{ color: '#02A9F1', fontWeight: 600, fontSize: 16 }}>Sign Up Free</Box></Button>
-              </div>
-
-            </div>
+            <Box sx={{ width: 600, fontWeight: 400, marginTop: 4, marginLeft: 1, fontSize: 28 }}>Website Anotasi Data merupakan website yang menyediakan fitur
+              anotasi data manual maupun otomatis untuk mahasiswa dalam melakaukan penelitian anotasi data. Website ini mendukung penggunaan model
+              diberbagai penelitian.</Box>
 
 
           </div>
-
-
-        </Toolbar>
-      </AppBar>
+          </div>
+          <div className='col-6'>
+            <img className='hero' src='./Hero-1.png' />
+          </div>
+        </div>
+      </div>
 
       <Box
         component="main"
@@ -111,19 +115,11 @@ const Landing = () => {
           overflow: 'auto',
         }}
       >
-
         <Toolbar />
         <Toolbar />
-
-
-
-
-
-
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-6'>
-
               <div className='col-12 triple-dot'>
                 <img className='ms-3  ' src='./Icon-1.png' />
                 <Typography sx={{
@@ -139,15 +135,8 @@ const Landing = () => {
 
 
               </div>
-
-
-
-
-
-
             </div>
             <div className='col-6'>
-
               <img className='hero' src='./Hero-1.png' />
             </div>
           </div>
@@ -281,7 +270,6 @@ const Landing = () => {
 
 
       {/* footer */}
-
       <Box
         component="main"
         sx={{

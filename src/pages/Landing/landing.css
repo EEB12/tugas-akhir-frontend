@@ -40,3 +40,9 @@
   width: 200px;
  margin-left: 39px;
 }
+
+.btn-light{
+  color: #02A9F1 !important;
+  background-color: white !important;
+  border-radius: 2rem !important;
+}
