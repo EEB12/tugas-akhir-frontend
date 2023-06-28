@@ -54,9 +54,15 @@ mdTheme.typography.h5 = {
   mb: 1,
   fontSize: 23,
   textAlign: "left !important",
-  "@media (max-width:1200px)": {
+  "@media (max-width: 1200px) and (min-width: 400px)": {
     fontSize: 18,
     textAlign: "center !important",
+  },
+  "@media (max-width: 400px)": {
+    fontSize: 15,
+    textAlign: "center !important",
+    maxHeight: "10rem",
+    overflowY: "auto",
   },
 };
 
@@ -197,7 +203,6 @@ const Landing = () => {
           backgroundPosition: "contain",
           width: "100%",
           height: "100vh",
-
           overflow: "auto",
         }}
       >
@@ -205,15 +210,56 @@ const Landing = () => {
           <div className="row">
             <div className="col-12 mt-3">
               <div className="d-flex justify-content-center mt-5">
-                <Box sx={{ fontWeight: 600, fontSize: 45 }}>
-                  Apa Saja Fitur yang Disediakan?
-                </Box>
+                <h1 className="text-xl-center">Apa Saja Fitur yang Disediakan?</h1>
+              </div>
+            </div>
+          </div>
+          <div className="container">
+            <div className="row mt-5">
+              <div className="col-md-4 col-12 p-2">
+                <div class="card h-100">
+                  <div className="d-flex justify-content-center py-3">
+                    <img className="landing-card-image p-3" src="/card-1.png"/>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title text-center px-4">Membuat Penelitian Data</h5>
+                    <p class="card-text text-center px-4">
+                    Peneliti dapat membuat penelitian data di website dengan upload data penelitian ke website
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-12 p-2">
+                <div class="card h-100">
+                  <div className="d-flex justify-content-center py-3">
+                    <img className="landing-card-image" src="/card-2.png"/>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title text-center px-4">Melakukan Anotasi Data</h5>
+                    <p class="card-text text-center px-4">
+                    Dapat melakukan upgrade ke anotator. Anotator dapat melakukan proses anotasi data dengan program model
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-12 p-2">
+                <div class="card h-100">
+                  <div className="d-flex justify-content-center py-3">
+                    <img className="landing-card-image" src="/card-1.png"/>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title text-center px-4">Export Data Hasil Antotasi</h5>
+                    <p class="card-text text-center px-4">
+                      Hasil data penelitian yang telah dianotasi dapat diexport menjadi csv 
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="d-flex row card-group">
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 w-75 ms-5 ">
+          {/* <div className="d-flex row card-group">
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 w-75 ">
               <div class="col ">
                 <div
                   class="card w-100"
@@ -339,7 +385,7 @@ const Landing = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </Box>
 
