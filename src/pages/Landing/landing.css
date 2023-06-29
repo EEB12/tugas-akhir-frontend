@@ -1,85 +1,102 @@
-.button{
-    width: "150px" !important;
-    height: "39px" !important;
-    background-image: "linear-gradient(.25turn, #f00, #00f)";
-    
-  }
-
-.content{
-    height: 120px !important;
+.button {
+  width: "150px" !important;
+  height: "39px" !important;
+  background-image: "linear-gradient(.25turn, #f00, #00f)";
 }
-.logo-1{
+
+.content {
+  height: 120px !important;
+}
+.logo-1 {
   margin-left: 170px;
-  margin-top:10px
+  margin-top: 10px;
 }
 
-.triple-dot{
+.triple-dot {
   margin-top: 130px;
-  margin-left:  180px;
+  margin-left: 180px;
 }
 
-.sign-up{
+.sign-up {
   width: 135px !important;
-  height:39px !important;
+  height: 39px !important;
   border-radius: 30px;
   margin-top: 39px;
 }
 
-.card-group{
+.card-group {
   display: flex;
-  justify-content:center !important
+  justify-content: center !important;
 }
 
-.des-card{
+.des-card {
   width: 200px;
- margin-left: 39px;
+  margin-left: 39px;
 }
 
-.btn-light{
-  color: #02A9F1 !important;
+.btn-light {
+  color: #02a9f1 !important;
   background-color: white !important;
   border-radius: 2rem !important;
 }
 
-.content-landing{
-  justify-content: end;
+.content-landing {
+  visibility: hidden;
 }
-.bg-logo{
-  background-image: url('../../../public/Group-100.svg');
+.bg-logo {
+  background-image: url("../../../public/Group-100.svg");
   background-repeat: no-repeat;
-  background-size: 40% 120%;
+  background-size: 45% 140%;
   display: flex;
   justify-content: end !important;
-  background-position: right 80% ;
-  
+  background-position: right 80%;
 }
 @media (max-width: 1200px) {
   .content-landing {
     justify-content: center;
+    visibility: visible;
   }
 
-  .bg-logo{
+  .bg-logo {
     background-image: none;
-   
-    
   }
 }
 
+@media (max-width:400px){
+  .content-landing img{
+    width: 200px;  
+    height: 200px;  
+  }
+}
 
-
-
-
-.content-area{
+.content-area {
   height: 800px;
 }
 
 .navbar {
   position: fixed;
-  top: 0;
+  /* top: 0; */
   width: 100%;
   z-index: 9999; /* Optional: Use a higher value if needed */
 }
 
-.content-box{
+.content-box {
   margin-top: 200px;
+}
+
+.card-small {
+  max-width: 360px; /* Adjust the maximum width as desired */
+}
+
+.landing-card-image {
+  width: 80px;
+  object-fit: contain; /* Ensure the entire image is visible */
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.8);
 }
