@@ -50,18 +50,18 @@ const bull = (
 
 const ListMypenelitian = () => {
 
-    // const getHeadings = () => {
+     // const getHeadings = () => {
     //     return Object.keys(contoh[0]);
     // }
     const [data, setData] = useState([]);
     const [role, setRole] = useState('');
     const [age, setAge] = React.useState('');
 
-    const download = async(id)=>{
+    const download = async (id, name) => {
         var token = localStorage.getItem('tokenAccess')
         let formData = new FormData()
 
-        formData.append("id_anotasi",id)
+        formData.append("id_anotasi", id)
         const response = await axios({
             method: "post",
             url: 'https://backend-ta.ndne.id/api/get-data',
@@ -72,52 +72,52 @@ const ListMypenelitian = () => {
             },
         }).then(data => data);
 
-        var headers=Object.keys(response.data[0])
-          console.log(headers)
-          const dataToConvert = {
+        var headers = Object.keys(response.data[0])
+        console.log(headers)
+        const dataToConvert = {
             data: response.data,
-            filename: 'test download',
+            filename: `${name}`,
             delimiter: ',',
             headers: headers
-          }
-          csvDownload(dataToConvert)
+        }
+        csvDownload(dataToConvert)
     }
     useEffect(() => {
 
         var token = localStorage.getItem('tokenAccess')
-        
+
         console.log(token)
 
         var role = localStorage.getItem('role')
         setRole(role)
-        const getPenelitian = async (event) => {    
-            if(role == '"peneliti"' || role == '"anotator"'){
+        const getPenelitian = async (event) => {
+            if (role == '"peneliti"' || role == '"anotator"') {
                 const response = await axios({
                     method: "get",
                     url: "https://backend-ta.ndne.id/api/my_list_penelitian",
-    
+
                     headers: {
                         "Authorization": `Bearer ${token}`,
                     },
                 }).then(data => data);
-    
+
                 console.log(response.data)
                 setData(response.data)
             }
-            else{
+            else {
                 const response = await axios({
                     method: "get",
                     url: "https://backend-ta.ndne.id/api/list_penelitian",
-    
+
                     headers: {
                         "Authorization": `Bearer ${token}`,
                     },
                 }).then(data => data);
-    
+
                 console.log(response.data)
                 setData(response.data)
             }
-            
+
         };
 
 
@@ -150,7 +150,7 @@ const ListMypenelitian = () => {
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -161,14 +161,15 @@ const ListMypenelitian = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
+                                        
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100vh',
-                                            width: 1600,
+                                            width: '80%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -183,7 +184,7 @@ const ListMypenelitian = () => {
                                                     color: '#0285F1',
                                                     fontWeight: 600, m: 1, fontSize: 60
                                                 }} variant="h3" gutterBottom>
-                                                    List Penelitian
+                                                    My Penelitian
                                                 </Typography>
 
                                             </div>
@@ -193,7 +194,7 @@ const ListMypenelitian = () => {
                                                     {data.map((item, index) =>
                                                         <>
                                                             <div className='row mb-4'>
-                                                                <Card sx={{ maxWidth: 1500, Height: 200,boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',borderRadius: '10px', }} variant='outlined'>
+                                                                <Card sx={{ Width: '150%', Height: 200, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)', borderRadius: '10px', }} variant='outlined'>
                                                                     <CardContent>
 
                                                                         <div className='container-fluid'>
@@ -202,16 +203,16 @@ const ListMypenelitian = () => {
 
                                                                                     <Typography component="div">
 
-                                                                                        Nama Penelitian &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{item.title}
+                                                                                        <span className='fw-bold me-1'>Nama Penelitian &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :<span className='fw-bold ms-2'>{item.title}</span>
                                                                                     </Typography>
                                                                                     <Typography component="div">
 
-                                                                                        Type Anotasi Data  &nbsp; :&nbsp;{item.type_anotasi}
+                                                                                        <span className='fw-bold me-3'> Type Anotasi Data &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>:<span className='ms-2 text-muted' >{item.type_anotasi}</span>
                                                                                     </Typography>
 
                                                                                     <Typography component="div">
 
-                                                                                        Deskripsi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; :&nbsp;{item.desc}
+                                                                                        <span className='fw-bold     text-deskripsi'>Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>:<span className='ms-2 text-muted'>{item.desc}</span>
                                                                                     </Typography>
 
 
@@ -220,14 +221,15 @@ const ListMypenelitian = () => {
                                                                                 </div>
 
 
-                                                                                <div className='col-6 d-flex justify-content-end'>
-                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn   interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .csv</Box></button>
-                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn   interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
-                                                                                    
+                                                                                <div className='col-6 d-flex justify-content-end mt-3'>
+
+                                                                                    <button onClick={() => download(item.id_anotasi, item.title)} type="button" class="  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingLeft: 2, paddingRight: 2 }}>Download .csv</Box></button>
+                                                                                    <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/` + item.id_anotasi}>Detail</a> </Box></button>
+
                                                                                     {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
                                                                                         <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
-                                                                                    
-                                                                                    
+
+
                                                                                 </div>
 
 

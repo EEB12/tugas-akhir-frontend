@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -20,8 +20,9 @@ import './upload.css'
 import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Navbar from '../Component/navbar';
-import swal from 'sweetalert';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+import html2canvas from 'html2canvas';
 const reviews = [
     {
         content:
@@ -49,9 +50,11 @@ const mdTheme = createTheme();
 
 
 const DetailPenelitian = () => {
+    const chartRef = useRef(null);
     const [open, setOpen] = useState(false);
     const [filesToUpload, setFilesToUpload] = useState();
     const [data, setData] = useState([]);
+    const [dataBig, setDataBig] = useState([]);
     const [table, setTable] = useState([]);
     const [age, setAge] = React.useState('');
     const [namefile, setNamefile] = useState('')
@@ -61,7 +64,9 @@ const DetailPenelitian = () => {
     const handleClose = () => {
         setOpen(false);
     };
-
+    const handleToggle = () => {
+        setOpen(!open);
+    };
 
     const handleChangeTitle = (event) => {
         setNamefile(event.target.value);
@@ -75,6 +80,12 @@ const DetailPenelitian = () => {
         }
     };
 
+    const handleExport = () => {
+        const link = document.createElement("a")
+        link.download='chart.png'
+        link.href=chartRef.current.toBase64Image() 
+        link.click()   
+    };
     const handlename = (event) => {
         setNamefile(event.target.value)
     }
@@ -97,7 +108,7 @@ const DetailPenelitian = () => {
         console.log(token)
 
         const handleSubmit = async (event) => {
-
+            handleToggle()
             const response = await axios({
                 method: "get",
                 url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
@@ -110,10 +121,13 @@ const DetailPenelitian = () => {
 
             // console.log(response.data)
             const preview1 = response?.data[1].slice(0, 5)
+
+            setDataBig(response?.data[1])
             // console.log(preview1)
             setPreview(preview1)
-            // console.log(response.data[0])
+            console.log(response?.data[0])
             setData(response?.data[0])
+            handleClose()
         };
 
 
@@ -155,6 +169,11 @@ const DetailPenelitian = () => {
 
     }, [display]);
 
+
+    useEffect(() => {
+        console.log(data)
+
+    }, [data]);
 
 
 
@@ -247,7 +266,7 @@ const DetailPenelitian = () => {
 
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
-                                                                    marginTop: 3,
+                                                                    marginTop: 5,
 
                                                                     width: '170vh',
                                                                     marginBottom: 4,
@@ -259,6 +278,7 @@ const DetailPenelitian = () => {
                                                                 }}
                                                                     inputProps={{
                                                                         style: {
+                                                                            marginTop: 5,
                                                                             fontSize: '20px', // Adjust the font size as needed
                                                                         },
                                                                     }}
@@ -379,14 +399,15 @@ const DetailPenelitian = () => {
                                                                     <div className='pie-chart-container' style={{}}>
 
                                                                         <Pie
+                                                                            ref={chartRef}
                                                                             data={{
                                                                                 labels: ['Positive', 'Negative', 'Neutral'],
                                                                                 datasets: [
                                                                                     {
                                                                                         data: [
-                                                                                            reviews.filter((review) => review.result === 1).length,
-                                                                                            reviews.filter((review) => review.result === -1).length,
-                                                                                            reviews.filter((review) => review.result === 0).length,
+                                                                                            dataBig.filter((review) => review.result === 'positive').length,
+                                                                                            dataBig.filter((review) => review.result === 'negative').length,
+                                                                                            dataBig.filter((review) => review.result === 'neutral').length,
                                                                                         ],
                                                                                         backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                         hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
@@ -394,6 +415,8 @@ const DetailPenelitian = () => {
                                                                                 ],
                                                                             }}
                                                                         />
+
+                                                                        <button onClick={handleExport}>Export Chart</button>
                                                                     </div>
 
 
@@ -442,7 +465,13 @@ const DetailPenelitian = () => {
                 </Box>
             </ThemeProvider >
 
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
 
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
     );
 }

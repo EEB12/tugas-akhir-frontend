@@ -159,7 +159,7 @@ const NewPenelitian = () => {
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -170,14 +170,14 @@ const NewPenelitian = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item  xs={12} md={12} lg={12} >
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
-                                            height: '100vh',
-                                            width: 1600,
+                                            height: '100%',
+                                            width: '100%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -204,8 +204,9 @@ const NewPenelitian = () => {
                                                             p: 2,
                                                             display: 'flex',
 
-                                                            height: '80vh',
-                                                            width: 1600,
+                                                           
+                                                            height: '100%',
+                                                            width: '100%',
                                                             pb: 10,
                                                             flexDirection: 'column',
                                                             backgroundColor: '#fffff',
@@ -227,9 +228,16 @@ const NewPenelitian = () => {
 
                                                                 <TextField sx={{
                                                                     marginLeft: 3,
-                                                                    width: 1400,
+                                                                    width: '170vh',
                                                                     marginBottom: 4
-                                                                }} onChange={handleChangeTitle} id="standard-basic" label="Masukkan Judul Penelitian" variant="standard" />
+                                                                }}
+                                                                inputProps={{
+                                                                    style: {
+                                                                        marginTop: 6,
+                                                                        fontSize: '20px', // Adjust the font size as needed
+                                                                    },
+                                                                }}
+                                                                onChange={handleChangeTitle} id="standard-basic" variant="standard" />
                                                                 <Typography sx={{
 
                                                                     fontWeight: 600, m: 1, fontSize: 35
@@ -243,7 +251,7 @@ const NewPenelitian = () => {
                                                                     value={age}
                                                                     sx={{
                                                                         marginLeft: 3,
-                                                                        width: 900,
+                                                                        width: 200,
                                                                         marginBottom: 4
                                                                     }}
                                                                     onChange={handleChange}

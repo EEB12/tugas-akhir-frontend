@@ -35,17 +35,11 @@ const Navbar = () => {
     setData(token)
 
 
-
-
-
-
-
-
   },);
   return (
     <AppBar sx={{ bgcolor: '#FFFFFF' }} position="absolute" >
       <Toolbar
-      
+
       >
 
         <Typography
@@ -98,20 +92,20 @@ const Navbar = () => {
                 
                 {data == '"anotator"' ?
                   <>
-                  <li><a class="dropdown-item" href="list-job">My Job Anotate</a></li>
-                  <li><a class="dropdown-item" href="new-penelitian">Penelitian Saya</a></li>
-                  <li><a class="dropdown-item" href="new-penelitian">Buat Penelitian</a></li>
+                  <li><a class="dropdown-item" href="/list-job">My Job Anotate</a></li>
+                  <li><a class="dropdown-item" href="/new-penelitian">Penelitian Saya</a></li>
+                  <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
                    </>
                   :data == '"peneliti"'? <>
                   
-                  <li><a class="dropdown-item" href="new-penelitian">Penelitian Saya</a></li>
+                  <li><a class="dropdown-item" href="/new-penelitian">Penelitian Saya</a></li>
                   <li><a class="dropdown-item" href="#">Progress Penelitian</a></li>
-                  <li><a class="dropdown-item" href="new-penelitian">Buat Penelitian</a></li>
+                  <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
                   
                   </> : data == '"admin"' ? 
                   <>
-                  <li><a class="dropdown-item" href="new-penelitian">Manajemen Penelitian</a></li> 
-                  <li><a class="dropdown-item" href="new-penelitian">Manajemen Program Model</a></li> 
+                  <li><a class="dropdown-item" href="/new-penelitian">Manajemen Penelitian</a></li> 
+                  <li><a class="dropdown-item" href="/new-penelitian">Manajemen Program Model</a></li> 
                   </>
                   : <></>
                   

@@ -187,9 +187,9 @@ const Listjob = () => {
                                                                                     
                                                                                     {item.type_anotasi == 'manual'?
                                                                                     <>  
-                                                                                    <Button href={`/mytable/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
+                                                                                    <Button href={`/mytable/`+item.id_anotasi}  type="button" class="interactive-button detail ms-4 ">
                                                                                         <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2}}>Anotate  </Box></Button></>
-                                                                                        : <><Button href={`/anotate-auto/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
+                                                                                        : <><Button href={`/anotate-auto/`+item.id_anotasi}  type="button" class="interactive-button detail ms-4 ">
                                                                                         <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2}}>Anotate </Box></Button></>}
                                                                                    
                                                                                     
