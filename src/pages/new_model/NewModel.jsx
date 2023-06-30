@@ -66,7 +66,7 @@ const NewModel = () => {
     const handleChangedesc = (event) => {
         setDescfile(event.target.value);
     };
-    
+
 
     const handleFilesChange = (e) => {
         // Update chosen files
@@ -127,25 +127,25 @@ const NewModel = () => {
 
     // }
     const handleSubmit = async (event) => {
-        
-        event.preventDefault();
-        
-        
-       
 
-       
-        
-    
+        event.preventDefault();
+
+
+
+
+
+
+
         let formData = new FormData()
 
 
-        formData.append("file",filesToUpload)
+        formData.append("file", filesToUpload)
         formData.append("file_vectorizer", vectorizer)
-        formData.append("title",namefile)
+        formData.append("title", namefile)
         formData.append("desc", descfile)
 
-        console.log("ini model",filesToUpload)
-        console.log("ini vectorizer",vectorizer)
+        console.log("ini model", filesToUpload)
+        console.log("ini vectorizer", vectorizer)
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
 
@@ -160,18 +160,18 @@ const NewModel = () => {
 
 
         console.log(response)
-        if (response.data.message =='Data created successfully' ) {
+        if (response.data.message == 'Data created successfully') {
             swal("Success", "Model Uploaded", "success", {
-              buttons: false,
-              timer: 2000,
+                buttons: false,
+                timer: 2000,
             })
-            .then((value) => {
-             
-              window.location.href = "/list-job";
-            });
-          } else {
+                .then((value) => {
+
+                    window.location.href = "/list-job";
+                });
+        } else {
             swal("Failed", "Model Upload Failed", "error");
-          }
+        }
     };
 
     useEffect(() => {
@@ -205,11 +205,12 @@ const NewModel = () => {
                             width: '100%',
                             height: '100%',
                             overflowX: 'initial',
+                            
                         }}
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -220,14 +221,14 @@ const NewModel = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100vh',
-                                            width: 1600,
+                                            width: '100%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -254,8 +255,8 @@ const NewModel = () => {
                                                             p: 2,
                                                             display: 'flex',
 
-                                                            height: '80vh',
-                                                            width: 1600,
+                                                            height: '100%',
+                                                            width: '100%',
                                                             pb: 10,
                                                             flexDirection: 'column',
                                                             backgroundColor: '#fffff',
@@ -277,9 +278,15 @@ const NewModel = () => {
 
                                                                 <TextField sx={{
                                                                     marginLeft: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4
-                                                                }} onChange={handleChangedesc} id="standard-basic" label="Masukkan Judul Penelitian" variant="standard" />
+                                                                }} onChange={handleChangedesc}
+                                                                    inputProps={{
+                                                                        style: {
+                                                                            marginTop: 6,
+                                                                            fontSize: '20px', // Adjust the font size as needed
+                                                                        },
+                                                                    }} id="standard-basic" variant="standard" />
                                                                 <Typography sx={{
 
                                                                     fontWeight: 600, m: 1, fontSize: 35
@@ -289,10 +296,16 @@ const NewModel = () => {
 
                                                                 <TextField sx={{
                                                                     marginLeft: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4
-                                                                }} onChange={handleChangeTitle} id="deskripsi" label="Masukkan Judul Penelitian" variant="standard" />
-                                                                
+                                                                }}
+                                                                    inputProps={{
+                                                                        style: {
+                                                                            marginTop: 6,
+                                                                            fontSize: '20px', // Adjust the font size as needed
+                                                                        },
+                                                                    }} onChange={handleChangeTitle} id="deskripsi" variant="standard" />
+
                                                                 <Box sx={{
                                                                     marginLeft: '8px',
                                                                     marginTop: 1,
@@ -302,9 +315,10 @@ const NewModel = () => {
 
                                                                         fontWeight: 600, fontSize: 35
                                                                     }} variant="h3" gutterBottom>
-                                                                        Model Program
+                                                                        Model Program 
                                                                     </Typography>
-                                                                    <input type="file" onChange={handleFilesChange} />
+                                                                    
+                                                                    <input type="file"  accept=".pkl" onChange={handleFilesChange} />
 
                                                                 </Box>
 
@@ -317,7 +331,7 @@ const NewModel = () => {
 
                                                                         fontWeight: 600, fontSize: 35
                                                                     }} variant="h3" gutterBottom>
-                                                                       Vectorizer
+                                                                        Vectorizer
                                                                     </Typography>
                                                                     <input type="file" onChange={handleVectorizerChange} />
 

@@ -68,9 +68,7 @@ const MyTable = () => {
     };
 
     const buttonhandler = async () => {
-        console.log(jsonData)
-        console.log(currentPage)
-        console.log(dataResult)
+      
         const array2 = jsonData;
         const array1 = dataResult;
         const appendedArray = [...array1, ...array2];
@@ -96,7 +94,7 @@ const MyTable = () => {
             const csvBlob = new Blob([csvData], { type: 'text/csv' });
             const formData = new FormData();
             formData.append('file', csvBlob, 'data_result_testing_auto.csv');
-            formData.append('id_anotasi', 12);
+            formData.append('id_anotasi', params.id);
 
 
             const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
@@ -119,7 +117,7 @@ const MyTable = () => {
             });
 
 
-            console.log("dah gabung sama result", updatedJsonData)
+            
             setData(updatedJsonData); // Update the data state first
             const csvData = convertToCSV(updatedJsonData); // Convert the updated data to CSV
             const csvBlob = new Blob([csvData], { type: 'text/csv' });
@@ -216,6 +214,8 @@ const MyTable = () => {
         console.log(jsonData)
     }, [jsonData]);
 
+
+    // data getter
     useEffect(() => {
         console.log(currentPage, "berubah pagenya")
         var token = localStorage.getItem('tokenAccess')
@@ -223,9 +223,10 @@ const MyTable = () => {
 
             const response = await axios({
                 method: "get",
-                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination`,
+                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination/${params.id}`,
                 headers: {
                     "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
 
                 },
                 params: {
@@ -258,9 +259,10 @@ const MyTable = () => {
 
             const response = await axios({
                 method: "get",
-                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination`,
+                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination/${params.id}`,
                 headers: {
                     "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
 
                 },
                 params: {
@@ -278,9 +280,10 @@ const MyTable = () => {
 
             const responseBaseData = await axios({
                 method: "get",
-                url: `https://backend-ta.ndne.id/api/get-data-progress/12`,
+                url: `https://backend-ta.ndne.id/api/get-data-progress/${params.id}`,
                 headers: {
                     "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
 
                 }
 
@@ -324,7 +327,7 @@ const MyTable = () => {
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -335,14 +338,14 @@ const MyTable = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
-                                            height: '100vh',
-                                            width: 1600,
+                                            height: '100%',
+                                            width: '100%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -367,8 +370,8 @@ const MyTable = () => {
                                                             p: 2,
                                                             display: 'flex',
 
-                                                            height: '80vh',
-                                                            width: 1600,
+                                                            height: '100%',
+                                                            width: '100%',
                                                             pb: 10,
                                                             flexDirection: 'column',
                                                             backgroundColor: '#fffff',
@@ -388,7 +391,7 @@ const MyTable = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4
                                                                 }} id="standard-basic" variant="standard" value="Sentiment Analysis Tweet" />
 
@@ -402,7 +405,7 @@ const MyTable = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4
                                                                 }} id="standard-basic" variant="standard" value="Manual" />
 
@@ -438,6 +441,7 @@ const MyTable = () => {
                                                         </div>
                                                         <br></br>
                                                         <br></br>
+                                                        <Button type="button" variant="contained" onClick={() => buttonhandler()} className="button-submit mt-3 w-25">Update Status to Finish</Button>
                                                         <Button type="button" variant="contained" onClick={() => buttonhandler()} className="button-submit mt-3 w-25">Upload</Button>
                                                         <br></br>
 

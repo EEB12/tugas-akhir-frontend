@@ -20,6 +20,7 @@ import Profile from './pages/Profile/Profile';
 import ListUser from './pages/ListUser/ListUser';
 import MyTable from './pages/TableEditor/MyTable';
 import ListMypenelitian from './pages/list_myPenelitian/ListMypenelitian';
+import ManagePenelitian from './pages/Manage_penelitian/ManagePenelitian';
 const RouteApp = () => {
   return (
     <BrowserRouter>
@@ -42,6 +43,7 @@ const RouteApp = () => {
         <Route path='/update-role' element={<UpgradeRole/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/admin/list-user' element={<ListUser/>}/>
+        <Route path='/admin/list-penelitian' element={<ManagePenelitian/>}/>
         <Route path='/mytable/:id' element={<MyTable/>}/>
         <Route path='/list-mypenelitian' element={<ListMypenelitian/>}/>
       </Routes>

@@ -50,7 +50,7 @@ const Listjob = () => {
     const [role, setRole] = useState('');
     const [age, setAge] = React.useState('');
 
-   
+
 
 
 
@@ -62,30 +62,30 @@ const Listjob = () => {
     useEffect(() => {
 
         var token = localStorage.getItem('tokenAccess')
-        
+
         console.log(token)
 
         var role = localStorage.getItem('role')
         setRole(role)
         const handleSubmit = async (event) => {
-            
-           
-            
 
-           
-                const response = await axios({
-                    method: "get",
-                    url: "https://backend-ta.ndne.id/api/list_job_penelitian",
-    
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    },
-                }).then(data => data);
-    
-                console.log(response.data)
-                setData(response.data)
-            
-            
+
+
+
+
+            const response = await axios({
+                method: "get",
+                url: "https://backend-ta.ndne.id/api/list_job_penelitian",
+
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }).then(data => data);
+
+            console.log(response.data)
+            setData(response.data)
+
+
         };
 
 
@@ -107,18 +107,17 @@ const Listjob = () => {
                     <Box
                         component="main"
                         sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
+
                             width: '100%',
                             height: '100%',
                             overflowX: 'initial',
+                            position: 'fixed',
+                            backgroundColor: '#f5f5f5',
                         }}
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -129,14 +128,14 @@ const Listjob = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100vh',
-                                            width: 1600,
+                                            width: '95%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -161,7 +160,7 @@ const Listjob = () => {
                                                     {data.map((item, index) =>
                                                         <>
                                                             <div className='row mb-4'>
-                                                                <Card sx={{ maxWidth: 1500, Height: 200,boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',borderRadius: '10px', }} variant='outlined'>
+                                                                <Card sx={{ maxWidth: 1500, Height: 200, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)', borderRadius: '10px', }} variant='outlined'>
                                                                     <CardContent>
 
                                                                         <div className='container-fluid'>
@@ -169,12 +168,16 @@ const Listjob = () => {
                                                                                 <div className='col-6 mt-3'>
 
                                                                                     <Typography component="div">
-
-                                                                                        Nama Penelitian :{item.title}
+                                                                                        <span className='fw-bold me-2'>Nama Penelitian &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :<span className='fw-bold ms-2'>{item.title}</span>
+                                                                                        
                                                                                     </Typography>
                                                                                     <Typography component="div">
-
-                                                                                        Type Anotasi Data :{item.type_anotasi}
+                                                                                    <span className='fw-bold me-2'>   Type Anotasi Data &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :&nbsp;&nbsp;{item.type_anotasi}
+                                                                                      
+                                                                                    </Typography>
+                                                                                    <Typography component="div">
+                                                                                    <span className='fw-bold me-2'>  Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :&nbsp;&nbsp;{item.author}
+                                                                                         
                                                                                     </Typography>
 
 
@@ -184,16 +187,16 @@ const Listjob = () => {
 
 
                                                                                 <div className='col-6 d-flex justify-content-end'>
-                                                                                    
-                                                                                    {item.type_anotasi == 'manual'?
-                                                                                    <>  
-                                                                                    <Button href={`/mytable/`+item.id_anotasi}  type="button" class="interactive-button detail ms-4 ">
-                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2}}>Anotate  </Box></Button></>
-                                                                                        : <><Button href={`/anotate-auto/`+item.id_anotasi}  type="button" class="interactive-button detail ms-4 ">
-                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2}}>Anotate </Box></Button></>}
-                                                                                   
-                                                                                    
-                                                                                    
+
+                                                                                    {item.type_anotasi == 'manual' ?
+                                                                                        <>
+                                                                                            <Button href={`/mytable/` + item.id_anotasi} type="button" class="interactive-button detail ms-4 ">
+                                                                                                <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingTop: 1, paddingLeft: 4 }}>Anotate  </Box></Button></>
+                                                                                        : <><Button href={`/anotate-auto/` + item.id_anotasi} type="button" class="interactive-button detail ms-4 ">
+                                                                                            <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingTop: 1, paddingLeft: 4 }}>Anotate </Box></Button></>}
+
+
+
                                                                                 </div>
 
 

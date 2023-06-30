@@ -15,7 +15,7 @@ export default function TableAdmin({ theadData, tbodyData,flag }) {
         console.log("ini id",id)
         const response = await axios({
             method: "delete",
-            url: `https://backend-ta.ndne.id/api/users/${id}`,
+            url: `https://backend-ta.ndne.id/api/${flag}/${id}`,
           
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -61,7 +61,7 @@ export default function TableAdmin({ theadData, tbodyData,flag }) {
                         </td>
                         <td>
                             
-                            <Button  onClick={() => handlerdelete(row.id)}><img src='/Trash.png' /></Button>
+                            <Button  onClick={() => handlerdelete(row.id_anotasi)}><img src='/Trash.png' /></Button>
                         </td>
                     </tr>;
                 })}

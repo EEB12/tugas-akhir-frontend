@@ -50,9 +50,6 @@ const bull = (
 
 const Listpenelitian = () => {
 
-    // const getHeadings = () => {
-    //     return Object.keys(contoh[0]);
-    // }
     const [data, setData] = useState([]);
     const [role, setRole] = useState('');
     const [age, setAge] = React.useState('');
@@ -102,7 +99,7 @@ const Listpenelitian = () => {
                 }).then(data => data);
 
                 console.log(response.data)
-                setData(response.data)
+                setData(response.data?.filter(item => item.status === "finished"))
             }
             else {
                 const response = await axios({
@@ -139,13 +136,12 @@ const Listpenelitian = () => {
                     <Box
                         component="main"
                         sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
                             width: '100%',
                             height: '100%',
-                            overflowX: 'initial',
+                            overflowX: 'hidden',
+                            position: 'fixed',
+                            backgroundColor: '#f5f5f5',
+                            overflowY: 'auto',
                         }}
                     >
 
@@ -155,7 +151,7 @@ const Listpenelitian = () => {
                             p: 2,
                             display: 'flex',
 
-
+                            backgroundColor: '#f5f5f5',
                             alignItems: 'center'
                         }}>
 
@@ -168,7 +164,7 @@ const Listpenelitian = () => {
                                             p: 2,
                                             display: 'flex',
 
-                                            height: '100vh',
+                                            height: '100',
                                             width: '80%',
                                             pb: 10,
                                             flexDirection: 'column',

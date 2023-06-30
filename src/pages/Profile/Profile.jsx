@@ -146,7 +146,7 @@ const Profile = () => {
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -157,14 +157,14 @@ const Profile = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100%',
-                                            width: 1600,
+                                            width: '100%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -192,7 +192,7 @@ const Profile = () => {
                                                             display: 'flex',
 
                                                             height: '130vh',
-                                                            width: 1600,
+                                                            width: '100%',
                                                             pb: 10,
                                                             flexDirection: 'column',
                                                             backgroundColor: '#fffff',
@@ -224,7 +224,7 @@ const Profile = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
@@ -241,7 +241,7 @@ const Profile = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
@@ -259,7 +259,7 @@ const Profile = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",

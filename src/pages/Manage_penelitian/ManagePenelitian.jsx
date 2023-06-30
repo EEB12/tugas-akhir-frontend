@@ -35,17 +35,8 @@ import csvDownload from 'json-to-csv-export'
 const mdTheme = createTheme();
 
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
 
-
-const ListUser = () => {
+const ManagePenelitian = () => {
 
     // const getHeadings = () => {
     //     return Object.keys(contoh[0]);
@@ -98,14 +89,14 @@ const ListUser = () => {
 
             const response = await axios({
                 method: "get",
-                url: "https://backend-ta.ndne.id/api/users",
+                url: "https://backend-ta.ndne.id/api/get_all_penelitian",
 
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 },
             }).then(data => data);
 
-            console.log(Object.keys(response?.data[0]).reverse())
+            console.log(Object.keys(response?.data[0]))
             setData(response.data)
 
             // var test = getHeadings(response?.data)
@@ -190,7 +181,7 @@ const ListUser = () => {
 
                                                 <div className='col'></div>
                                                 <div className='col-10'>
-                                                    <TableAdmin theadData={header} tbodyData={data} flag="users">
+                                                    <TableAdmin theadData={header} tbodyData={data} flag="delete_penelitian">
 
                                                     </TableAdmin>
                                                 </div>
@@ -232,4 +223,4 @@ const ListUser = () => {
     );
 }
 
-export default ListUser;
+export default ManagePenelitian;

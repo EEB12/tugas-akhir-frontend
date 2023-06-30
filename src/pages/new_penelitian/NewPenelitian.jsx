@@ -228,7 +228,7 @@ const NewPenelitian = () => {
 
                                                                 <TextField sx={{
                                                                     marginLeft: 3,
-                                                                    width: '170vh',
+                                                                    width: '95%',
                                                                     marginBottom: 4
                                                                 }}
                                                                 inputProps={{
@@ -275,7 +275,7 @@ const NewPenelitian = () => {
                                                                   onChange={handleDesc}
                                                                     sx={{
                                                                         marginLeft: 3,
-                                                                        width: 1400,
+                                                                        width: '95%',
                                                                         marginBottom: 4,
                                                                         backgroundColor:'#FFFFFF'
                                                                     }}

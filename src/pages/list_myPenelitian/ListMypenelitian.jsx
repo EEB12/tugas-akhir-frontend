@@ -139,13 +139,12 @@ const ListMypenelitian = () => {
                     <Box
                         component="main"
                         sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
                             width: '100%',
                             height: '100%',
-                            overflowX: 'initial',
+                            overflowX: 'hidden',
+                            position: 'fixed',
+                            backgroundColor: '#f5f5f5',
+                            overflowY: 'auto',
                         }}
                     >
 
@@ -213,6 +212,11 @@ const ListMypenelitian = () => {
                                                                                     <Typography component="div">
 
                                                                                         <span className='fw-bold     text-deskripsi'>Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>:<span className='ms-2 text-muted'>{item.desc}</span>
+                                                                                    </Typography>
+
+                                                                                    <Typography component="div">
+
+                                                                                        <span className='fw-bold     text-deskripsi'>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>:<span className='ms-2 fw-bold'>{item.status}</span>
                                                                                     </Typography>
 
 

@@ -13,12 +13,7 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Table from '../Component/Table';
-import ButtonGroup from '@mui/material/ButtonGroup';
+
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useState, useEffect } from "react";
@@ -54,11 +49,11 @@ const Listmodel = () => {
     const [role, setRole] = useState('');
     const [age, setAge] = React.useState('');
 
-    const download = async(id)=>{
+    const download = async (id) => {
         var token = localStorage.getItem('tokenAccess')
         let formData = new FormData()
 
-        formData.append("id_anotasi",id)
+        formData.append("id_anotasi", id)
         const response = await axios({
             method: "post",
             url: 'https://backend-ta.ndne.id/api/get-data',
@@ -69,39 +64,39 @@ const Listmodel = () => {
             },
         }).then(data => data);
 
-        var headers=Object.keys(response.data[0])
-          console.log(headers)
-          const dataToConvert = {
+        var headers = Object.keys(response.data[0])
+        console.log(headers)
+        const dataToConvert = {
             data: response.data,
             filename: 'test download',
             delimiter: ',',
             headers: headers
-          }
-          csvDownload(dataToConvert)
+        }
+        csvDownload(dataToConvert)
     }
     useEffect(() => {
 
         var token = localStorage.getItem('tokenAccess')
-        
+
         console.log(token)
 
         var role = localStorage.getItem('role')
         setRole(role)
-        const getModel = async (event) => {    
-            
-                const response = await axios({
-                    method: "get",
-                    url: "https://backend-ta.ndne.id/api/list_model",
-    
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    },
-                }).then(data => data);
-    
-                console.log(response.data)
-                setData(response.data)
-            
-            
+        const getModel = async (event) => {
+
+            const response = await axios({
+                method: "get",
+                url: "https://backend-ta.ndne.id/api/list_model",
+
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }).then(data => data);
+
+            console.log(response.data)
+            setData(response.data)
+
+
         };
 
 
@@ -111,6 +106,12 @@ const Listmodel = () => {
 
     }, []);
 
+    const handleDownload = (dataset) => {
+        const link = document.createElement('a');
+        link.href = dataset;
+        link.download = dataset.substring(dataset.lastIndexOf('/') + 1);
+        link.click();
+      };
 
     return (
         <>
@@ -122,18 +123,19 @@ const Listmodel = () => {
                     <Box
                         component="main"
                         sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
+
                             width: '100%',
                             height: '100%',
-                            overflowX: 'initial',
+                            overflowX: 'hidden',
+                            position: 'fixed',
+                            backgroundColor: '#f5f5f5',
+                            overflowY: 'auto',
+
                         }}
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
+                        <Container maxWidth="100vh" sx={{
                             mr: 80,
                             p: 2,
                             display: 'flex',
@@ -144,14 +146,14 @@ const Listmodel = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100vh',
-                                            width: 1600,
+                                            width: "80%",
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -166,7 +168,7 @@ const Listmodel = () => {
                                                     color: '#0285F1',
                                                     fontWeight: 600, m: 1, fontSize: 60
                                                 }} variant="h3" gutterBottom>
-                                                    List Penelitian
+                                                    List Model
                                                 </Typography>
 
                                             </div>
@@ -176,7 +178,7 @@ const Listmodel = () => {
                                                     {data.map((item, index) =>
                                                         <>
                                                             <div className='row mb-4'>
-                                                                <Card sx={{ maxWidth: 1500, Height: 200,boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',borderRadius: '10px', }} variant='outlined'>
+                                                                <Card sx={{ maxWidth: 1500, Height: 200, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)', borderRadius: '10px', }} variant='outlined'>
                                                                     <CardContent>
 
                                                                         <div className='container-fluid'>
@@ -185,22 +187,22 @@ const Listmodel = () => {
 
                                                                                     <Typography component="div">
 
-                                                                                        Judul Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{item.title}
+                                                                                        <span className='fw-bold me-1'> Judul Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :&nbsp;{item.title}
                                                                                     </Typography>
                                                                                     <Typography component="div">
-
-                                                                                        Deskripsi   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{item.desc}
+                                                                                        <span className='fw-bold me-1'>  Deskripsi   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>:&nbsp;{item.desc}
+                                                                                       
                                                                                     </Typography>
 
                                                                                     <Typography component="div">
-
-                                                                                        Model Program&nbsp;&nbsp;&nbsp;:&nbsp;tes model
+                                                                                        <span className='fw-bold me-1'>Model Program&nbsp;&nbsp;&nbsp; </span>:&nbsp;tes model
+                                                                                      
                                                                                     </Typography>
                                                                                     <Typography component="div">
-
-                                                                                        Vectorizer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;tes vectorizer
+                                                                                        <span className='fw-bold me-1'> Vectorizer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> :&nbsp;tes vectorizer
+                                                                                      
                                                                                     </Typography>
-                                                                            
+
 
 
 
@@ -208,14 +210,15 @@ const Listmodel = () => {
                                                                                 </div>
 
 
-                                                                                <div className='col-6 d-flex justify-content-end'>
-                                                                                    <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .pickle</Box></button>
-                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button>
-                                                                                    
+                                                                                <div className='col-6 d-flex justify-content-end mt-4'>
+                                                                                    {/* <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .pickle</Box></button>
+                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button> */}
+                                                                                    <button onClick={() => handleDownload(item.model)} type="button" class="  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingLeft: 2, paddingRight: 2 }}>Download .pickle</Box></button>
+                                                                                    <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/` + item.id_anotasi}>Detail</a> </Box></button>
                                                                                     {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
                                                                                         <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
-                                                                                    
-                                                                                    
+
+
                                                                                 </div>
 
 

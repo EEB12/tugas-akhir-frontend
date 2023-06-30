@@ -11,7 +11,7 @@ import Table from '../Component/Table';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Pie } from 'react-chartjs-2';
+import { Pie, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Button from '@mui/material/Button';
 import axios from 'axios';
@@ -23,26 +23,7 @@ import Navbar from '../Component/navbar';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import html2canvas from 'html2canvas';
-const reviews = [
-    {
-        content:
-            "Update: After getting a response from the developer I would change my rating to 0 stars if possible. These guys hide behind confusing and opaque terms and refuse to budge at all. I'm so annoyed that my money has been lost to them! Really terrible customer experience. Original: Be very careful when signing up for a free trial of this app. If you happen to go over they automatically charge you for a full years subscription and refuse to refund. Terrible customer experience and the app is just OK.",
-        userName: 'Andrew Thomas',
-        result: 1,
-    },
-    {
-        content:
-            'Used it for a fair amount of time without any problems. Suddenly then asked me to create an account or log using Google or FB. I used my Google one only to discover everything was gone!',
-        userName: 'Craig Haines',
-        result: -1,
-    },
-    {
-        content:
-            "Your app sucks now!!!!! Used to be good but now doesn't update until I physically open it up and then close it then scroll and then it finally shows what I want to put on the list!!!!!! And I FRIGGEN paid for this garbage!!!!!!!",
-        userName: 'Steven Adkins',
-        result: 1,
-    },
-];
+
 const mdTheme = createTheme();
 
 
@@ -61,6 +42,7 @@ const DetailPenelitian = () => {
     const [modelid, setModelid] = useState('')
     const [preview, setPreview] = React.useState([]);
     const [display, setDisplay] = useState('table');
+    const [chartType, setChartType] = useState('pie');
     const handleClose = () => {
         setOpen(false);
     };
@@ -82,9 +64,9 @@ const DetailPenelitian = () => {
 
     const handleExport = () => {
         const link = document.createElement("a")
-        link.download='chart.png'
-        link.href=chartRef.current.toBase64Image() 
-        link.click()   
+        link.download = 'chart.png'
+        link.href = chartRef.current.toBase64Image()
+        link.click()
     };
     const handlename = (event) => {
         setNamefile(event.target.value)
@@ -137,26 +119,6 @@ const DetailPenelitian = () => {
     }, []);
 
 
-    const reviews = [
-        {
-            content:
-                "Update: After getting a response from the developer I would change my rating to 0 stars if possible. These guys hide behind confusing and opaque terms and refuse to budge at all. I'm so annoyed that my money has been lost to them! Really terrible customer experience. Original: Be very careful when signing up for a free trial of this app. If you happen to go over they automatically charge you for a full years subscription and refuse to refund. Terrible customer experience and the app is just OK.",
-            userName: 'Andrew Thomas',
-            result: 1,
-        },
-        {
-            content:
-                'Used it for a fair amount of time without any problems. Suddenly then asked me to create an account or log using Google or FB. I used my Google one only to discover everything was gone!',
-            userName: 'Craig Haines',
-            result: -1,
-        },
-        {
-            content:
-                "Your app sucks now!!!!! Used to be good but now doesn't update until I physically open it up and then close it then scroll and then it finally shows what I want to put on the list!!!!!! And I FRIGGEN paid for this garbage!!!!!!!",
-            userName: 'Steven Adkins',
-            result: 1,
-        },
-    ];
 
 
     useEffect(() => {
@@ -175,8 +137,27 @@ const DetailPenelitian = () => {
 
     }, [data]);
 
+    const chartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1,
+                },
+            },
+        },
+        legend: { display: false },
 
-
+    };
+    const handleChartTypeChange = (event) => {
+        setChartType(event.target.value);
+    };
+    const uniqueResults = [...new Set(dataBig.map((review) => review.result))];
+    const dataValues = uniqueResults.map((result) =>
+        dataBig.filter((review) => review.result === result).length
+    );
     return (
         <>
             <ThemeProvider theme={mdTheme}>
@@ -268,7 +249,7 @@ const DetailPenelitian = () => {
                                                                     marginLeft: 3,
                                                                     marginTop: 5,
 
-                                                                    width: '170vh',
+                                                                    width: '95%',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
@@ -294,7 +275,7 @@ const DetailPenelitian = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: '170vh',
+                                                                    width: '95%',
                                                                     height: '50px',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
@@ -317,7 +298,7 @@ const DetailPenelitian = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: '170vh',
+                                                                    width: '95%',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
@@ -340,7 +321,7 @@ const DetailPenelitian = () => {
                                                                 <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
-                                                                    width: 1400,
+                                                                    width: '95%',
                                                                     marginBottom: 4,
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
@@ -395,26 +376,59 @@ const DetailPenelitian = () => {
                                                                     {console.log(preview.length, "true")}
 
                                                                 </> : <>
-
+                                                                    <div>
+                                                                        <label htmlFor="chart-type">Chart Type:</label>
+                                                                        <select id="chart-type" onChange={handleChartTypeChange} value={chartType} >
+                                                                            <option value="pie">Pie Chart</option>
+                                                                            <option value="bar">Bar Chart</option>
+                                                                        </select>
+                                                                    </div>
                                                                     <div className='pie-chart-container' style={{}}>
 
-                                                                        <Pie
+                                                                        {chartType === 'pie' ? <Pie
                                                                             ref={chartRef}
                                                                             data={{
-                                                                                labels: ['Positive', 'Negative', 'Neutral'],
+                                                                                labels: uniqueResults,
                                                                                 datasets: [
                                                                                     {
-                                                                                        data: [
-                                                                                            dataBig.filter((review) => review.result === 'positive').length,
-                                                                                            dataBig.filter((review) => review.result === 'negative').length,
-                                                                                            dataBig.filter((review) => review.result === 'neutral').length,
-                                                                                        ],
+                                                                                        data: dataValues,
+
                                                                                         backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                         hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                     },
                                                                                 ],
+
                                                                             }}
-                                                                        />
+                                                                            options={chartOptions}
+                                                                        /> :
+                                                                            <Bar
+                                                                                ref={chartRef}
+                                                                                data={{
+                                                                                    labels: uniqueResults,
+                                                                                    datasets: [
+                                                                                        {   
+                                                                                           
+                                                                                            data: dataValues,
+                                                                                            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                            hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                        },
+                                                                                        
+                                                                                    ],
+                                                                                }}
+                                                                                options={{
+                                                                                    ...chartOptions,
+                                                                                    plugins: {
+                                                                                        legend: {
+                                                                                            display: false,
+                                                                                        },
+                                                                                    },
+                                                                                }}
+                                                                            />
+
+                                                                        }
+
+
+
 
                                                                         <button onClick={handleExport}>Export Chart</button>
                                                                     </div>

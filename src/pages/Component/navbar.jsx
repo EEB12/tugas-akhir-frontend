@@ -93,7 +93,7 @@ const Navbar = () => {
                 {data == '"anotator"' ?
                   <>
                   <li><a class="dropdown-item" href="/list-job">My Job Anotate</a></li>
-                  <li><a class="dropdown-item" href="/new-penelitian">Penelitian Saya</a></li>
+                  <li><a class="dropdown-item" href="/list-mypenelitian">Penelitian Saya</a></li>
                   <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
                    </>
                   :data == '"peneliti"'? <>
@@ -104,8 +104,8 @@ const Navbar = () => {
                   
                   </> : data == '"admin"' ? 
                   <>
-                  <li><a class="dropdown-item" href="/new-penelitian">Manajemen Penelitian</a></li> 
-                  <li><a class="dropdown-item" href="/new-penelitian">Manajemen Program Model</a></li> 
+                  <li><a class="dropdown-item" href="/admin/list-penelitian">Manajemen Penelitian</a></li> 
+                  <li><a class="dropdown-item" href="/list-penelitian">Manajemen Program Model</a></li> 
                   </>
                   : <></>
                   
@@ -187,7 +187,7 @@ const Navbar = () => {
               </Typography>
             </div> : <></>}
           <div>
-            <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-light  account dropdown-toggle"><Box sx={{ color: '#02A9F1', fontWeight: 600, fontSize: 16 }}>Account</Box></button>
+            <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-light  account "><Box sx={{ color: '#02A9F1', fontWeight: 600, fontSize: 16 }}>Account</Box></button>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="/profile">Profile</a></li>
