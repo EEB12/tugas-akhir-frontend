@@ -102,6 +102,7 @@ const MyTable = () => {
                         "Authorization": `Bearer ${token}`,
                     }
                 });
+                console.log("berhasil")
                 swal("Berhasil", "Data berhasil diupdate", "success");
             }catch(error){
                 swal("Error", "Ada kesalahan pada server", "error");
