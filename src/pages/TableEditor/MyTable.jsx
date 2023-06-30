@@ -96,12 +96,17 @@ const MyTable = () => {
             formData.append('file', csvBlob, 'data_result_testing_auto.csv');
             formData.append('id_anotasi', params.id);
 
-
-            const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                }
-            });
+            try{
+                const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    }
+                });
+                swal("Berhasil", "Data berhasil diupdate", "success");
+            }catch(error){
+                swal("Error", "Ada kesalahan pada server", "error");
+            }
+            
         }
         else {
 
@@ -125,12 +130,18 @@ const MyTable = () => {
             formData.append('file', csvBlob, 'data_result_testing_auto.csv');
             formData.append('id_anotasi', 12);
 
-
-            const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                }
-            });
+            try{
+                const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    }
+                });
+                swal("Berhasil", "Data berhasil diupdate", "success");
+            }
+            catch(error){
+                swal("Error", "Ada kesalahan pada proses anotasi", "error");
+            }
+            
 
         }
 
