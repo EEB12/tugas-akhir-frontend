@@ -86,7 +86,7 @@ const Landing = () => {
   return (
     <ThemeProvider theme={mdTheme}>
       <div className="container-fluid p-0">
-        <nav className="navbar navbar-expand-lg navbar-light sticky-top"> 
+        <nav className="navbar navbar-expand-lg navbar-light sticky-top">
           <div className="container px-3">
             <img
               className="img-fluid"
@@ -140,56 +140,6 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* <Box
-        component="main"
-        sx={{
-          backgroundImage: 'url(./Landing.jpg)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'contain',
-          width: '100%',
-          height: '110vh',
-          marginBottom: '50px',
-
-          overflow: 'auto',
-        }}
-      >
-        <Toolbar />
-        <Toolbar />
-        <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-6'>
-              <div className='col-12 triple-dot'>
-                <img className='ms-3  ' src='./Icon-1.png' />
-                <Typography sx={{
-                  color: '#0285F1',
-                  fontWeight: 600, m: 1, fontSize: 60
-                }} variant="h3" gutterBottom>
-                  About Website
-                </Typography>
-
-                <Box sx={{ width: 600, fontWeight: 400, marginTop: 4, marginLeft: 1, fontSize: 28 }}>Website Anotasi Data merupakan website yang menyediakan fitur
-                  anotasi data manual maupun otomatis untuk mahasiswa dalam melakaukan penelitian anotasi data. Website ini mendukung penggunaan model
-                  diberbagai penelitian.</Box>
-
-
-              </div>
-            </div>
-            <div className='col-6'>
-              <img className='hero' src='./Hero-1.png' />
-            </div>
-          </div>
-        </div>
-
-
-
-
-
-
-      </Box> */}
-
       <Box
         component="main"
         sx={{
@@ -210,7 +160,9 @@ const Landing = () => {
           <div className="row">
             <div className="col-12 mt-3">
               <div className="d-flex justify-content-center mt-5">
-                <h1 className="text-xl-center">Apa Saja Fitur yang Disediakan?</h1>
+                <h1 className="text-xl-center">
+                  Apa Saja Fitur yang Disediakan?
+                </h1>
               </div>
             </div>
           </div>
@@ -219,12 +171,15 @@ const Landing = () => {
               <div className="col-md-4 col-12 p-2">
                 <div class="card h-100">
                   <div className="d-flex justify-content-center py-3">
-                    <img className="landing-card-image p-3" src="/card-1.png"/>
+                    <img className="landing-card-image p-3" src="/card-1.png" />
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title text-center px-4">Membuat Penelitian Data</h5>
+                    <h5 class="card-title text-center px-4">
+                      Membuat Penelitian Data
+                    </h5>
                     <p class="card-text text-center px-4">
-                    Peneliti dapat membuat penelitian data di website dengan upload data penelitian ke website
+                      Peneliti dapat membuat penelitian data di website dengan
+                      upload data penelitian ke website
                     </p>
                   </div>
                 </div>
@@ -232,12 +187,15 @@ const Landing = () => {
               <div className="col-md-4 col-12 p-2">
                 <div class="card h-100">
                   <div className="d-flex justify-content-center py-3">
-                    <img className="landing-card-image" src="/card-2.png"/>
+                    <img className="landing-card-image" src="/card-2.png" />
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title text-center px-4">Melakukan Anotasi Data</h5>
+                    <h5 class="card-title text-center px-4">
+                      Melakukan Anotasi Data
+                    </h5>
                     <p class="card-text text-center px-4">
-                    Dapat melakukan upgrade ke anotator. Anotator dapat melakukan proses anotasi data dengan program model
+                      Dapat melakukan upgrade ke anotator. Anotator dapat
+                      melakukan proses anotasi data dengan program model
                     </p>
                   </div>
                 </div>
@@ -245,147 +203,21 @@ const Landing = () => {
               <div className="col-md-4 col-12 p-2">
                 <div class="card h-100">
                   <div className="d-flex justify-content-center py-3">
-                    <img className="landing-card-image" src="/card-1.png"/>
+                    <img className="landing-card-image" src="/card-1.png" />
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title text-center px-4">Export Data Hasil Antotasi</h5>
+                    <h5 class="card-title text-center px-4">
+                      Export Data Hasil Antotasi
+                    </h5>
                     <p class="card-text text-center px-4">
-                      Hasil data penelitian yang telah dianotasi dapat diexport menjadi csv 
+                      Hasil data penelitian yang telah dianotasi dapat diexport
+                      menjadi csv
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* <div className="d-flex row card-group">
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 w-75 ">
-              <div class="col ">
-                <div
-                  class="card w-100"
-                  style={{
-                    width: 500,
-                    height: 330,
-                  }}
-                >
-                  <div className="d-flex justify-content-center mt-4">
-                    <img
-                      src="/card-1.png"
-                      style={{
-                        width: 83,
-                        height: 86,
-                      }}
-                      class=" "
-                      alt="..."
-                    />
-                  </div>
-
-                  <div class="card-body">
-                    <h5 class="card-title text-center">
-                      Membuat Penelitian Data
-                    </h5>
-                    <Box
-                      sx={{
-                        width: 269,
-                        textAlign: "center",
-                        fontWeight: 400,
-                        m: 1,
-                        fontSize: 19,
-                        marginLeft: 9,
-                      }}
-                    >
-                      {" "}
-                      Peneliti dapat membuat penelitian data di website dengan
-                      upload data penelitian ke website
-                    </Box>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div
-                  class="card  w-100"
-                  style={{
-                    width: 500,
-                    height: 330,
-                  }}
-                >
-                  <div className="d-flex justify-content-center mt-4">
-                    <img
-                      src="/card-2.png"
-                      style={{
-                        width: 83,
-                        height: 86,
-                      }}
-                      class="card-img-top"
-                      alt="..."
-                    />
-                  </div>
-
-                  <div class="card-body">
-                    <h5 class="card-title text-center">
-                      Melakukan Anotasi Data
-                    </h5>
-
-                    <Box
-                      sx={{
-                        width: 269,
-                        textAlign: "center",
-                        fontWeight: 400,
-                        m: 1,
-                        fontSize: 19,
-                        marginLeft: 9,
-                      }}
-                    >
-                      {" "}
-                      Dapat melakukan upgrade ke anotator. Anotator dapat
-                      melakukan proses anotasi data dengan program model
-                    </Box>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div
-                  class="card  w-100"
-                  style={{
-                    width: 500,
-                    height: 330,
-                  }}
-                >
-                  <div className="d-flex justify-content-center mt-4">
-                    <img
-                      src="/card-3.png"
-                      style={{
-                        width: 83,
-                        height: 86,
-                      }}
-                      class="card-img-top"
-                      alt="..."
-                    />
-                  </div>
-
-                  <div class="card-body">
-                    <h5 class="card-title text-center">
-                      Export Data Hasil Anotasi
-                    </h5>
-                    <Box
-                      sx={{
-                        width: 269,
-                        textAlign: "center",
-                        fontWeight: 400,
-                        m: 1,
-                        fontSize: 19,
-                        marginLeft: 9,
-                      }}
-                    >
-                      {" "}
-                      Hasil data penelitian yang telah dianotasi dapat diexport
-                      menjadi csv
-                    </Box>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </Box>
 
@@ -402,14 +234,57 @@ const Landing = () => {
           backgroundSize: "cover",
           backgroundPosition: "contain",
           width: "100%",
-          height: "53vh",
-
           overflow: "hidden",
         }}
       >
-        <div>
-          <img src="/footer.png" alt="..." />
-        </div>
+          <footer
+            className="footer row row-cols-1 row-cols-sm-2 row-cols-md-4 p-5 text-start text-light" 
+            style={{background:'linear-gradient(90deg, #02A9F1, #00DEF3)'}}
+          >
+            <div class="col mb-2 px-5">
+              <h5>Head Office</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                  <h5 class="nav-link p-0 text-light">
+                  Kampus ITS Keputih, Sukolilo, Surabayaa 60111, Jawa Timur
+                  </h5>
+                </li>
+              </ul>
+            </div>
+            <div class="col mb-2 px-5">
+              <h5>Our Partners</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                  <a href="#" class="nav-link p-0 text-light">
+                  Wallts Official Store
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col mb-2 px-5">
+              <h5>Phone</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                  <a href="#" class="nav-link p-0 text-light">
+                  +62813-3412-6517
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col mb-2 px-5">
+              <h5>Email</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                  <h5 class="nav-link p-0 text-light">
+                    rickysupriyanto.19051@mhs.its.ac.id
+                  </h5>
+                  <h5 class="nav-link p-0 text-light">
+                    taqarra.19051@mhs.its.ac.id
+                  </h5>
+                </li>
+              </ul>
+            </div>
+          </footer>
       </Box>
     </ThemeProvider>
   );
