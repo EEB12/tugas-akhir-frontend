@@ -97,11 +97,37 @@ const ManagePenelitian = () => {
             }).then(data => data);
 
             console.log(Object.keys(response?.data[0]))
-            setData(response.data)
+            console.log(delete response.data[0].dataset)
+            console.log(response.data)
+            const reorderedData = response.data.map(item => {
+                const { id_anotasi, title, type_anotasi, author, anotator, desc, status, ...rest } = item;
+                
+                return {
+                  id_anotasi,
+                  title,
+                  type_anotasi,
+                  author,
+                  anotator,
+                  desc,
+                  status,
+                  ...rest
+                };
+              });
+              
 
+            console.log(reorderedData[0][0]);
+           
+            console.log(response.data)
             // var test = getHeadings(response?.data)
             // console.log(test)
-            setHeader( Object.keys(response?.data[0]) )
+
+            const keysObject = {};
+
+            console.log(Object.keys(reorderedData[0]))
+            console.log(reorderedData)
+            setData(reorderedData)
+            console.log(keysObject);
+            setHeader(Object.keys(reorderedData[0]))
         };
 
 
@@ -113,7 +139,7 @@ const ManagePenelitian = () => {
 
     useEffect(() => {
 
-        
+
 
     }, [data]);
 

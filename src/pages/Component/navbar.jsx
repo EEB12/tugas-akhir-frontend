@@ -179,7 +179,7 @@ const Navbar = () => {
                   </Typography>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="new-penelitian">Detail User</a></li>
+                  <li><a class="dropdown-item" href="/admin/list-user">Detail User</a></li>
                   {/* <li><a class="dropdown-item" href="#">List Model</a></li> */}
 
                 </ul>

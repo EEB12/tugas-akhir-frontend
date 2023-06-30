@@ -67,7 +67,12 @@ const Login = () => {
                     localStorage.setItem('tokenAccess', response['tokenAccess']);
                     localStorage.setItem('username', JSON.stringify(response['username']));
                     localStorage.setItem('role', JSON.stringify(response['role']));
-                    window.location.href = "/list-penelitian";
+                    if(JSON.stringify(response['role']) === '"admin"'){
+                        window.location.href = "/admin/list-user";
+                    }else{
+                        window.location.href = "/list-mypenelitian";
+                    }
+                 
                 });
         } else {
             swal("Failed", "Log in failed", "error");

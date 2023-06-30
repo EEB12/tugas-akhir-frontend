@@ -21,6 +21,7 @@ import ListUser from './pages/ListUser/ListUser';
 import MyTable from './pages/TableEditor/MyTable';
 import ListMypenelitian from './pages/list_myPenelitian/ListMypenelitian';
 import ManagePenelitian from './pages/Manage_penelitian/ManagePenelitian';
+import EditPenelitian from './pages/EditUser/EditPenelitian';
 const RouteApp = () => {
   return (
     <BrowserRouter>
@@ -46,6 +47,7 @@ const RouteApp = () => {
         <Route path='/admin/list-penelitian' element={<ManagePenelitian/>}/>
         <Route path='/mytable/:id' element={<MyTable/>}/>
         <Route path='/list-mypenelitian' element={<ListMypenelitian/>}/>
+        <Route path='/admin/editUser/:id' element={<EditPenelitian/>}/>
       </Routes>
     </BrowserRouter>
   );
