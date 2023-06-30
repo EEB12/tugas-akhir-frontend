@@ -94,6 +94,37 @@ const NewPenelitian = () => {
         // console.log(formData.get('file'))
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
+        try {
+            const response = await axios({
+                method: "post",
+                url: "https://backend-ta.ndne.id/api/upload_penelitian",
+                data: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }).then(data => data);;
+
+            console.log(response.data.data)
+
+            const preview = response.data.data.slice(0, 5)
+
+            setdata(preview)
+            handleClose()
+            if (response.data.message == 'Data created successfully') {
+                swal("Success", "Data Penelitian berhasil diupload", "success", {
+                    buttons: false,
+                    timer: 2000,
+                })
+                    .then((value) => {
+
+                        window.location.href = `/list-anotator/${response.data.id_anotasi}`;
+                    });
+            } else {
+                swal("Failed", "Model Upload Failed", "error");
+            }
+        } catch (error) {
+            swal("Failed", "Model Upload Failed", "error");
+        }
         const response = await axios({
             method: "post",
             url: "https://backend-ta.ndne.id/api/upload_penelitian",
@@ -170,7 +201,7 @@ const NewPenelitian = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item  xs={12} md={12} lg={12} >
+                                <Grid item xs={12} md={12} lg={12} >
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
@@ -204,7 +235,7 @@ const NewPenelitian = () => {
                                                             p: 2,
                                                             display: 'flex',
 
-                                                           
+
                                                             height: '100%',
                                                             width: '100%',
                                                             pb: 10,
@@ -231,13 +262,13 @@ const NewPenelitian = () => {
                                                                     width: '95%',
                                                                     marginBottom: 4
                                                                 }}
-                                                                inputProps={{
-                                                                    style: {
-                                                                        marginTop: 6,
-                                                                        fontSize: '20px', // Adjust the font size as needed
-                                                                    },
-                                                                }}
-                                                                onChange={handleChangeTitle} id="standard-basic" variant="standard" />
+                                                                    inputProps={{
+                                                                        style: {
+                                                                            marginTop: 6,
+                                                                            fontSize: '20px', // Adjust the font size as needed
+                                                                        },
+                                                                    }}
+                                                                    onChange={handleChangeTitle} id="standard-basic" variant="standard" />
                                                                 <Typography sx={{
 
                                                                     fontWeight: 600, m: 1, fontSize: 35
@@ -268,16 +299,16 @@ const NewPenelitian = () => {
                                                                 </Typography>
                                                                 <TextField
                                                                     id="filled-multiline-static"
-                                                                   
+
                                                                     multiline
                                                                     rows={2}
-                                                                    
-                                                                  onChange={handleDesc}
+
+                                                                    onChange={handleDesc}
                                                                     sx={{
                                                                         marginLeft: 3,
                                                                         width: '95%',
                                                                         marginBottom: 4,
-                                                                        backgroundColor:'#FFFFFF'
+                                                                        backgroundColor: '#FFFFFF'
                                                                     }}
                                                                 />
                                                                 <Box sx={{
