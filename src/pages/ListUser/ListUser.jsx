@@ -190,6 +190,8 @@ const ListUser = () => {
 
                                                 <div className='col'></div>
                                                 <div className='col-10'>
+                                             
+
                                                     <TableAdmin theadData={header} tbodyData={data} flag="users">
 
                                                     </TableAdmin>

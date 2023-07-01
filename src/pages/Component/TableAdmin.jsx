@@ -9,13 +9,23 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect, useParams } from "react";
 import Divider from '@mui/material/Divider';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 export default function TableAdmin({ theadData, tbodyData, flag }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
     const [id, setId] = useState('');
+    const [title, setTitle] = useState('');
+
+
+    const handleChange = (event) => {
+        setRole(event.target.value);
+    };
     useEffect(() => {
 
     }, [tbodyData]);
@@ -39,11 +49,18 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     }
 
     const openModal = (row) => {
+        setTitle("Edit")
         setSelectedRow(row);
         console.log(row)
         setUsername(row.name); // Set the initial value of the username field
         setEmail(row.email);
-        setId(row.id) 
+        setId(row.id)
+        setIsModalOpen(true);
+    };
+    const tambahModal = (row) => {
+
+
+        setTitle("Tambah")
         setIsModalOpen(true);
     };
 
@@ -62,8 +79,8 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
         const response = await axios({
             method: "post",
-            url: `https://backend-ta.ndne.id/api/update_user_admin/15`,
-
+            url: `https://backend-ta.ndne.id/api/update_user_admin/${id}`,
+            data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -73,175 +90,196 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setIsModalOpen(false);
         setUsername('');
         setEmail('');
+        window.location.reload();
     };
 
+
+    const tambahFormSubmit = async (e) => {
+        e.preventDefault();
+        var token = localStorage.getItem('tokenAccess')
+        // Perform any necessary actions with the form data
+        let formData = new FormData()
+
+        formData.append("username", username)
+        formData.append("email", email)
+        formData.append("password", password)
+        formData.append("role", role)
+
+
+        const response = await axios({
+            method: "post",
+            url: `https://backend-ta.ndne.id/api/add-user-in-admin`,
+            data: formData,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(data => data);
+        // Close the modal and reset the form fields
+        setIsModalOpen(false);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setRole('');
+        window.location.reload();
+    };
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setUsername('');
         setEmail('');
-      };
+    };
     return (
-        <table className='fl-tableAdmin'>
+        <>   <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button>
+            <table className='fl-tableAdmin'>
 
-            {/* 
-            <colgroup>
-                <col span="1" style={{width: "20%"}} />
-                <col span="1"style={{width: "50%"}} />
-                <col span="1" style={{width: "10%"}} />
-                <col span="1" style={{width: "10%"}} />
-            </colgroup> */}
-            <thead>
-                <tr>
-                    {theadData.map(heading => {
 
-                        return <>
-                            <th style={{ width: "20%" }} key={heading}>{heading}</th>
-                        </>
-                    })}
-                    <th style={{ width: "10%" }} ></th>
-                    <th style={{ width: "10%" }} ></th>
-                </tr>
-            </thead>
-            <tbody>
-                {tbodyData.map((row, index) => {
-                    return <tr key={index}>
-                        {theadData.map((key, index) => {
-                            return <td className='ml-5' key={row[key]}>{row[key]}</td>
+                <thead>
+                    <tr>
+                        {theadData.map(heading => {
+
+                            return <>
+                                <th style={{ width: "20%" }} key={heading}>{heading}</th>
+                            </>
                         })}
+                        <th style={{ width: "10%" }} ></th>
+                        <th style={{ width: "10%" }} ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tbodyData.map((row, index) => {
+                        return <tr key={index}>
+                            {theadData.map((key, index) => {
+                                return <td className='ml-5' key={row[key]}>{row[key]}</td>
+                            })}
 
-                        <td>
-                            {flag === 'users' ? <Button onClick={() => openModal(row)} >{"Edit"}</Button> : 
-                            <Button href={`/admin/editUser/${row.id_anotasi}`} >{"Edit"}</Button>}
+                            <td>
+                                {flag === 'users' ? <Button onClick={() => openModal(row)} >{"Edit"}</Button> :
+                                    <Button href={`/admin/editUser/${row.id_anotasi}`} >{"Edit"}</Button>}
 
-                        </td>
-                        <td>
+                            </td>
+                            <td>
 
-                            <Button onClick={() => handlerdelete(row.id_anotasi)}><img src='/Trash.png' /></Button>
-                        </td>
-                    </tr>;
-                })}
-            </tbody>
-            <Modal
-                open={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                aria-labelledby="modal-title"
-            >
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: 700,
-                        modal:500,
-                        bgcolor: 'background.paper',
-                        boxShadow: 24,
-                        p: 4,
-                    }}
+                                <Button onClick={() => handlerdelete(row.id_anotasi)}><img src='/Trash.png' /></Button>
+                            </td>
+                        </tr>;
+                    })}
+                </tbody>
+                <Modal
+                    open={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    aria-labelledby="modal-title"
                 >
-                    <Typography id="modal-title" variant="h5" component="h2">
-                        Edit Modal
-                    </Typography>
-                    <Divider sx={{ bgcolor: "secondary.light" }} />
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 700,
+                            modal: 500,
+                            bgcolor: 'background.paper',
+                            boxShadow: 24,
+                            p: 4,
+                        }}
+                    >
+                        <Typography id="modal-title" variant="h5" component="h2">
+                            {title} User
+                        </Typography>
+                        <Divider sx={{ bgcolor: "secondary.light" }} />
 
-                    {/* Form */}
-                    <form className='mt-4' onSubmit={handleFormSubmit}>
+                        {/* Form */}
+
                         <div>
-                            {/* <TextField
-                                label="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                fullWidth
-                                required
-                            /> */}
 
                             <TextField sx={{
-                                
-
                                 width: '95%',
                                 marginBottom: 4,
                                 "& .MuiInputBase-input.Mui-disabled": {
                                     WebkitTextFillColor: "#000000",
-                                }
-
-
+                                },
+                                marginTop: 2,
                             }}
-                            InputLabelProps={{ shrink: true }}
+                                InputLabelProps={{ shrink: true }}
                                 inputProps={{
                                     style: {
                                         marginTop: 5,
                                         fontSize: '20px', // Adjust the font size as needed
                                     },
                                 }}
-                                onChange={(e) => setUsername(e.target.value)}id="standard-basic"  value={username} label='Username' variant="standard"  />
+                                onChange={(e) => setUsername(e.target.value)} id="standard-basic" value={username} label='Username' variant="standard" />
                         </div>
 
                         <div>
-                            {/* <TextField
-                                label="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                fullWidth
-                                required
-                            /> */}
-
                             <TextField sx={{
-                                
-
                                 width: '95%',
                                 marginBottom: 4,
                                 "& .MuiInputBase-input.Mui-disabled": {
                                     WebkitTextFillColor: "#000000",
                                 }
-
-
                             }}
-                            InputLabelProps={{ shrink: true }}
+                                InputLabelProps={{ shrink: true }}
                                 inputProps={{
                                     style: {
                                         marginTop: 5,
                                         fontSize: '20px', // Adjust the font size as needed
                                     },
                                 }}
-                                onChange={(e) => setEmail(e.target.value)}id="standard-basic" label='Email' variant="standard"  />
+                                onChange={(e) => setEmail(e.target.value)} id="standard-basic" label='Email' variant="standard" />
                         </div>
-
-
                         <div>
-                            {/* <TextField
-                                label="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                fullWidth
-                                required
-                            /> */}
-
                             <TextField sx={{
-                                
-
                                 width: '95%',
                                 marginBottom: 4,
                                 "& .MuiInputBase-input.Mui-disabled": {
                                     WebkitTextFillColor: "#000000",
                                 }
-
-
                             }}
-                            InputLabelProps={{ shrink: true }}
+                                InputLabelProps={{ shrink: true }}
                                 inputProps={{
                                     style: {
                                         marginTop: 5,
                                         fontSize: '20px', // Adjust the font size as needed
                                     },
                                 }}
-                                onChange={(e) => setPassword(e.target.value)}id="standard-basic" label='Password' variant="standard"  />
+                                onChange={(e) => setPassword(e.target.value)} id="standard-basic" label='Password' variant="standard" />
                         </div>
-                        
-                        <Button type="submit">Save</Button>
-                        <Button onClick={handleCloseModal}>Close</Button> 
-                    </form>
-                </Box>
-            </Modal>
-        </table>
+
+                        <div>
+
+
+                            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                                Role
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={role}
+                                sx={{
+
+                                    width: 200,
+                                    height: 40,
+                                    marginTop: 1,
+                                    marginBottom: 1
+                                }}
+
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={"PENELITI"}>Peneliti</MenuItem>
+                                <MenuItem value={"ANOTATOR"}>Anotator</MenuItem>
+
+                            </Select>
+                        </div>
+                        <div className='row mt-3'>
+                            {title === 'Tambah' ?  <Button className="w-25 ms-1" type="button" variant="contained" onClick={tambahFormSubmit}>Save</Button>:  <Button className="w-25 ms-1" type="button" variant="contained" onClick={handleFormSubmit}>Save</Button>}
+
+                            <Button className="w-25 ms-4" color="error" type="button" variant="contained" onClick={handleCloseModal}>Close</Button>
+                        </div>
+
+
+                    </Box>
+                </Modal>
+            </table>
+        </>
+
     );
 }
