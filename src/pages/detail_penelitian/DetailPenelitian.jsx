@@ -332,30 +332,33 @@ const DetailPenelitian = () => {
                                                                     },
                                                                 }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.anotator} />
 
-                                                                <section class="btn-group">
+                                                                {data.status === 'progress' ? 
+                                                                <></>
+                                                               : <> <section class="btn-group">
 
-                                                                    <input type="radio"
-                                                                        class="btn-check"
-                                                                        name="btnradio"
-                                                                        id="gfg2"
-                                                                        checked={display === 'table'}
-                                                                        onChange={handleInputChange} />
-                                                                    <label class="btn btn-outline-primary"
-                                                                        for="gfg2">
-                                                                        Table
-                                                                    </label>
+                                                               <input type="radio"
+                                                                   class="btn-check"
+                                                                   name="btnradio"
+                                                                   id="gfg2"
+                                                                   checked={display === 'table'}
+                                                                   onChange={handleInputChange} />
+                                                               <label class="btn btn-outline-primary"
+                                                                   for="gfg2">
+                                                                   Table
+                                                               </label>
 
-                                                                    <input type="radio"
-                                                                        class="btn-check"
-                                                                        name="btnradio"
-                                                                        id="gfg3"
-                                                                        checked={display === 'chart'}
-                                                                        onChange={handleInputChange} />
-                                                                    <label class="btn btn-outline-primary"
-                                                                        for="gfg3">
-                                                                        Chart
-                                                                    </label>
-                                                                </section>
+                                                               <input type="radio"
+                                                                   class="btn-check"
+                                                                   name="btnradio"
+                                                                   id="gfg3"
+                                                                   checked={display === 'chart'}
+                                                                   onChange={handleInputChange} />
+                                                               <label class="btn btn-outline-primary"
+                                                                   for="gfg3">
+                                                                   Chart
+                                                               </label>
+                                                           </section></>}
+
 
                                                                 <Typography sx={{
 
@@ -406,13 +409,13 @@ const DetailPenelitian = () => {
                                                                                 data={{
                                                                                     labels: uniqueResults,
                                                                                     datasets: [
-                                                                                        {   
-                                                                                           
+                                                                                        {
+
                                                                                             data: dataValues,
                                                                                             backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                             hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                         },
-                                                                                        
+
                                                                                     ],
                                                                                 }}
                                                                                 options={{
@@ -430,9 +433,9 @@ const DetailPenelitian = () => {
 
 
 
-                                                                        <button onClick={handleExport}>Export Chart</button>
-                                                                    </div>
 
+                                                                    </div>
+                                                                    <Button onClick={handleExport}>Export Chart</Button>
 
                                                                 </>}
 
