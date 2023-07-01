@@ -28,7 +28,7 @@ const mdTheme = createTheme();
 const Navbar = () => {
   const [data, setData] = useState('');
   var role = localStorage.getItem('role')
-  
+
   useEffect(() => {
 
     var token = localStorage.getItem('role')
@@ -53,6 +53,32 @@ const Navbar = () => {
         </Typography>
 
         <Box sx={{ display: 'flex', flexGrow: 1 }}>
+
+          {data == '"admin"' ?
+            <Typography
+              component="h1"
+              variant="h6"
+              color="text.primary"
+              noWrap
+              sx={{ marginRight: 10, marginTop: 1 }}
+            >
+              <a href='/admin/list-user' >Home</a>
+
+            </Typography>
+            :
+
+            <Typography
+              component="h1"
+              variant="h6"
+              color="text.primary"
+              noWrap
+              sx={{ marginRight: 10, marginTop: 1 }}
+            >
+              <a href='/admin/list-user' >Home</a>
+
+            </Typography>
+
+          }
           <Typography
             component="h1"
             variant="h6"
@@ -89,30 +115,30 @@ const Navbar = () => {
                 </Typography>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                
+
                 {data == '"anotator"' ?
                   <>
-                  <li><a class="dropdown-item" href="/list-job">My Job Anotate</a></li>
-                  <li><a class="dropdown-item" href="/list-mypenelitian">Penelitian Saya</a></li>
-                  <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
-                   </>
-                  :data == '"peneliti"'? <>
-                  
-                  <li><a class="dropdown-item" href="/list-mypenelitian">Penelitian Saya</a></li>
-                  <li><a class="dropdown-item" href="/list-penelitian">Progress Penelitian</a></li>
-                  <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
-                  
-                  </> : data == '"admin"' ? 
-                  <>
-                  <li><a class="dropdown-item" href="/admin/list-penelitian">Manajemen Penelitian</a></li> 
-                  <li><a class="dropdown-item" href="/list-penelitian">Manajemen Program Model</a></li> 
+                    <li><a class="dropdown-item" href="/list-job">My Job Anotate</a></li>
+                    <li><a class="dropdown-item" href="/list-mypenelitian">Penelitian Saya</a></li>
+                    <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
                   </>
-                  : <></>
-                  
-                  
-                  }
+                  : data == '"peneliti"' ? <>
 
-                
+                    <li><a class="dropdown-item" href="/list-mypenelitian">Penelitian Saya</a></li>
+                    <li><a class="dropdown-item" href="/list-penelitian">Progress Penelitian</a></li>
+                    <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
+
+                  </> : data == '"admin"' ?
+                    <>
+                      <li><a class="dropdown-item" href="/admin/list-penelitian">Manajemen Penelitian</a></li>
+                      <li><a class="dropdown-item" href="/list-penelitian">Manajemen Program Model</a></li>
+                    </>
+                    : <></>
+
+
+                }
+
+
               </ul>
 
             </Typography>
@@ -145,9 +171,9 @@ const Navbar = () => {
                   </Typography>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="list-model">Model Saya</a></li>
-                  <li><a class="dropdown-item" href="list-model">List Model</a></li>
-                  <li><a class="dropdown-item" href="new-model">Buat Model</a></li>
+                  <li><a class="dropdown-item" href="/list-model">Model Saya</a></li>
+                  <li><a class="dropdown-item" href="/list-model">List Model</a></li>
+                  <li><a class="dropdown-item" href="/new-model">Buat Model</a></li>
 
                 </ul>
 
