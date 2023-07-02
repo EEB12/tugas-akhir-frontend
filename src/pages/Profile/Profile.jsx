@@ -34,9 +34,10 @@ const Profile = () => {
 
     const [data, setData] = useState([]);
 
-    const [namefile, setNamefile] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [NIK, setNIK] = useState('')
 
-    const [preview, setPreview] = React.useState([]);
 
 
     function stringToColor(string) {
@@ -69,21 +70,22 @@ const Profile = () => {
             children: `${name.split(' ')[0][0]}`,
         };
     }
-    const handleChangeTitle = (event) => {
-        setNamefile(event.target.value);
-    };
 
 
 
     const handlename = (event) => {
-        setNamefile(event.target.value)
+        setName(event.target.value)
+    }
+    const handlemail = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const handleNIK = (event) => {
+        setNIK(event.target.value)
     }
 
 
-    const handleSubmit = async () => {
 
-
-    };
 
     useEffect(() => {
         var token = localStorage.getItem('tokenAccess')
@@ -105,6 +107,8 @@ const Profile = () => {
 
             // console.log(response.data[0])
             setData(response.data)
+            setName(response.data.username)
+            setEmail(response.data.email)
         };
 
 
@@ -117,12 +121,42 @@ const Profile = () => {
 
 
 
-    useEffect(() => {
-        // Update the document title using the browser API
-
-    }, [preview]);
 
 
+    const handleSubmit = async () => {
+        // Create a form and post it to server
+        let formData = new FormData()
+        
+        formData.append("username", name)
+        formData.append("email", email)
+        
+        
+        var token = localStorage.getItem('tokenAccess')
+        console.log(token)
+        try {
+            const response = await axios({
+                method: "post",
+                url: "https://backend-ta.ndne.id/api/update_user",
+                data: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            }).then(data => data);;
+
+            console.log(response.data.data)
+
+           
+            swal("Success", "Profile Berhasil di update", "success", {
+                buttons: false,
+                timer: 6000,
+            })
+            window.location.href = `/list-penelitian`;
+           
+        } catch (error) {
+            swal("Failed", error.response.message, "error");
+        }
+    }
 
 
     return (
@@ -221,7 +255,7 @@ const Profile = () => {
                                                                     Nama Pengguna
                                                                 </Typography>
 
-                                                                <TextField disabled sx={{
+                                                                <TextField sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: '95%',
@@ -229,7 +263,14 @@ const Profile = () => {
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.username} />
+                                                                }}
+                                                                    inputProps={{
+                                                                        style: {
+                                                                            marginTop: 6,
+                                                                            fontSize: '20px', // Adjust the font size as needed
+                                                                        },
+                                                                    }}
+                                                                    onChange={handlename} id="standard-basic" variant="standard" value={name} />
 
                                                                 <Typography sx={{
 
@@ -238,7 +279,12 @@ const Profile = () => {
                                                                     Email
                                                                 </Typography>
 
-                                                                <TextField disabled sx={{
+                                                                <TextField inputProps={{
+                                                                    style: {
+                                                                        marginTop: 6,
+                                                                        fontSize: '20px', // Adjust the font size as needed
+                                                                    },
+                                                                }} sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: '95%',
@@ -246,17 +292,22 @@ const Profile = () => {
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.email} />
+                                                                }} onChange={handlemail} id="standard-basic" variant="standard" value={email} />
 
 
-                                                                <Typography sx={{
+                                                                <Typography inputProps={{
+                                                                    style: {
+                                                                        marginTop: 6,
+                                                                        fontSize: '20px', // Adjust the font size as needed
+                                                                    },
+                                                                }} sx={{
 
                                                                     fontWeight: 600, m: 1, fontSize: 35
                                                                 }} variant="h3" gutterBottom>
                                                                     NIK/NRP
                                                                 </Typography>
 
-                                                                <TextField disabled sx={{
+                                                                <TextField sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: '95%',
@@ -264,11 +315,15 @@ const Profile = () => {
                                                                     "& .MuiInputBase-input.Mui-disabled": {
                                                                         WebkitTextFillColor: "#000000",
                                                                     }
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value={data.nrp_nik} />
+                                                                }} onChange={handleNIK} id="standard-basic" variant="standard" value={data.nrp_nik} />
 
 
 
 
+                                                            </div>
+                                                            <div className='row mb-5'>
+
+                                                                <Button type="button" variant="contained" onClick={handleSubmit} className="ms-2 mt-3 w-25">Submit</Button>
                                                             </div>
 
 

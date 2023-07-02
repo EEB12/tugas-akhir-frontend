@@ -21,7 +21,9 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     const [role, setRole] = useState('');
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
-
+    const [isModelOpen, setIsModelOpen] = useState(false);
+    const [modelTitle, setModelTitle] = useState('');
+    const [desc, setDesc] = useState('');
 
     const handleChange = (event) => {
         setRole(event.target.value);
@@ -57,11 +59,23 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setId(row.id)
         setIsModalOpen(true);
     };
+
+    const openModel = (row) => {
+        setTitle("Edit")
+        setSelectedRow(row);
+     
+        setModelTitle(row.title)
+        setDesc(row.desc)
+        setId(row.id)
+        setIsModelOpen(true);
+    };
     const tambahModal = (row) => {
 
 
         setTitle("Tambah")
+       
         setIsModalOpen(true);
+
     };
 
     const handleFormSubmit = async (e) => {
@@ -123,10 +137,45 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setRole('');
         window.location.reload();
     };
+
+    const submitModelEdit = async (e) => {
+        e.preventDefault();
+        var token = localStorage.getItem('tokenAccess')
+        // Perform any necessary actions with the form data
+        let formData = new FormData()
+
+        formData.append("title", modelTitle)
+        formData.append("desc", desc)
+       
+
+
+        const response = await axios({
+            method: "post",
+            url: `https://backend-ta.ndne.id/api/update_model/${id}`,
+            data: formData,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(data => data);
+        // Close the modal and reset the form fields
+        setIsModalOpen(false);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setRole('');
+        window.location.reload();
+    };
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setUsername('');
         setEmail('');
+    };
+
+    const handleCloseModel = () => {
+        setIsModelOpen(false);
+        setDesc('');
+        setModelTitle('');
     };
     return (
         <>   <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button>
@@ -153,13 +202,14 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                             })}
 
                             <td>
-                                {flag === 'users' ? <Button onClick={() => openModal(row)} >{"Edit"}</Button> :
-                                    <Button href={`/admin/editUser/${row.id_anotasi}`} >{"Edit"}</Button>}
+                                {flag === 'users' ? <Button onClick={() => openModal(row)} >{"Edit"}</Button> : flag === 'delete_penelitian' ?
+                                    <Button href={`/admin/editUser/${row.id_anotasi}`} >{"Edit"}</Button> : <>  <Button onClick={() => openModel(row)} >{"Edit kah"}</Button></>}
 
                             </td>
                             <td>
+                                {flag === 'users' ? <Button onClick={() => handlerdelete(row.id)}><img src='/Trash.png' /></Button> : flag == 'delete_penelitian' ?
+                                    <Button onClick={() => handlerdelete(row.id_anotasi)}><img src='/Trash.png' /></Button> : <> <Button onClick={() => handlerdelete(row.id)}><img src='/Trash.png' /></Button></>}
 
-                                <Button onClick={() => handlerdelete(row.id_anotasi)}><img src='/Trash.png' /></Button>
                             </td>
                         </tr>;
                     })}
@@ -182,6 +232,8 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                             p: 4,
                         }}
                     >
+
+                        { }
                         <Typography id="modal-title" variant="h5" component="h2">
                             {title} User
                         </Typography>
@@ -270,9 +322,85 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                             </Select>
                         </div>
                         <div className='row mt-3'>
-                            {title === 'Tambah' ?  <Button className="w-25 ms-1" type="button" variant="contained" onClick={tambahFormSubmit}>Save</Button>:  <Button className="w-25 ms-1" type="button" variant="contained" onClick={handleFormSubmit}>Save</Button>}
+                            {title === 'Tambah' ? <Button className="w-25 ms-1" type="button" variant="contained" onClick={tambahFormSubmit}>Save</Button> : <Button className="w-25 ms-1" type="button" variant="contained" onClick={handleFormSubmit}>Save</Button>}
 
                             <Button className="w-25 ms-4" color="error" type="button" variant="contained" onClick={handleCloseModal}>Close</Button>
+                        </div>
+
+
+                    </Box>
+                </Modal>
+
+                                {/* model editor */}
+                <Modal
+                    open={isModelOpen}
+                    onClose={() => setIsModelOpen(false)}
+                    aria-labelledby="modal-title"
+                >
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 700,
+                            modal: 500,
+                            bgcolor: 'background.paper',
+                            boxShadow: 24,
+                            p: 4,
+                        }}
+                    >
+
+                        { }
+                        <Typography id="modal-title" variant="h5" component="h2">
+                            Edit Model
+                        </Typography>
+                        <Divider sx={{ bgcolor: "secondary.light" }} />
+
+                        {/* Form */}
+
+                        <div>
+
+                            <TextField sx={{
+                                width: '95%',
+                                marginBottom: 4,
+                                "& .MuiInputBase-input.Mui-disabled": {
+                                    WebkitTextFillColor: "#000000",
+                                },
+                                marginTop: 2,
+                            }}
+                                InputLabelProps={{ shrink: true }}
+                                inputProps={{
+                                    style: {
+                                        marginTop: 5,
+                                        fontSize: '20px', // Adjust the font size as needed
+                                    },
+                                }}
+                                onChange={(e) => setModelTitle(e.target.value)} id="standard-basic" value={modelTitle} label='Title' variant="standard" />
+                        </div>
+
+                        <div>
+                            <TextField sx={{
+                                width: '95%',
+                                marginBottom: 4,
+                                "& .MuiInputBase-input.Mui-disabled": {
+                                    WebkitTextFillColor: "#000000",
+                                }
+                            }}
+                                InputLabelProps={{ shrink: true }}
+                                inputProps={{
+                                    style: {
+                                        marginTop: 5,
+                                        fontSize: '20px', // Adjust the font size as needed
+                                    },
+                                }}
+                                onChange={(e) => setDesc(e.target.value)} value={desc} id="standard-basic" label='Deskripsi' variant="standard" />
+                        </div>
+                       
+                        <div className='row mt-3'>
+                        <Button className="w-25 ms-1" type="button" variant="contained" onClick={submitModelEdit}>Save</Button> 
+
+                            <Button className="w-25 ms-4" color="error" type="button" variant="contained" onClick={handleCloseModel}>Close</Button>
                         </div>
 
 

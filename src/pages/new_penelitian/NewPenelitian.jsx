@@ -123,33 +123,11 @@ const NewPenelitian = () => {
         } catch (error) {
             swal("Failed", "Model Upload Failed", "error");
         }
-        const response = await axios({
-            method: "post",
-            url: "https://backend-ta.ndne.id/api/upload_penelitian",
-            data: formData,
-            headers: {
-                "Authorization": `Bearer ${token}`,
-            },
-        }).then(data => data);;
+       
 
-        console.log(response.data.data)
-
-        const preview = response.data.data.slice(0, 5)
-
-        setdata(preview)
-        handleClose()
-        if (response.data.message == 'Data created successfully') {
-            swal("Success", "Data Penelitian berhasil diupload", "success", {
-                buttons: false,
-                timer: 2000,
-            })
-                .then((value) => {
-
-                    window.location.href = `/list-anotator/${response.data.id_anotasi}`;
-                });
-        } else {
-            swal("Failed", "Model Upload Failed", "error");
-        }
+      
+      
+        
 
     }
 
