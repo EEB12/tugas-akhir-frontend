@@ -23,6 +23,7 @@ import ListMypenelitian from './pages/list_myPenelitian/ListMypenelitian';
 import ManagePenelitian from './pages/Manage_penelitian/ManagePenelitian';
 import EditPenelitian from './pages/EditUser/EditPenelitian';
 import ManageModel from './pages/Manage_model/ManageModel';
+import DetailModel from './pages/detail_model/DetailModel';
 const RouteApp = () => {
   return (
     <BrowserRouter>

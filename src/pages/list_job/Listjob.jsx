@@ -96,6 +96,23 @@ const Listjob = () => {
     }, []);
 
 
+    useEffect(() => {
+        // Calculate the height based on the number of cards
+        const calculateHeight = () => {
+          const cardHeight = 200; // Height of each card in pixels
+          const cardCount = data.length; // Number of cards
+          const extraHeight = 5; // Additional height in pixels
+          
+          const colHeight = cardHeight * cardCount + extraHeight;
+          document.documentElement.style.setProperty('--col-height', `${colHeight}px`);
+        };
+    
+        calculateHeight();
+    
+        // Recalculate the height whenever the data changes
+        window.addEventListener('resize', calculateHeight);
+        return () => window.removeEventListener('resize', calculateHeight);
+      }, [data]);
 
     return (
         <>
@@ -110,20 +127,22 @@ const Listjob = () => {
 
                             width: '100%',
                             height: '100%',
-                            overflowX: 'initial',
+                            overflowX: 'hidden',
                             position: 'fixed',
                             backgroundColor: '#f5f5f5',
+                            overflowY: 'auto',
                         }}
                     >
 
                         <Toolbar />
                         <Container maxWidth="100vh" sx={{
-                            mr: 80,
-                            p: 2,
-                            display: 'flex',
+                          mr: 80,
+                          p: 2,
+                          display: 'flex',
 
-
-                            alignItems: 'center'
+                          backgroundColor: '#f5f5f5',
+                          alignItems: 'center'
+                            
                         }}>
 
                             <Grid container spacing={1}>
@@ -131,14 +150,23 @@ const Listjob = () => {
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
                                         sx={{
-                                            p: 2,
-                                            display: 'flex',
-
-                                            height: '100vh',
-                                            width: '95%',
-                                            pb: 10,
-                                            flexDirection: 'column',
-                                            backgroundColor: '#f5f5f5'
+                                            width: '80%',
+                                            height: '100%',
+                                            overflowX: 'hidden',
+                                            position: 'fixed',
+                                            backgroundColor: '#f5f5f5',
+                                            overflowY: 'auto',
+                                            scrollbarWidth: 'thin',
+                                            scrollbarColor: 'transparent transparent', // Set the color of the scrollbar track and thumb to transparent
+                                            '&::-webkit-scrollbar': {
+                                              width: '6px', // Customize the width of the scrollbar
+                                            },
+                                            '&::-webkit-scrollbar-track': {
+                                              background: 'transparent', // Set the background color of the scrollbar track to transparent
+                                            },
+                                            '&::-webkit-scrollbar-thumb': {
+                                              background: 'transparent', // Set the color of the scrollbar thumb to transparent
+                                            },
                                         }}
 
                                     >
@@ -156,7 +184,7 @@ const Listjob = () => {
                                             </div>
                                             <div className='row'>
 
-                                                <div className='col-12'>
+                                                <div className='col-12' style={{ height: 'var(--col-height)' }}>
                                                     {data.map((item, index) =>
                                                         <>
                                                             <div className='row mb-4'>

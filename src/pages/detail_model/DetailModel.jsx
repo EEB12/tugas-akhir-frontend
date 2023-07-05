@@ -30,7 +30,7 @@ const mdTheme = createTheme();
 
 
 
-const DetailPenelitian = () => {
+const DetailModel = () => {
     const chartRef = useRef(null);
     const [open, setOpen] = useState(false);
     const [filesToUpload, setFilesToUpload] = useState();
@@ -508,4 +508,4 @@ const DetailPenelitian = () => {
     );
 }
 
-export default DetailPenelitian;
+export default DetailModel;

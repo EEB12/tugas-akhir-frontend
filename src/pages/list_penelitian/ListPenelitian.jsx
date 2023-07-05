@@ -60,19 +60,21 @@ const Listpenelitian = () => {
 
         formData.append("id_anotasi", id)
         const response = await axios({
-            method: "post",
-            url: 'https://backend-ta.ndne.id/api/get-data',
-            data: formData,
+            method: "get",
+            url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
+           
             headers: {
                 "Authorization": `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
         }).then(data => data);
 
-        var headers = Object.keys(response.data[0])
+        console.log(response.data)
+        const dataDownload=response.data[1]
+        var headers = Object.keys(data[0])
         console.log(headers)
         const dataToConvert = {
-            data: response.data,
+            data: dataDownload,
             filename: `${name}`,
             delimiter: ',',
             headers: headers
@@ -161,14 +163,12 @@ const Listpenelitian = () => {
                                     <Paper elevation={0}
                                         
                                         sx={{
-                                            p: 2,
-                                            display: 'flex',
-
-                                            height: '100',
                                             width: '80%',
-                                            pb: 10,
-                                            flexDirection: 'column',
-                                            backgroundColor: '#f5f5f5'
+                                            height: '100%',
+                                            overflowX: 'hidden',
+                                            position: 'fixed',
+                                            backgroundColor: '#f5f5f5',
+                                            overflowY: 'auto',
                                         }}
 
                                     >

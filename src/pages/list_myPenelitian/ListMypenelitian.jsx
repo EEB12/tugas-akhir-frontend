@@ -63,19 +63,21 @@ const ListMypenelitian = () => {
 
         formData.append("id_anotasi", id)
         const response = await axios({
-            method: "post",
-            url: 'https://backend-ta.ndne.id/api/get-data',
-            data: formData,
+            method: "get",
+            url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
+           
             headers: {
                 "Authorization": `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
         }).then(data => data);
 
-        var headers = Object.keys(response.data[0])
+        console.log(response.data)
+        const dataDownload=response.data[1]
+        var headers = Object.keys(dataDownload[0]).reverse()
         console.log(headers)
         const dataToConvert = {
-            data: response.data,
+            data: dataDownload,
             filename: `${name}`,
             delimiter: ',',
             headers: headers

@@ -443,7 +443,7 @@ const MyTable = () => {
                                                                 {/* <button onClick={() => buttonhandler()}>upload</button> */}
 
                                                                 <Pagination
-                                                                    count={10} // Total number of pages
+                                                                    count={20} // Total number of pages
                                                                     page={currentPage} // Current active page
                                                                     onChange={handlePageChange} // Callback function for page change
                                                                 />
