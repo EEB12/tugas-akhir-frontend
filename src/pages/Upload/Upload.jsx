@@ -265,8 +265,6 @@ const Upload = () => {
           </Box>
         </Box>
       </ThemeProvider>
-
-      
     </>
   );
 };
