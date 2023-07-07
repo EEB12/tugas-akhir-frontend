@@ -178,7 +178,11 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setModelTitle('');
     };
     return (
-        <>   <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button>
+        <>   
+
+            {flag === 'users' ?  <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button> : <> </>}
+       
+
             <table className='fl-tableAdmin'>
 
 

@@ -66,6 +66,34 @@ const AnotateAuto = () => {
 
     const params = useParams();
 
+    const download = async (id, name) => {
+        var token = localStorage.getItem('tokenAccess')
+        let formData = new FormData()
+
+        formData.append("id_anotasi", id)
+        const response = await axios({
+            method: "get",
+            url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
+           
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        }).then(data => data);
+
+        console.log(response.data)
+        const dataDownload=response.data[1]
+        var headers = Object.keys(dataDownload[0]).reverse()
+        console.log(headers)
+        const dataToConvert = {
+            data: dataDownload,
+            filename: `${name}`,
+            delimiter: ',',
+            headers: headers
+        }
+        csvDownload(dataToConvert)
+    }
+
     const handleSubmit = async () => {
 
 
