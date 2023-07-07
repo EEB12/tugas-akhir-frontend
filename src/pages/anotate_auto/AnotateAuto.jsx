@@ -91,7 +91,7 @@ const AnotateAuto = () => {
             delimiter: ',',
             headers: headers
         }
-        csvDownload(dataToConvert)
+        // csvDownload(dataToConvert)
     }
 
     const handleSubmit = async () => {
