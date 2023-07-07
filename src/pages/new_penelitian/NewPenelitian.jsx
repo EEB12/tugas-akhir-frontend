@@ -87,6 +87,7 @@ const NewPenelitian = () => {
     formData.append("title", namefile);
     formData.append("type_anotasi", age);
     formData.append("desc", desc);
+    formData.append("language", lang);
     // console.log(filesToUpload)
     // console.log(formData.get('file'))
     var token = localStorage.getItem("tokenAccess");
