@@ -39,6 +39,7 @@ const NewPenelitian = () => {
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setdata] = useState([]);
   const [age, setAge] = React.useState("");
+  const [lang, setLang] = React.useState("");
   const [namefile, setNamefile] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -50,6 +51,9 @@ const NewPenelitian = () => {
   };
   const handleChange = (event) => {
     setAge(event.target.value);
+  };
+  const handleLang = (event) => {
+    setLang(event.target.value);
   };
 
   const handleChangeTitle = (event) => {
@@ -275,6 +279,32 @@ const NewPenelitian = () => {
                                     backgroundColor: "#FFFFFF",
                                   }}
                                 />
+                                <Typography
+                                  sx={{
+                                    fontWeight: 600,
+                                    m: 1,
+                                    fontSize: 35,
+                                  }}
+                                  variant="h3"
+                                  gutterBottom
+                                >
+                                  Bahasa
+                                </Typography>
+
+                                <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  value={lang}
+                                  sx={{
+                                    marginLeft: 3,
+                                    width: 200,
+                                    marginBottom: 4,
+                                  }}
+                                  onChange={handleLang}
+                                >
+                                  <MenuItem value={"english"}>Ingrris</MenuItem>
+                                  <MenuItem value={"indonesian"}>Indonesia</MenuItem>
+                                </Select>
                                 <Box
                                   sx={{
                                     marginLeft: "8px",
