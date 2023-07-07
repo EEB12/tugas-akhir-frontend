@@ -265,29 +265,6 @@ const NewPenelitian = () => {
                                   variant="h3"
                                   gutterBottom
                                 >
-                                  Deskripsi
-                                </Typography>
-                                <TextField
-                                  id="filled-multiline-static"
-                                  multiline
-                                  rows={2}
-                                  onChange={handleDesc}
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                    backgroundColor: "#FFFFFF",
-                                  }}
-                                />
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
                                   Bahasa
                                 </Typography>
 
@@ -305,6 +282,30 @@ const NewPenelitian = () => {
                                   <MenuItem value={"english"}>Ingrris</MenuItem>
                                   <MenuItem value={"indonesian"}>Indonesia</MenuItem>
                                 </Select>
+                                <Typography
+                                  sx={{
+                                    fontWeight: 600,
+                                    m: 1,
+                                    fontSize: 35,
+                                  }}
+                                  variant="h3"
+                                  gutterBottom
+                                >
+                                  Deskripsi
+                                </Typography>
+                                <TextField
+                                  id="filled-multiline-static"
+                                  multiline
+                                  rows={2}
+                                  onChange={handleDesc}
+                                  sx={{
+                                    marginLeft: 3,
+                                    width: "95%",
+                                    marginBottom: 4,
+                                    backgroundColor: "#FFFFFF",
+                                  }}
+                                />
+                               
                                 <Box
                                   sx={{
                                     marginLeft: "8px",
