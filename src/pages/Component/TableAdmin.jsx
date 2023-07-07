@@ -203,7 +203,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
                             <td>
                                 {flag === 'users' ? <Button onClick={() => openModal(row)} >{"Edit"}</Button> : flag === 'delete_penelitian' ?
-                                    <Button href={`/admin/editUser/${row.id_anotasi}`} >{"Edit"}</Button> : <>  <Button onClick={() => openModel(row)} >{"Edit kah"}</Button></>}
+                                    <Button href={`/admin/editUser/${row.id_anotasi}`} >{"Edit"}</Button> : <>  <Button onClick={() => openModel(row)} >{"Edit"}</Button></>}
 
                             </td>
                             <td>
