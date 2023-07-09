@@ -33,7 +33,8 @@ const MyTable = () => {
     const [dataResult, setDataResult] = useState([]) // data buat nampung result data
     const [headers, setHeaders] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [options,setOptions]=useState([]);
+    const [options, setOptions] = useState([]);
+    const [detail, setDetail] = useState([]);
     const getHeadings = () => {
         return Object.keys(jsonData[0]);
     }
@@ -69,7 +70,7 @@ const MyTable = () => {
     };
 
     const buttonhandler = async () => {
-      
+
         const array2 = jsonData;
         const array1 = dataResult;
         const appendedArray = [...array1, ...array2];
@@ -97,7 +98,7 @@ const MyTable = () => {
             formData.append('file', csvBlob, 'data_result_testing_auto.csv');
             formData.append('id_anotasi', params.id);
 
-            try{
+            try {
                 const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -105,10 +106,10 @@ const MyTable = () => {
                 });
                 console.log("berhasil")
                 swal("Berhasil", "Data berhasil diupdate", "success");
-            }catch(error){
+            } catch (error) {
                 swal("Error", "Ada kesalahan pada server", "error");
             }
-            
+
         }
         else {
 
@@ -124,7 +125,7 @@ const MyTable = () => {
             });
 
 
-            
+
             setData(updatedJsonData); // Update the data state first
             const csvData = convertToCSV(updatedJsonData); // Convert the updated data to CSV
             const csvBlob = new Blob([csvData], { type: 'text/csv' });
@@ -132,7 +133,7 @@ const MyTable = () => {
             formData.append('file', csvBlob, 'data_result_testing_auto.csv');
             formData.append('id_anotasi', 12);
 
-            try{
+            try {
                 const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -140,10 +141,10 @@ const MyTable = () => {
                 });
                 swal("Berhasil", "Data berhasil diupdate", "success");
             }
-            catch(error){
+            catch (error) {
                 swal("Error", "Ada kesalahan pada proses anotasi", "error");
             }
-            
+
 
         }
 
@@ -154,17 +155,17 @@ const MyTable = () => {
         // console.log(response);
     };
 
-    
-    const updateStatus = async() => {
-        const id=params.id
+
+    const updateStatus = async () => {
+        const id = params.id
         let formData = new FormData()
 
 
         formData.append("id_anotasi", id)
         formData.append("status", "finished")
-       
 
-        
+
+
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
 
@@ -178,7 +179,7 @@ const MyTable = () => {
         }).then(data => data);
 
 
-        
+
         // if (response.data.message == 'Data created successfully') {
         //     swal("Success", "Model Uploaded", "success", {
         //         buttons: false,
@@ -202,7 +203,7 @@ const MyTable = () => {
         // console.log(typeof (tbodyData))
         // console.log(typeof (theadData))
         return (
-            <table className=' fl-table   '>
+            <table className='fl-table    '>
 
 
                 <thead>
@@ -339,6 +340,19 @@ const MyTable = () => {
 
             }).then(data => data);
 
+            const responsedetail = await axios({
+                method: "get",
+                url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+
+                }
+
+            }).then(data => data);
+            setDetail(responsedetail.data[0])
+            console.log(responsedetail.data[0])
+
             console.log("inibase data", responseBaseData.data)
             const uniqueResults = [...new Set(responseBaseData.data.map(item => item.result))];
             console.log(uniqueResults)
@@ -440,12 +454,12 @@ const MyTable = () => {
                                                                     Judul Penelitian
                                                                 </Typography>
 
-                                                                <TextField disabled sx={{
+                                                                <TextField disabled value={detail.title} sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: '95%',
                                                                     marginBottom: 4
-                                                                }} id="standard-basic" variant="standard" value="Sentiment Analysis Tweet" />
+                                                                }} id="standard-basic" variant="standard" />
 
                                                                 <Typography sx={{
 
@@ -459,20 +473,31 @@ const MyTable = () => {
                                                                     marginTop: 3,
                                                                     width: '95%',
                                                                     marginBottom: 4
-                                                                }} id="standard-basic" variant="standard" value="Manual" />
+                                                                }} id="standard-basic" variant="standard" value={detail.type_anotasi} />
 
 
-                                                                <Typography sx={{
+                                                                <div>
+                                                                    <Typography sx={{ fontWeight: 600, m: 1, fontSize: 35 }} variant="h3" gutterBottom>
+                                                                        Instruksi
+                                                                    </Typography>
 
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    DataSet
-                                                                </Typography>
-                                                                <Typography variant="subtitle1" sx={{
-                                                                    color:'var(--neutral-500, #8F97A3);'
-                                                                }} display="inline">
-                                                                   Data dapat diedit dengan klik pada kolom result
-                                                                </Typography>
+                                                                    <Typography variant="subtitle1"  display="inline">
+                                                                        <ol>
+                                                                            <li>
+                                                                                Memilih dropdown pada kolom result
+                                                                            </li>
+                                                                            <li>
+                                                                                Melakukan save edit pada row untuk konfirmasi perubahan pada row tersebut
+                                                                            </li>
+                                                                            <li>
+                                                                                Klik Update data untuk menyimpan perubahan pada tabel
+                                                                            </li>
+                                                                            <li>
+                                                                                Klik Update status to finish untuk melakukan update job dari progress menjadi finish
+                                                                            </li>
+                                                                        </ol>
+                                                                    </Typography>
+                                                                </div>
                                                             </div>
                                                             <div className='row mt-2'>
 
@@ -494,7 +519,7 @@ const MyTable = () => {
                                                         <br></br>
                                                         <br></br>
                                                         <Button type="button" variant="contained" onClick={() => updateStatus()} className="button-submit mt-3 w-25">Update Status to Finish</Button>
-                                                        <Button type="button" variant="contained" onClick={() => buttonhandler()} className="button-submit mt-3 w-25">Upload</Button>
+                                                        <Button type="button" variant="contained" onClick={() => buttonhandler()} className="button-submit mt-3 w-25">Update Data</Button>
                                                         <br></br>
 
                                                         <br></br>
