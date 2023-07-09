@@ -478,7 +478,7 @@ const MyTable = () => {
 
                                                                 <div>
                                                                     <Typography sx={{ fontWeight: 600, m: 1, fontSize: 35 }} variant="h3" gutterBottom>
-                                                                        Instruksi
+                                                                        Instruksi Anotasi Data Manual
                                                                     </Typography>
 
                                                                     <Typography variant="subtitle1"  display="inline">
