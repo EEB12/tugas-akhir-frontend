@@ -49,6 +49,7 @@ const NewModel = () => {
     const [age, setAge] = React.useState('');
     const [namefile, setNamefile] = useState('')
     const [descfile, setDescfile] = useState('')
+    const [accfile, setAccfile] = useState('')
 
     const handleClose = () => {
         setOpen(false);
@@ -68,6 +69,9 @@ const NewModel = () => {
     };
 
 
+    const handleChangeAcc = (e) => {
+        setAccfile(e.target.files[0])
+    };
     const handleFilesChange = (e) => {
         // Update chosen files
         console.log(e.target.files[0])
@@ -143,6 +147,7 @@ const NewModel = () => {
         formData.append("file_vectorizer", vectorizer)
         formData.append("title", namefile)
         formData.append("desc", descfile)
+        formData.append("accuracy", accfile)
 
         console.log("ini model", filesToUpload)
         console.log("ini vectorizer", vectorizer)
@@ -334,6 +339,20 @@ const NewModel = () => {
                                                                         Vectorizer
                                                                     </Typography>
                                                                     <input type="file" onChange={handleVectorizerChange} />
+
+                                                                </Box>
+                                                                <Box sx={{
+                                                                    marginLeft: '8px',
+                                                                    marginTop: 1,
+                                                                    width: 900
+                                                                }}>
+                                                                    <Typography sx={{
+
+                                                                        fontWeight: 600, fontSize: 35
+                                                                    }} variant="h3" gutterBottom>
+                                                                        Model Accuracy
+                                                                    </Typography>
+                                                                    <input type="file" onChange={handleChangeAcc} />
 
                                                                 </Box>
 

@@ -24,6 +24,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import html2canvas from 'html2canvas';
 import Pagination from '@mui/material/Pagination';
+import ProgressBar from '../Component/ProgressBar';
+
 const mdTheme = createTheme();
 
 
@@ -55,7 +57,7 @@ const DetailPenelitian = () => {
         setNamefile(event.target.value);
     };
     const handlePageChange = (event, page) => {
-       
+
         setCurrentPage(page);
 
         // Perform data fetching or update based on the new page
@@ -66,6 +68,8 @@ const DetailPenelitian = () => {
             setDisplay('table');
         } else if (event.target.id === 'gfg3') {
             setDisplay('chart');
+        } else if (event.target.id === 'gfg4') {
+            setDisplay('accuracy');
         }
     };
 
@@ -108,14 +112,41 @@ const DetailPenelitian = () => {
                 },
             }).then(data => data);
 
-            // console.log(response.data)
-            const preview1 = response?.data[1].slice(0, 5)
+            if (response.data[0].status == "finished") {
+                const response = await axios({
+                    method: "get",
+                    url: `https://backend-ta.ndne.id/api/list_penelitian_detail/${params.id}`,
 
-            setDataBig(response?.data[1])
-            // console.log(preview1)
-            setPreview(preview1)
-            console.log(response?.data[0])
-            setData(response?.data[0])
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+
+                    },
+                }).then(data => data);
+
+                // console.log(response.data[0].model.detail)
+                const preview1 = response?.data[1].slice(0, 5)
+
+                setDataBig(response?.data[1])
+                // console.log(preview1)
+                setPreview(preview1)
+                console.log(response?.data[0])
+                setData(response?.data[0])
+            } else {
+                // console.log(response.data)
+                const preview1 = response?.data[1].slice(0, 5)
+
+                setDataBig(response?.data[1])
+                // console.log(preview1)
+                setPreview(preview1)
+                console.log(response?.data[0])
+                setData(response?.data[0])
+            }
+
+
+
+
+
+
             handleClose()
         };
 
@@ -165,6 +196,7 @@ const DetailPenelitian = () => {
     const dataValues = uniqueResults.map((result) =>
         dataBig.filter((review) => review.result === result).length
     );
+    const progressPercentage = (0.86 / 1) * 100;
     return (
         <>
             <ThemeProvider theme={mdTheme}>
@@ -341,30 +373,42 @@ const DetailPenelitian = () => {
 
                                                                 {data.status === 'progress' ?
                                                                     <></>
-                                                                    : <> <section class="btn-group">
+                                                                    :
+                                                                    <>
+                                                                        <section class="btn-group">
 
-                                                                        <input type="radio"
-                                                                            class="btn-check"
-                                                                            name="btnradio"
-                                                                            id="gfg2"
-                                                                            checked={display === 'table'}
-                                                                            onChange={handleInputChange} />
-                                                                        <label class="btn btn-outline-primary"
-                                                                            for="gfg2">
-                                                                            Table
-                                                                        </label>
+                                                                            <input type="radio"
+                                                                                class="btn-check"
+                                                                                name="btnradio"
+                                                                                id="gfg2"
+                                                                                checked={display === 'table'}
+                                                                                onChange={handleInputChange} />
+                                                                            <label class="btn btn-outline-primary"
+                                                                                for="gfg2">
+                                                                                Table
+                                                                            </label>
 
-                                                                        <input type="radio"
-                                                                            class="btn-check"
-                                                                            name="btnradio"
-                                                                            id="gfg3"
-                                                                            checked={display === 'chart'}
-                                                                            onChange={handleInputChange} />
-                                                                        <label class="btn btn-outline-primary"
-                                                                            for="gfg3">
-                                                                            Chart
-                                                                        </label>
-                                                                    </section></>}
+                                                                            <input type="radio"
+                                                                                class="btn-check"
+                                                                                name="btnradio"
+                                                                                id="gfg3"
+                                                                                checked={display === 'chart'}
+                                                                                onChange={handleInputChange} />
+                                                                            <label class="btn btn-outline-primary"
+                                                                                for="gfg3">
+                                                                                Chart
+                                                                            </label>
+                                                                            <input type="radio"
+                                                                                class="btn-check"
+                                                                                name="btnradio"
+                                                                                id="gfg4"
+                                                                                checked={display === 'accuracy'}
+                                                                                onChange={handleInputChange} />
+                                                                            <label class="btn btn-outline-primary"
+                                                                                for="gfg4">
+                                                                                Accuracy
+                                                                            </label>
+                                                                        </section></>}
 
 
                                                                 <Typography sx={{
@@ -384,77 +428,248 @@ const DetailPenelitian = () => {
                                                                     </Table>
 
                                                                     <Pagination
-                                                                    count={20} // Total number of pages
-                                                                    page={currentPage} // Current active page
-                                                                    onChange={handlePageChange} // Callback function for page change
-                                                                />
+                                                                        count={20} // Total number of pages
+                                                                        page={currentPage} // Current active page
+                                                                        onChange={handlePageChange} // Callback function for page change
+                                                                    />
 
-                                                                </> : <>
-                                                                    <div>
-                                                                        <label htmlFor="chart-type">Chart Type:</label>
-                                                                        <select id="chart-type" onChange={handleChartTypeChange} value={chartType} >
-                                                                            <option value="pie">Pie Chart</option>
-                                                                            <option value="bar">Bar Chart</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div className='pie-chart-container' style={{}}>
 
-                                                                        {chartType === 'pie' ? <Pie
-                                                                            ref={chartRef}
-                                                                            data={{
-                                                                                labels: uniqueResults,
-                                                                                datasets: [
-                                                                                    {
-                                                                                        data: dataValues,
+                                                                </> : display === 'chart' ?
+                                                                    <>
+                                                                        <div>
+                                                                            <label htmlFor="chart-type">Chart Type:</label>
+                                                                            <select id="chart-type" onChange={handleChartTypeChange} value={chartType} >
+                                                                                <option value="pie">Pie Chart</option>
+                                                                                <option value="bar">Bar Chart</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div className='pie-chart-container' style={{}}>
 
-                                                                                        backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-                                                                                        hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-                                                                                    },
-                                                                                ],
-
-                                                                            }}
-                                                                            options={chartOptions}
-                                                                        /> :
-                                                                            <Bar
+                                                                            {chartType === 'pie' ? <Pie
                                                                                 ref={chartRef}
                                                                                 data={{
                                                                                     labels: uniqueResults,
                                                                                     datasets: [
                                                                                         {
-
                                                                                             data: dataValues,
+
                                                                                             backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                             hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                         },
-
                                                                                     ],
+
                                                                                 }}
-                                                                                options={{
-                                                                                    ...chartOptions,
-                                                                                    plugins: {
-                                                                                        legend: {
-                                                                                            display: false,
+                                                                                options={chartOptions}
+                                                                            /> :
+                                                                                <Bar
+                                                                                    ref={chartRef}
+                                                                                    data={{
+                                                                                        labels: uniqueResults,
+                                                                                        datasets: [
+                                                                                            {
+
+                                                                                                data: dataValues,
+                                                                                                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                                hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                                            },
+
+                                                                                        ],
+                                                                                    }}
+                                                                                    options={{
+                                                                                        ...chartOptions,
+                                                                                        plugins: {
+                                                                                            legend: {
+                                                                                                display: false,
+                                                                                            },
                                                                                         },
-                                                                                    },
-                                                                                }}
-                                                                            />
+                                                                                    }}
+                                                                                />
 
-                                                                        }
-
+                                                                            }
 
 
 
 
-                                                                    </div>
-                                                                    <br />
-                                                                    <br></br>
-                                                                    <div className='row justify-content-center mt-5'>
-                                                                    <Button className="w-50" type="button" variant="contained" onClick={handleExport}>Export Chart</Button>
 
-                                                                    </div>
+                                                                        </div>
+                                                                        <br />
+                                                                        <br></br>
+                                                                        <div className='row justify-content-center mt-5'>
+                                                                            <Button className="w-50" type="button" variant="contained" onClick={handleExport}>Export Chart</Button>
 
-                                                                </>}
-                                                             
+                                                                        </div>
+
+                                                                    </> :
+
+                                                                    <>
+                                                                        <div className='container-fluid'>
+                                                                            <div className='row'>
+                                                                                <div className='col-6'>
+                                                                                    <Typography sx={{
+
+                                                                                        fontWeight: 500, m: 1, fontSize: 30
+                                                                                    }} variant="h3" gutterBottom>
+                                                                                        Accuracy
+                                                                                    </Typography>
+                                                                                    <div>
+                                                                                        <Typography sx={{
+
+                                                                                            fontWeight: 400, m: 1, fontSize: 20
+                                                                                        }} variant="h5" gutterBottom>
+                                                                                            F1-Score
+                                                                                        </Typography>
+                                                                                        <ProgressBar value={data.model.detail.accuracy['f1-score']} maxValue={1} color="#0285F1" />
+                                                                                    </div>
+
+
+
+
+                                                                                </div>
+
+                                                                                <div className='col-6'>
+                                                                                    <div>
+                                                                                        <Typography sx={{
+
+                                                                                            fontWeight: 500, m: 1, fontSize: 30
+                                                                                        }} variant="h3" gutterBottom>
+                                                                                            Macro Avg
+                                                                                        </Typography>
+                                                                                        <div>
+                                                                                            <Typography sx={{
+
+                                                                                                fontWeight: 400, m: 1, fontSize: 20
+                                                                                            }} variant="h5" gutterBottom>
+                                                                                                F1-Score
+                                                                                            </Typography>
+                                                                                            <ProgressBar value={data.model.detail['macro avg']['f1-score']} maxValue={1} color="#0285F1" />
+
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            <Typography sx={{
+
+                                                                                                fontWeight: 400, m: 1, fontSize: 20
+                                                                                            }} variant="h5" gutterBottom>
+                                                                                                Precision
+                                                                                            </Typography>
+                                                                                            <ProgressBar value={data.model.detail['macro avg']['precision']} maxValue={1} color="#0285F1" />
+
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <Typography sx={{
+
+                                                                                                fontWeight: 400, m: 1, fontSize: 20
+                                                                                            }} variant="h5" gutterBottom>
+                                                                                                Recall
+                                                                                            </Typography>
+                                                                                            <ProgressBar value={data.model.detail['macro avg']['recall']} maxValue={1} color="#0285F1" />
+
+                                                                                        </div>
+
+
+                                                                                    </div>
+
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div className='row mt-5'>
+                                                                                <div className='col-6'>
+                                                                                    <Typography sx={{
+
+                                                                                        fontWeight: 500, m: 1, fontSize: 30
+                                                                                    }} variant="h3" gutterBottom>
+                                                                                        Negative
+                                                                                    </Typography>
+                                                                                    <div>
+                                                                                        <Typography sx={{
+
+                                                                                            fontWeight: 400, m: 1, fontSize: 20
+                                                                                        }} variant="h5" gutterBottom>
+                                                                                            F1-Score
+                                                                                        </Typography>
+                                                                                        <ProgressBar value={data.model.detail.negative['f1-score']} maxValue={1} color="#0285F1" />
+                                                                                    </div>
+
+                                                                                    <div>
+                                                                                        <Typography sx={{
+
+                                                                                            fontWeight: 400, m: 1, fontSize: 20
+                                                                                        }} variant="h5" gutterBottom>
+                                                                                            Precision
+                                                                                        </Typography>
+                                                                                        <ProgressBar value={data.model.detail.negative['precision']} maxValue={1} color="#0285F1" />
+                                                                                    </div>
+
+                                                                                    <div>
+                                                                                        <Typography sx={{
+
+                                                                                            fontWeight: 400, m: 1, fontSize: 20
+                                                                                        }} variant="h5" gutterBottom>
+                                                                                            Recall
+                                                                                        </Typography>
+                                                                                        <ProgressBar value={data.model.detail.negative['recall']} maxValue={1} color="#0285F1" />
+                                                                                    </div>
+
+
+
+
+                                                                                </div>
+
+                                                                                <div className='col-6'>
+                                                                                    <div>
+                                                                                        <Typography sx={{
+
+                                                                                            fontWeight: 500, m: 1, fontSize: 30
+                                                                                        }} variant="h3" gutterBottom>
+                                                                                            Positive
+                                                                                        </Typography>
+                                                                                        <div>
+                                                                                            <Typography sx={{
+
+                                                                                                fontWeight: 400, m: 1, fontSize: 20
+                                                                                            }} variant="h5" gutterBottom>
+                                                                                                F1-Score
+                                                                                            </Typography>
+                                                                                            <ProgressBar value={data.model.detail['positive']['f1-score']} maxValue={1} color="#0285F1" />
+
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            <Typography sx={{
+
+                                                                                                fontWeight: 400, m: 1, fontSize: 20
+                                                                                            }} variant="h5" gutterBottom>
+                                                                                                Precision
+                                                                                            </Typography>
+                                                                                            <ProgressBar value={data.model.detail['positive']['precision']} maxValue={1} color="#0285F1" />
+
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <Typography sx={{
+
+                                                                                                fontWeight: 400, m: 1, fontSize: 20
+                                                                                            }} variant="h5" gutterBottom>
+                                                                                                Recall
+                                                                                            </Typography>
+                                                                                            <ProgressBar value={data.model.detail['positive']['recall']} maxValue={1} color="#0285F1" />
+
+                                                                                        </div>
+
+
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </>
+
+                                                                }
+
                                                             </div>
 
                                                         </div>

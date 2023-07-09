@@ -33,6 +33,7 @@ const MyTable = () => {
     const [dataResult, setDataResult] = useState([]) // data buat nampung result data
     const [headers, setHeaders] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [options,setOptions]=useState([]);
     const getHeadings = () => {
         return Object.keys(jsonData[0]);
     }
@@ -153,8 +154,44 @@ const MyTable = () => {
         // console.log(response);
     };
 
+    
+    const updateStatus = async() => {
+        const id=params.id
+        let formData = new FormData()
 
 
+        formData.append("id_anotasi", id)
+        formData.append("status", "finished")
+       
+
+        
+        var token = localStorage.getItem('tokenAccess')
+        console.log(token)
+
+        const response = await axios({
+            method: "post",
+            url: "https://backend-ta.ndne.id/api/update_status_anotate",
+            data: formData,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        }).then(data => data);
+
+
+        
+        // if (response.data.message == 'Data created successfully') {
+        //     swal("Success", "Model Uploaded", "success", {
+        //         buttons: false,
+        //         timer: 2000,
+        //     })
+        //         .then((value) => {
+
+        //             // window.location.href = "/list-job";
+        //         });
+        // } else {
+        //     swal("Failed", "Model Upload Failed", "error");
+        // }
+    };
 
     const cancel = () => {
 
@@ -189,8 +226,9 @@ const MyTable = () => {
 
                                     <EasyEdit
                                         value={row[key]}
-                                        type={Types.TEXT}
+                                        type="select"
                                         onSave={(value) => save(value, indexL)}
+                                        options={options.map(options => ({ label: options, value: options }))}
                                         onCancel={cancel}
                                         saveButtonLabel="Save Edit"
                                         cancelButtonLabel="Cancel Edit"
@@ -302,7 +340,9 @@ const MyTable = () => {
             }).then(data => data);
 
             console.log("inibase data", responseBaseData.data)
-
+            const uniqueResults = [...new Set(responseBaseData.data.map(item => item.result))];
+            console.log(uniqueResults)
+            setOptions(uniqueResults)
             setJsonData(sortObjects(preview1))
             // setDataResult(sortObjects(preview1));
             setData(sortObjects(responseBaseData?.data))
@@ -443,7 +483,7 @@ const MyTable = () => {
                                                                 {/* <button onClick={() => buttonhandler()}>upload</button> */}
 
                                                                 <Pagination
-                                                                    count={20} // Total number of pages
+                                                                    count={40} // Total number of pages
                                                                     page={currentPage} // Current active page
                                                                     onChange={handlePageChange} // Callback function for page change
                                                                 />
@@ -453,7 +493,7 @@ const MyTable = () => {
                                                         </div>
                                                         <br></br>
                                                         <br></br>
-                                                        <Button type="button" variant="contained" onClick={() => buttonhandler()} className="button-submit mt-3 w-25">Update Status to Finish</Button>
+                                                        <Button type="button" variant="contained" onClick={() => updateStatus()} className="button-submit mt-3 w-25">Update Status to Finish</Button>
                                                         <Button type="button" variant="contained" onClick={() => buttonhandler()} className="button-submit mt-3 w-25">Upload</Button>
                                                         <br></br>
 

@@ -133,7 +133,8 @@ const AnotateAuto = () => {
                 timer: 2000,
             })
                 .then((value) => {
-
+                    // console.log(response.data)
+                    window.location.href = `/mytable/${params.id}`;
 
                 });
         } else {
@@ -292,7 +293,7 @@ const AnotateAuto = () => {
                                                                 <select onChange={(e) => setModelid(e.target.value)} class="form-select form-select-lg mb-3 w-25" aria-label=".form-select-lg example">
                                                                     <option selected>Program Model</option>
                                                                     {data.map((option, idx) => (
-                                                                        <option value={option.id}>{option.title}</option>
+                                                                        <option value={option.id}>{option.desc}</option>
                                                                     ))}
 
                                                                 </select>

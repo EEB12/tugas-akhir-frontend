@@ -38,10 +38,12 @@ const NewPenelitian = () => {
   const [open, setOpen] = useState(false);
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setdata] = useState([]);
-  const [age, setAge] = React.useState("");
-  const [lang, setLang] = React.useState("");
+  const [age, setAge] = React.useState("AUTO");
+  const [lang, setLang] = React.useState("english");
   const [namefile, setNamefile] = useState("");
   const [desc, setDesc] = useState("");
+  const [target, setTarget] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const handleClose = () => {
     setOpen(false);
@@ -75,9 +77,35 @@ const NewPenelitian = () => {
   const handlename = (event) => {
     setNamefile(event.target.value);
   };
+
+  const handletarget = (event) => {
+    setInputValue(event.target.value);
+  };
+  const handleTargetButton = () => {
+
+    // if(inputValue=""){
+    //   return
+    // }
+    if(target ==""){
+      const merged=`${target}`
+      console.log(merged)
+      setTarget(inputValue);
+    
+      setInputValue("")
+    }
+    else{
+      const merged=`${inputValue},${target}`
+      setTarget(merged);
+      setInputValue("")
+    }
+    
+   
+  
+  };
   const getHeadings = () => {
     return Object.keys(data[0]).reverse();
   };
+
 
   const uploadFiles = async () => {
     // Create a form and post it to server
@@ -88,6 +116,7 @@ const NewPenelitian = () => {
     formData.append("type_anotasi", age);
     formData.append("desc", desc);
     formData.append("language", lang);
+    formData.append("target", target);
     // console.log(filesToUpload)
     // console.log(formData.get('file'))
     var token = localStorage.getItem("tokenAccess");
@@ -123,6 +152,10 @@ const NewPenelitian = () => {
   useEffect(() => {
     // Update the document title using the browser API
   }, [data]);
+
+  useEffect(() => {
+    // Update the document title using the browser API
+  }, [age]);
 
   return (
     <>
@@ -257,6 +290,76 @@ const NewPenelitian = () => {
                                   <MenuItem value={"AUTO"}>Auto</MenuItem>
                                   <MenuItem value={"MANUAL"}>Manual</MenuItem>
                                 </Select>
+
+                               
+
+                                      <div className="row">
+                                        <Typography
+                                          sx={{
+                                            fontWeight: 600,
+                                            m: 1,
+                                            fontSize: 35,
+                                          }}
+                                          variant="h3"
+                                          gutterBottom
+                                        >
+                                          Target Label
+                                        </Typography>
+                                        <TextField disabled
+                                          id="filled-multiline-static"
+                                          multiline
+                                          value={target}
+                                          variant="filled"  
+                                          
+                                          sx={{
+                                            marginLeft: 3,
+                                            width: "25%",
+                                            marginBottom: 4,
+                                            backgroundColor: "#FFFFFF",
+                                          }}
+                                        />
+
+                                      </div>
+
+                                      <div className="row">
+                                        <TextField 
+                                          id="filled-multiline-static"
+                                          multiline
+                                          value={inputValue}
+                                          onChange={handletarget}
+                                          sx={{
+                                            marginLeft: 3,
+                                            width: "25%",
+                                            marginBottom: 4,
+                                            backgroundColor: "#FFFFFF",
+                                          }}
+                                        />
+
+                                        <Button
+                                          sx={{
+
+                                            width: 100,
+                                            height: 50,
+
+
+                                          }}
+                                          type="button"
+                                          variant="contained"
+                                          onClick={handleTargetButton}
+                                          className="ms-2"
+                                        >
+                                          Add
+                                        </Button>
+                                      </div>
+
+                                      <br></br>
+
+
+
+
+
+                              
+
                                 <Typography
                                   sx={{
                                     fontWeight: 600,
@@ -280,7 +383,7 @@ const NewPenelitian = () => {
                                   }}
                                   onChange={handleLang}
                                 >
-                                  <MenuItem value={"english"}>Ingrris</MenuItem>
+                                  <MenuItem value={"english"}>Inggris</MenuItem>
                                   <MenuItem value={"indonesian"}>Indonesia</MenuItem>
                                 </Select>
                                 <Typography
@@ -306,7 +409,7 @@ const NewPenelitian = () => {
                                     backgroundColor: "#FFFFFF",
                                   }}
                                 />
-                               
+
                                 <Box
                                   sx={{
                                     marginLeft: "8px",
@@ -339,7 +442,7 @@ const NewPenelitian = () => {
                               type="button"
                               variant="contained"
                               onClick={uploadFiles}
-                              className="ms-2 mt-3 w-25"
+                              className="ms-4 mt-3 w-25"
                             >
                               Upload
                             </Button>
