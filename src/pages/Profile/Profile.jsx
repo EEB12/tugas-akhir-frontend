@@ -154,7 +154,7 @@ const Profile = () => {
             window.location.href = `/list-penelitian`;
            
         } catch (error) {
-            swal("Failed", error.response.message, "error");
+            swal("Failed", error.response.data.message, "error");
         }
     }
 
@@ -312,9 +312,7 @@ const Profile = () => {
                                                                     marginTop: 3,
                                                                     width: '95%',
                                                                     marginBottom: 4,
-                                                                    "& .MuiInputBase-input.Mui-disabled": {
-                                                                        WebkitTextFillColor: "#000000",
-                                                                    }
+                                                                   
                                                                 }} onChange={handleNIK} id="standard-basic" variant="standard" value={data.nrp_nik} />
 
 

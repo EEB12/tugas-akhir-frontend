@@ -131,7 +131,7 @@ const Navbar = () => {
                   </> : data == '"admin"' ?
                     <>
                       <li><a class="dropdown-item" href="/admin/list-penelitian">Manajemen Penelitian</a></li>
-                      <li><a class="dropdown-item" href="/list-penelitian">Manajemen Program Model</a></li>
+                      <li><a class="dropdown-item" href="/admin/list-model">Manajemen Program Model</a></li>
                     </>
                     : <></>
 
@@ -171,7 +171,7 @@ const Navbar = () => {
                   </Typography>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="/list-model">Model Saya</a></li>
+                  <li><a class="dropdown-item" href="/mylist-model">Model Saya</a></li>
                   <li><a class="dropdown-item" href="/list-model">List Model</a></li>
                   <li><a class="dropdown-item" href="/new-model">Buat Model</a></li>
 
@@ -217,7 +217,8 @@ const Navbar = () => {
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="/profile">Profile</a></li>
-              <li><a class="dropdown-item" href="/update-role">Upgrade to Anotator</a></li>
+              {data == '"anotator"'?<> <li><a class="dropdown-item" href="/update-role">Upgrade to Anotator</a></li></>:<></>}
+             
               <li><a class="dropdown-item" href="/login">Logout</a></li>
             </ul>
           </div>

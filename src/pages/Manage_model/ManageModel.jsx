@@ -95,25 +95,35 @@ const ManageModel = () => {
                     "Authorization": `Bearer ${token}`,
                 },
             }).then(data => data);
-
+            console.log("ini respon", response.data[0])
             console.log(Object.keys(response?.data[0]))
-            console.log(delete response.data[0].model)
-            console.log(delete response.data[0].vectorizer)
+            console.log(delete response.data.model)
+            console.log(delete response.data.vectorizer)
+            console.log(delete response.data.detail)
             console.log(response.data)
+
+            const modifiedData = [...response.data];
+
+            // Remove the 'detail' key from each object in the data array
+            modifiedData.forEach(item => {
+                delete item.detail;
+                delete item.model;
+                delete item.vectorizer;
+            });
             const reorderedData = response.data.map(item => {
-                const { id, title,  desc,  ...rest } = item;
-                
+                const { id, title, desc, ...rest } = item;
+
                 return {
-                  id,
-                  title,
-                  desc,
-                  ...rest
+                    id,
+                    title,
+                    desc,
+                    ...rest
                 };
-              });
-              
+            });
+
 
             console.log(reorderedData);
-           
+
             // console.log(response.data)
             // // var test = getHeadings(response?.data)
             // // console.log(test)

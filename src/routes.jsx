@@ -24,6 +24,7 @@ import ManagePenelitian from './pages/Manage_penelitian/ManagePenelitian';
 import EditPenelitian from './pages/EditUser/EditPenelitian';
 import ManageModel from './pages/Manage_model/ManageModel';
 import DetailModel from './pages/detail_model/DetailModel';
+import MyListmodel from './pages/mylist_model/MyListmodel';
 const RouteApp = () => {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ const RouteApp = () => {
         <Route path='/upload' element={<Upload/>}/>
         <Route path='/upload-model' element={<Model/>}/>
         <Route path='/list-model' element={<Listmodel/>}/>
+        <Route path='/mylist-model' element={<MyListmodel/>}/>
         <Route path='/list-penelitian' element={<Listpenelitian/>}/>
         <Route path='/list-penelitian-manual' element={<Listpenelitianmanual/>}/>
         <Route path='/anotasi-manual/:id' element={<AnotateManual/>}/>

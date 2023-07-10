@@ -12,6 +12,11 @@ import Divider from '@mui/material/Divider';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
 export default function TableAdmin({ theadData, tbodyData, flag }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -24,7 +29,13 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     const [isModelOpen, setIsModelOpen] = useState(false);
     const [modelTitle, setModelTitle] = useState('');
     const [desc, setDesc] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+  
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault();
+    };
     const handleChange = (event) => {
         setRole(event.target.value);
     };
@@ -283,7 +294,21 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                                 onChange={(e) => setEmail(e.target.value)} id="standard-basic" label='Email' variant="standard" />
                         </div>
                         <div>
-                            <TextField sx={{
+                            <TextField  type={showPassword ? 'text' : 'password'}
+                              endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            
+                            sx={{
                                 width: '95%',
                                 marginBottom: 4,
                                 "& .MuiInputBase-input.Mui-disabled": {

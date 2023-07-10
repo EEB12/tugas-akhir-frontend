@@ -199,7 +199,7 @@ const ManagePenelitian = () => {
                                                     color: '#0285F1',
                                                     fontWeight: 600, m: 1, fontSize: 60
                                                 }} variant="h3" gutterBottom>
-                                                    List User
+                                                    List Penelitian
                                                 </Typography>
 
                                             </div>
