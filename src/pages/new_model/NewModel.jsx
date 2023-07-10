@@ -34,7 +34,8 @@ import swal from 'sweetalert';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 const mdTheme = createTheme();
 
 
@@ -138,7 +139,7 @@ const NewModel = () => {
 
 
 
-
+        handleToggle()
 
         let formData = new FormData()
 
@@ -176,6 +177,7 @@ const NewModel = () => {
                 });
         } else {
             swal("Failed", "Model Upload Failed", "error");
+            handleClose()
         }
     };
 
@@ -210,7 +212,7 @@ const NewModel = () => {
                             width: '100%',
                             height: '100%',
                             overflowX: 'initial',
-                            
+
                         }}
                     >
 
@@ -320,10 +322,10 @@ const NewModel = () => {
 
                                                                         fontWeight: 600, fontSize: 35
                                                                     }} variant="h3" gutterBottom>
-                                                                        Model Program 
+                                                                        Model Program
                                                                     </Typography>
-                                                                    
-                                                                    <input type="file"  accept=".pkl" onChange={handleFilesChange} />
+
+                                                                    <input type="file" accept=".pkl" onChange={handleFilesChange} />
 
                                                                 </Box>
 
@@ -399,6 +401,13 @@ const NewModel = () => {
                         </Container>
                     </Box>
                 </Box>
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </ThemeProvider >
 
 

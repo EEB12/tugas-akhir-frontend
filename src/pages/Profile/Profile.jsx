@@ -23,7 +23,8 @@ import swal from 'sweetalert';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 const mdTheme = createTheme();
 
 
@@ -33,12 +34,17 @@ const mdTheme = createTheme();
 const Profile = () => {
 
     const [data, setData] = useState([]);
-
+    const [open, setOpen] = useState(false);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [NIK, setNIK] = useState('')
 
-
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleToggle = () => {
+        setOpen(!open);
+    };
 
     function stringToColor(string) {
         let hash = 0;
@@ -126,14 +132,15 @@ const Profile = () => {
     const handleSubmit = async () => {
         // Create a form and post it to server
         let formData = new FormData()
-        
+
         formData.append("username", name)
         formData.append("email", email)
-        
-        
+
+
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
         try {
+            handleToggle()
             const response = await axios({
                 method: "post",
                 url: "https://backend-ta.ndne.id/api/update_user",
@@ -146,15 +153,17 @@ const Profile = () => {
 
             console.log(response.data.data)
 
-           
+
             swal("Success", "Profile Berhasil di update", "success", {
                 buttons: false,
                 timer: 6000,
             })
             window.location.href = `/list-penelitian`;
-           
+
         } catch (error) {
             swal("Failed", error.response.data.message, "error");
+            handleClose()
+
         }
     }
 
@@ -312,7 +321,7 @@ const Profile = () => {
                                                                     marginTop: 3,
                                                                     width: '95%',
                                                                     marginBottom: 4,
-                                                                   
+
                                                                 }} onChange={handleNIK} id="standard-basic" variant="standard" value={data.nrp_nik} />
 
 
@@ -363,6 +372,13 @@ const Profile = () => {
                         </Container>
                     </Box>
                 </Box>
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </ThemeProvider >
 
 
