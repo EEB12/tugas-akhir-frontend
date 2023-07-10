@@ -21,7 +21,7 @@ import Table from '../Component/Table';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import './upload.css'
 import FileUpload from "react-mui-fileuploader";
@@ -35,7 +35,8 @@ import swal from 'sweetalert';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 const mdTheme = createTheme();
 
 
@@ -87,9 +88,9 @@ const EditPenelitian = () => {
         // Create a form and post it to server
         let formData = new FormData()
         handleToggle()
-      
+
         formData.append("title", namefile)
-        
+
         formData.append("desc", desc)
         formData.append("id_user_anotator", data.id_anotator)
         // console.log(filesToUpload)
@@ -99,32 +100,32 @@ const EditPenelitian = () => {
 
         try {
             const response = await axios({
-              method: "post",
-              url: `https://backend-ta.ndne.id/api/edit_penelitian/${data.id_anotasi}`,
-              data: formData,
-              headers: {
-                "Authorization": `Bearer ${token}`,
-              },
+                method: "post",
+                url: `https://backend-ta.ndne.id/api/edit_penelitian/${data.id_anotasi}`,
+                data: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
             });
-            
-          
-                swal("Success", "Data Penelitian berhasil diedit", "success", {
-                    buttons: false,
-                    timer: 2000,
-                })
-                    .then((value) => {
-    
-                        window.location.href = `/admin/list-penelitian`;
-                    });
-            
-                swal("Failed", response.data.error, "error");
-            
-        
-          } catch (error) {
+
+
+            swal("Success", "Data Penelitian berhasil diedit", "success", {
+                buttons: false,
+                timer: 2000,
+            })
+                .then((value) => {
+
+                    window.location.href = `/admin/list-penelitian`;
+                });
+
+            swal("Failed", response.data.error, "error");
+
+
+        } catch (error) {
             // Handle the error
             swal("Failed", error.response.data.error, "error");
             console.error(error);
-          }
+        }
         // const response = await axios({
         //     method: "post",
         //     url: `https://backend-ta.ndne.id/api/edit_penelitian/${data.id_anotasi}`,
@@ -137,9 +138,9 @@ const EditPenelitian = () => {
         // console.log(response.data.data)
 
 
-        
+
         handleClose()
-        
+
 
     }
 
@@ -166,7 +167,7 @@ const EditPenelitian = () => {
             }).then(data => data);
 
             // console.log(response.data)
-          
+
             console.log(response?.data[0])
             setDesc(response?.data[0].desc)
 
@@ -219,7 +220,7 @@ const EditPenelitian = () => {
 
                             <Grid container spacing={1}>
                                 {/* Chart */}
-                                <Grid item  xs={12} md={12} lg={12} >
+                                <Grid item xs={12} md={12} lg={12} >
                                     <Paper elevation={0}
                                         sx={{
                                             p: 2,
@@ -253,7 +254,7 @@ const EditPenelitian = () => {
                                                             p: 2,
                                                             display: 'flex',
 
-                                                           
+
                                                             height: '100%',
                                                             width: '100%',
                                                             pb: 10,
@@ -280,15 +281,15 @@ const EditPenelitian = () => {
                                                                     width: '95%',
                                                                     marginBottom: 4
                                                                 }}
-                                                                inputProps={{
-                                                                    style: {
-                                                                        marginTop: 6,
-                                                                        fontSize: '20px', // Adjust the font size as needed
-                                                                    },
-                                                                }}
-                                                                value={namefile}
-                                                                onChange={handleChangeTitle} id="standard-basic" variant="standard" />
-                                                                
+                                                                    inputProps={{
+                                                                        style: {
+                                                                            marginTop: 6,
+                                                                            fontSize: '20px', // Adjust the font size as needed
+                                                                        },
+                                                                    }}
+                                                                    value={namefile}
+                                                                    onChange={handleChangeTitle} id="standard-basic" variant="standard" />
+
                                                                 <Typography sx={{
 
                                                                     fontWeight: 600, m: 1, fontSize: 35
@@ -297,19 +298,19 @@ const EditPenelitian = () => {
                                                                 </Typography>
                                                                 <TextField
                                                                     id="filled-multiline-static"
-                                                                   
+
                                                                     multiline
                                                                     rows={2}
                                                                     value={desc}
-                                                                  onChange={handleDesc}
+                                                                    onChange={handleDesc}
                                                                     sx={{
                                                                         marginLeft: 3,
                                                                         width: '95%',
                                                                         marginBottom: 4,
-                                                                        backgroundColor:'#FFFFFF'
+                                                                        backgroundColor: '#FFFFFF'
                                                                     }}
                                                                 />
-                                                               
+
 
 
 
@@ -354,6 +355,13 @@ const EditPenelitian = () => {
                         </Container>
                     </Box>
                 </Box>
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </ThemeProvider >
 
 
