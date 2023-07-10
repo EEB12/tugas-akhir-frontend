@@ -71,7 +71,7 @@ const Listpenelitian = () => {
 
         console.log(response.data)
         const dataDownload=response.data[1]
-        var headers = Object.keys(data[0])
+        var headers = Object.keys(dataDownload[0])
         console.log(headers)
         const dataToConvert = {
             data: dataDownload,
