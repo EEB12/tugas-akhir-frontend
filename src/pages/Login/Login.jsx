@@ -70,7 +70,7 @@ const Login = () => {
                     if(JSON.stringify(response['role']) === '"admin"'){
                         window.location.href = "/admin/list-user";
                     }else{
-                        window.location.href = "/list-mypenelitian";
+                        window.location.href = "/list-penelitian";
                     }
                  
                 });

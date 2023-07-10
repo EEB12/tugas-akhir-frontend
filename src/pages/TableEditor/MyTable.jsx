@@ -169,17 +169,24 @@ const MyTable = () => {
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
 
-        const response = await axios({
-            method: "post",
-            url: "https://backend-ta.ndne.id/api/update_status_anotate",
-            data: formData,
-            headers: {
-                "Authorization": `Bearer ${token}`,
-            },
-        }).then(data => data);
+       
 
 
 
+        try {
+            const response = await axios({
+                method: "post",
+                url: "https://backend-ta.ndne.id/api/update_status_anotate",
+                data: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }).then(data => data);
+            swal("Berhasil", "Data berhasil diupdate", "success");
+        }
+        catch (error) {
+            swal("Error", "Ada kesalahan pada proses anotasi", "error");
+        }
         // if (response.data.message == 'Data created successfully') {
         //     swal("Success", "Model Uploaded", "success", {
         //         buttons: false,

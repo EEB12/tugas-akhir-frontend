@@ -61,7 +61,7 @@ const Register = () => {
                     window.location.href = "/login";
                 });
         } else {
-            swal("Failed", "Model Upload Failed", "error");
+            swal("Failed", response.message, "error");
         }
     };
 

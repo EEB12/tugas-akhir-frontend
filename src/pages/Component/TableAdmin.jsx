@@ -123,7 +123,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setIsModalOpen(false);
         setUsername('');
         setEmail('');
-        // window.location.reload();
+        window.location.reload();
     };
 
 
@@ -157,7 +157,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setEmail('');
         setPassword('');
         setRole('');
-        // window.location.reload();
+        window.location.reload();
     };
 
     const submitModelEdit = async (e) => {
@@ -166,7 +166,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         // Perform any necessary actions with the form data
         let formData = new FormData()
 
-        formData.append("title", modelTitle)
+        formData.append("title_model", modelTitle)
         formData.append("desc", desc)
        
 

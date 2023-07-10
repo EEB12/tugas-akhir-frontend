@@ -146,10 +146,10 @@ const NewPenelitian = () => {
           window.location.href = `/list-anotator/${response.data.id_anotasi}`;
         });
       } else {
-        swal("Failed", "Model Upload Failed", "error");
+        swal("Failed", response.data.message, "error");
       }
     } catch (error) {
-      swal("Failed", "Model Upload Failed", "error");
+      swal("Failed", error.response.data.message, "error");
     }
   };
 
