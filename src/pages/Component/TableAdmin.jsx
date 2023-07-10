@@ -90,6 +90,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
     };
 
+    // edit user
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         var token = localStorage.getItem('tokenAccess')
@@ -126,7 +127,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         window.location.reload();
     };
 
-
+    // tambah user
     const tambahFormSubmit = async (e) => {
         e.preventDefault();
 

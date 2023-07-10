@@ -149,7 +149,7 @@ const NewPenelitian = () => {
         swal("Failed", response.data.message, "error");
       }
     } catch (error) {
-      swal("Failed", error.response.data.message, "error");
+      swal("Failed", "Terjadi masalah pada proses upload", "error");
     }
   };
 

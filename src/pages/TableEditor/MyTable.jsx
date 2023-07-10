@@ -75,11 +75,16 @@ const MyTable = () => {
         const array1 = dataResult;
         const appendedArray = [...array1, ...array2];
         console.log(appendedArray);
+        console.log(data)
         var token = localStorage.getItem('tokenAccess')
         if (currentPage == 1) {
             setDataResult(jsonData)
             const updatedJsonData = data.map(obj => {
-                const matchingData = jsonData.find(d => d.userName === obj.userName);
+                const matchingData = jsonData.find(d => {
+                    const firstKey = Object.keys(d)[0]; // Retrieve the first key dynamically
+                    return d[firstKey] === obj[firstKey];
+                  });
+                  
                 if (matchingData) {
                     return {
                         ...obj,
@@ -95,7 +100,7 @@ const MyTable = () => {
             const csvData = convertToCSV(updatedJsonData); // Convert the updated data to CSV
             const csvBlob = new Blob([csvData], { type: 'text/csv' });
             const formData = new FormData();
-            formData.append('file', csvBlob, 'data_result_testing_auto.csv');
+            formData.append('file', csvBlob, 'data_result_testing_auto123.csv');
             formData.append('id_anotasi', params.id);
 
             try {
@@ -114,7 +119,10 @@ const MyTable = () => {
         else {
 
             const updatedJsonData = data.map(obj => {
-                const matchingData = appendedArray.find(d => d.userName === obj.userName);
+                const matchingData = jsonData.find(d => {
+                    const firstKey = Object.keys(d)[0]; // Retrieve the first key dynamically
+                    return d[firstKey] === obj[firstKey];
+                  });
                 if (matchingData) {
                     return {
                         ...obj,
@@ -169,24 +177,17 @@ const MyTable = () => {
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
 
-       
+        const response = await axios({
+            method: "post",
+            url: "https://backend-ta.ndne.id/api/update_status_anotate",
+            data: formData,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        }).then(data => data);
 
 
 
-        try {
-            const response = await axios({
-                method: "post",
-                url: "https://backend-ta.ndne.id/api/update_status_anotate",
-                data: formData,
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            }).then(data => data);
-            swal("Berhasil", "Data berhasil diupdate", "success");
-        }
-        catch (error) {
-            swal("Error", "Ada kesalahan pada proses anotasi", "error");
-        }
         // if (response.data.message == 'Data created successfully') {
         //     swal("Success", "Model Uploaded", "success", {
         //         buttons: false,
@@ -335,7 +336,7 @@ const MyTable = () => {
             // console.log(response.data.data)
             setHeaders(Object.keys(response?.data.data[0]).reverse())
             const preview1 = response?.data?.data.slice(0, 10)
-
+            console.log(preview1)
             const responseBaseData = await axios({
                 method: "get",
                 url: `https://backend-ta.ndne.id/api/get-data-progress/${params.id}`,
@@ -359,14 +360,13 @@ const MyTable = () => {
             }).then(data => data);
             setDetail(responsedetail.data[0])
             console.log(responsedetail.data[0])
-
-            console.log("inibase data", responseBaseData.data)
-            const uniqueResults = [...new Set(responseBaseData.data.map(item => item.result))];
-            console.log(uniqueResults)
-            setOptions(uniqueResults)
+            console.log(responseBaseData)
+            console.log(sortObjects(responseBaseData?.data[0]))
+          
+            setOptions(response.data.target)
             setJsonData(sortObjects(preview1))
             // setDataResult(sortObjects(preview1));
-            setData(sortObjects(responseBaseData?.data))
+            setData(sortObjects(responseBaseData?.data[0]))
             console.log(headers)
         };
 

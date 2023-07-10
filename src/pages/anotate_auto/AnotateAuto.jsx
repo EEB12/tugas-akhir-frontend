@@ -37,6 +37,7 @@ const AnotateAuto = () => {
     const [namefile, setNamefile] = useState('')
     const [modelid, setModelid] = useState('')
     const [preview, setPreview] = React.useState([]);
+    const [detail,setDetail]=useState([])
     const handleClose = () => {
         setOpen(false);
     };
@@ -161,8 +162,29 @@ const AnotateAuto = () => {
             setData(response.data)
         };
 
+        const handleDetail = async (event) => {
+            handleToggle()
+            const response = await axios({
+                method: "get",
+                url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
 
+                headers: {
+                    "Authorization": `Bearer ${token}`,
 
+                },
+            }).then(data => data);
+
+            // console.log(response.data)
+
+            console.log(response?.data[0])
+            // setDesc(response?.data[0].desc)
+
+            // setNamefile(response?.data[0].title)
+            setDetail(response?.data[0])
+            handleClose()
+        };
+
+        handleDetail()
         handleSubmit()
 
     }, []);
@@ -261,12 +283,12 @@ const AnotateAuto = () => {
                                                                     Judul Penelitian
                                                                 </Typography>
 
-                                                                <TextField disabled sx={{
+                                                                <TextField value={detail.title} disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: 1400,
                                                                     marginBottom: 4
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value="Sentiment Analysis Tweet" />
+                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard"  />
 
                                                                 <Typography sx={{
 
@@ -275,7 +297,7 @@ const AnotateAuto = () => {
                                                                     Type anotasi
                                                                 </Typography>
 
-                                                                <TextField disabled sx={{
+                                                                <TextField value={detail.type_anotasi} disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: 1400,
@@ -287,10 +309,10 @@ const AnotateAuto = () => {
 
                                                                     fontWeight: 600, m: 1, fontSize: 35
                                                                 }} variant="h3" gutterBottom>
-                                                                    Type Anotasi
+                                                                    Pilih Model
                                                                 </Typography>
 
-                                                                <select onChange={(e) => setModelid(e.target.value)} class="form-select form-select-lg mb-3 w-25" aria-label=".form-select-lg example">
+                                                                <select onChange={(e) => setModelid(e.target.value)} class="form-select form-select-lg ms-3 mt-3 mb-3 w-25" aria-label=".form-select-lg example">
                                                                     <option selected>Program Model</option>
                                                                     {data.map((option, idx) => (
                                                                         <option value={option.id}>{option.desc}</option>
