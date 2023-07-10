@@ -67,7 +67,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         console.log(row)
         setUsername(row.name); // Set the initial value of the username field
         setEmail(row.email);
-        setRole(row.role)
+        setRole(row.role.toUpperCase())
         setId(row.id)
         setIsModalOpen(true);
     };
@@ -99,6 +99,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         formData.append("username", username)
         formData.append("email", email)
         formData.append("password", password)
+        formData.append("role", role)
         console.log('Username:', username);
         console.log('Email:', email);
 
@@ -192,7 +193,10 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     return (
         <>   
 
-            {flag === 'users' ?  <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button> : <> </>}
+            {flag === 'users' ?  <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button> 
+            :flag=== 'delete_penelitian'? <> <Button href="/new-penelitian" className="w-25 mb-4" type="button" variant="contained">Tambah Penelitian</Button></>
+            :flag=== 'delete_model'? <> <Button href="/new-model" className="w-25 mb-4" type="button" variant="contained">Tambah Model</Button> </>:
+            <></>}
        
 
             <table className='fl-tableAdmin'>
@@ -346,8 +350,8 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
                                 onChange={handleChange}
                             >
-                                <MenuItem value={"peneliti"}>Peneliti</MenuItem>
-                                <MenuItem value={"anotator"}>Anotator</MenuItem>
+                                <MenuItem value={"PENELITI"}>Peneliti</MenuItem>
+                                <MenuItem value={"ANOTATOR"}>Anotator</MenuItem>
 
                             </Select>
                         </div>

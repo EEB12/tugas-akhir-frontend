@@ -93,7 +93,7 @@ const Listpenelitian = () => {
             if (role == '"peneliti"' || role == '"anotator"') {
                 const response = await axios({
                     method: "get",
-                    url: "https://backend-ta.ndne.id/api/my_list_penelitian",
+                    url: "https://backend-ta.ndne.id/api/list_penelitian",
 
                     headers: {
                         "Authorization": `Bearer ${token}`,

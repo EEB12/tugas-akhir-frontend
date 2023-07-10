@@ -62,7 +62,7 @@ const Navbar = () => {
               noWrap
               sx={{ marginRight: 10, marginTop: 1 }}
             >
-              <a href='/admin/list-user' >Home</a>
+              <a href='/list-penelitian' >Home</a>
 
             </Typography>
             :
