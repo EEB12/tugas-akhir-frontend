@@ -307,7 +307,7 @@ const Profile = () => {
                                                                     NIK/NRP
                                                                 </Typography>
 
-                                                                <TextField sx={{
+                                                                <TextField disabled sx={{
                                                                     marginLeft: 3,
                                                                     marginTop: 3,
                                                                     width: '95%',

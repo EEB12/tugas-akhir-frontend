@@ -217,7 +217,7 @@ const Navbar = () => {
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="/profile">Profile</a></li>
-              {data == '"anotator"'?<> <li><a class="dropdown-item" href="/update-role">Upgrade to Anotator</a></li></>:<></>}
+              {data == '"peneliti"'?<> <li><a class="dropdown-item" href="/update-role">Upgrade to Anotator</a></li></>:<></>}
              
               <li><a class="dropdown-item" href="/login">Logout</a></li>
             </ul>
