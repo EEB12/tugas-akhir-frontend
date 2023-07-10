@@ -67,6 +67,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         console.log(row)
         setUsername(row.name); // Set the initial value of the username field
         setEmail(row.email);
+        setRole(row.role)
         setId(row.id)
         setIsModalOpen(true);
     };
@@ -277,7 +278,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                         </div>
 
                         <div>
-                            <TextField sx={{
+                            <TextField value={email} sx={{
                                 width: '95%',
                                 marginBottom: 4,
                                 "& .MuiInputBase-input.Mui-disabled": {
@@ -345,8 +346,8 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
                                 onChange={handleChange}
                             >
-                                <MenuItem value={"PENELITI"}>Peneliti</MenuItem>
-                                <MenuItem value={"ANOTATOR"}>Anotator</MenuItem>
+                                <MenuItem value={"peneliti"}>Peneliti</MenuItem>
+                                <MenuItem value={"anotator"}>Anotator</MenuItem>
 
                             </Select>
                         </div>
