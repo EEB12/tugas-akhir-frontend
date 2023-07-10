@@ -68,7 +68,7 @@ const Login = () => {
                     localStorage.setItem('username', JSON.stringify(response['username']));
                     localStorage.setItem('role', JSON.stringify(response['role']));
                     if(JSON.stringify(response['role']) === '"admin"'){
-                        window.location.href = "/admin/list-user";
+                        window.location.href = "/list-penelitian";
                     }else{
                         window.location.href = "/list-penelitian";
                     }
