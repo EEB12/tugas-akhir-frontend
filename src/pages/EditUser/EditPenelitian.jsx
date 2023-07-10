@@ -50,7 +50,10 @@ const EditPenelitian = () => {
     const [age, setAge] = React.useState('');
     const [namefile, setNamefile] = useState('')
     const [desc, setDesc] = useState('')
-
+    const [dataAnotator, setDataAnotator] = useState([])
+    const [myValue, setMyValue] = useState('');
+    const [target, setTarget] = useState("");
+    const [inputValue, setInputValue] = useState("");
     const handleClose = () => {
         setOpen(false);
     };
@@ -83,7 +86,30 @@ const EditPenelitian = () => {
     const getHeadings = () => {
         return Object.keys(data[0]).reverse();
     }
+    const handletarget = (event) => {
+        setInputValue(event.target.value);
+    };
+    const handleTargetButton = () => {
 
+        // if(inputValue=""){
+        //   return
+        // }
+        if (target == "") {
+            const merged = `${target}`
+            console.log(merged)
+            setTarget(inputValue);
+
+            setInputValue("")
+        }
+        else {
+            const merged = `${inputValue},${target}`
+            setTarget(merged);
+            setInputValue("")
+        }
+
+
+
+    };
     const uploadFiles = async () => {
         // Create a form and post it to server
         let formData = new FormData()
@@ -92,9 +118,9 @@ const EditPenelitian = () => {
         formData.append("title", namefile)
 
         formData.append("desc", desc)
-        formData.append("id_user_anotator", data.id_anotator)
-        // console.log(filesToUpload)
-        // console.log(formData.get('file'))
+        formData.append("id_user_anotator", myValue)
+        formData.append("target", target);
+
         var token = localStorage.getItem('tokenAccess')
         console.log(token)
 
@@ -123,7 +149,7 @@ const EditPenelitian = () => {
 
         } catch (error) {
             // Handle the error
-            swal("Failed", error.response.data.error, "error");
+            swal("Failed", error.response.data.message, "error");
             console.error(error);
         }
         // const response = await axios({
@@ -176,6 +202,27 @@ const EditPenelitian = () => {
             handleClose()
         };
 
+        var token = localStorage.getItem('tokenAccess')
+        console.log(token)
+
+        const handleget = async (event) => {
+
+            const response = await axios({
+                method: "get",
+                url: "https://backend-ta.ndne.id/api/anotators",
+
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            }).then(data => data);
+
+            console.log(response.data)
+            setDataAnotator(response.data)
+        };
+
+
+
+        handleget()
 
 
         handleSubmit()
@@ -311,7 +358,78 @@ const EditPenelitian = () => {
                                                                     }}
                                                                 />
 
+                                                                <Typography sx={{
 
+                                                                    fontWeight: 600, m: 1, fontSize: 35
+                                                                }} variant="h3" gutterBottom>
+                                                                    Pilih Anotator
+                                                                </Typography>
+
+                                                                <select onChange={(e) => setMyValue(e.target.value)} class="form-select ms-4 form-select-lg mb-3 w-25" aria-label=".form-select-lg example">
+                                                                    <option selected>Open this select menu</option>
+                                                                    {dataAnotator?.map((option, idx) => (
+                                                                        <option value={option.id_anotator}>{option.username}</option>
+                                                                    ))}
+
+                                                                </select>
+
+                                                                <div className="row">
+                                                                    <Typography
+                                                                        sx={{
+                                                                            fontWeight: 600,
+                                                                            m: 1,
+                                                                            fontSize: 35,
+                                                                        }}
+                                                                        variant="h3"
+                                                                        gutterBottom
+                                                                    >
+                                                                        Target Label
+                                                                    </Typography>
+                                                                    <TextField disabled
+                                                                        id="filled-multiline-static"
+                                                                        multiline
+                                                                        value={target}
+                                                                        variant="filled"
+
+                                                                        sx={{
+                                                                            marginLeft: 3,
+                                                                            width: "25%",
+                                                                            marginBottom: 4,
+                                                                            backgroundColor: "#FFFFFF",
+                                                                        }}
+                                                                    />
+
+                                                                </div>
+                                                                <div className="row">
+                                                                    <TextField
+                                                                        id="filled-multiline-static"
+                                                                        multiline
+                                                                        value={inputValue}
+                                                                        onChange={handletarget}
+                                                                        sx={{
+                                                                            marginLeft: 3,
+                                                                            width: "25%",
+                                                                            marginBottom: 4,
+                                                                            backgroundColor: "#FFFFFF",
+                                                                        }}
+                                                                    />
+
+                                                                    <Button
+                                                                        sx={{
+
+                                                                            width: 100,
+                                                                            height: 50,
+
+
+                                                                        }}
+                                                                        type="button"
+                                                                        variant="contained"
+                                                                        onClick={handleTargetButton}
+                                                                        className="ms-2"
+                                                                    >
+                                                                        Add
+                                                                    </Button>
+                                                                </div>
 
 
 

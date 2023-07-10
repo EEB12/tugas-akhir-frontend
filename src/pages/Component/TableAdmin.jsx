@@ -98,10 +98,16 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
         formData.append("username", username)
         formData.append("email", email)
-        formData.append("password", password)
+        if(password===""){
+            
+        }else{
+            formData.append("password", password)
+        }
+       
         formData.append("role", role)
         console.log('Username:', username);
         console.log('Email:', email);
+        console.log(password)
 
 
         const response = await axios({
@@ -117,18 +123,21 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setIsModalOpen(false);
         setUsername('');
         setEmail('');
-        window.location.reload();
+        // window.location.reload();
     };
 
 
     const tambahFormSubmit = async (e) => {
         e.preventDefault();
+
+       
         var token = localStorage.getItem('tokenAccess')
         // Perform any necessary actions with the form data
         let formData = new FormData()
 
         formData.append("username", username)
         formData.append("email", email)
+       
         formData.append("password", password)
         formData.append("role", role)
 
@@ -148,7 +157,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setEmail('');
         setPassword('');
         setRole('');
-        window.location.reload();
+        // window.location.reload();
     };
 
     const submitModelEdit = async (e) => {
@@ -173,11 +182,11 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         }).then(data => data);
         // Close the modal and reset the form fields
         setIsModalOpen(false);
-        setUsername('');
-        setEmail('');
-        setPassword('');
-        setRole('');
-        window.location.reload();
+        // setUsername('');
+        // setEmail('');
+        // setPassword('');
+        // setRole('');
+        // window.location.reload();
     };
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -356,7 +365,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                             </Select>
                         </div>
                         <div className='row mt-3'>
-                            {title === 'Tambah' ? <Button className="w-25 ms-1" type="button" variant="contained" onClick={tambahFormSubmit}>Save</Button> : <Button className="w-25 ms-1" type="button" variant="contained" onClick={handleFormSubmit}>Save</Button>}
+                            {title === 'Tambah' ? <Button className="w-25 ms-1" type="button" variant="contained" onClick={tambahFormSubmit}>Save User</Button> : <Button className="w-25 ms-1" type="button" variant="contained" onClick={handleFormSubmit}>Save</Button>}
 
                             <Button className="w-25 ms-4" color="error" type="button" variant="contained" onClick={handleCloseModal}>Close</Button>
                         </div>
@@ -432,7 +441,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                         </div>
                        
                         <div className='row mt-3'>
-                        <Button className="w-25 ms-1" type="button" variant="contained" onClick={submitModelEdit}>Save</Button> 
+                        <Button className="w-25 ms-1" type="button" variant="contained" onClick={submitModelEdit}>Save Model</Button> 
 
                             <Button className="w-25 ms-4" color="error" type="button" variant="contained" onClick={handleCloseModel}>Close</Button>
                         </div>
