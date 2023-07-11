@@ -46,11 +46,13 @@ const NewModel = () => {
     const [open, setOpen] = useState(false);
     const [filesToUpload, setFilesToUpload] = useState();
     const [data, setdata] = useState([]);
-    const [vectorizer, setVectorizer] = useState();
+    
     const [age, setAge] = React.useState('');
-    const [namefile, setNamefile] = useState('')
+   
     const [descfile, setDescfile] = useState('')
     const [accfile, setAccfile] = useState('')
+    const [namefile, setNamefile] = useState('')
+    const [vectorizer, setVectorizer] = useState();
 
     const handleClose = () => {
         setOpen(false);

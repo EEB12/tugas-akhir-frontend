@@ -30,11 +30,26 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     const [modelTitle, setModelTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
+    const [accfile, setAccfile] = useState()
+    
+    const [vectorizer, setVectorizer] = useState();
+    const [filesToUpload, setFilesToUpload] = useState();
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-  
+    const handleChangeAcc = (e) => {
+        setAccfile(e.target.files[0])
+    };
+    const handleFilesChange = (e) => {
+        // Update chosen files
+        console.log(e.target.files[0])
+        setFilesToUpload(e.target.files[0])
+    };
+    const handleVectorizerChange = (e) => {
+        // Update chosen files
+        console.log(e.target.files[0])
+        setVectorizer(e.target.files[0])
+    };
     const handleMouseDownPassword = (event) => {
-      event.preventDefault();
+        event.preventDefault();
     };
     const handleChange = (event) => {
         setRole(event.target.value);
@@ -75,7 +90,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     const openModel = (row) => {
         setTitle("Edit")
         setSelectedRow(row);
-     
+
         setModelTitle(row.title)
         setDesc(row.desc)
         setId(row.id)
@@ -85,7 +100,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
 
         setTitle("Tambah")
-       
+
         setIsModalOpen(true);
 
     };
@@ -99,12 +114,12 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
         formData.append("username", username)
         formData.append("email", email)
-        if(password===""){
-            
-        }else{
+        if (password === "") {
+
+        } else {
             formData.append("password", password)
         }
-       
+
         formData.append("role", role)
         console.log('Username:', username);
         console.log('Email:', email);
@@ -131,14 +146,14 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
     const tambahFormSubmit = async (e) => {
         e.preventDefault();
 
-       
+
         var token = localStorage.getItem('tokenAccess')
         // Perform any necessary actions with the form data
         let formData = new FormData()
 
         formData.append("username", username)
         formData.append("email", email)
-       
+
         formData.append("password", password)
         formData.append("role", role)
 
@@ -166,10 +181,18 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         var token = localStorage.getItem('tokenAccess')
         // Perform any necessary actions with the form data
         let formData = new FormData()
-
+        // const [accfile, setAccfile] = useState('')
+    
+        // const [vectorizer, setVectorizer] = useState();
+        // const [filesToUpload, setFilesToUpload] = useState();
         formData.append("title_model", modelTitle)
         formData.append("desc", desc)
-       
+        
+        formData.append("file_vectorizer", vectorizer)
+        formData.append("file_accuracy", accfile)
+        console.log(accfile)
+        formData.append("file", filesToUpload)
+
 
 
         const response = await axios({
@@ -178,7 +201,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
             data: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
-                'Content-Type': 'application/json'
+
             },
         }).then(data => data);
         // Close the modal and reset the form fields
@@ -201,13 +224,13 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         setModelTitle('');
     };
     return (
-        <>   
+        <>
 
-            {flag === 'users' ?  <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button> 
-            :flag=== 'delete_penelitian'? <> <Button href="/new-penelitian" className="w-25 mb-4" type="button" variant="contained">Tambah Penelitian</Button></>
-            :flag=== 'delete_model'? <> <Button href="/new-model" className="w-25 mb-4" type="button" variant="contained">Tambah Model</Button> </>:
-            <></>}
-       
+            {flag === 'users' ? <Button onClick={() => tambahModal()} className="w-25 mb-4" type="button" variant="contained">Tambah User</Button>
+                : flag === 'delete_penelitian' ? <> <Button href="/new-penelitian" className="w-25 mb-4" type="button" variant="contained">Tambah Penelitian</Button></>
+                    : flag === 'delete_model' ? <> <Button href="/new-model" className="w-25 mb-4" type="button" variant="contained">Tambah Model</Button> </> :
+                        <></>}
+
 
             <table className='fl-tableAdmin'>
 
@@ -309,27 +332,27 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                                 onChange={(e) => setEmail(e.target.value)} id="standard-basic" label='Email' variant="standard" />
                         </div>
                         <div>
-                            <TextField  type={showPassword ? 'text' : 'password'}
-                              endAdornment={
-                                <InputAdornment position="end">
-                                  <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                  >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                  </IconButton>
-                                </InputAdornment>
-                              }
-                            
-                            sx={{
-                                width: '95%',
-                                marginBottom: 4,
-                                "& .MuiInputBase-input.Mui-disabled": {
-                                    WebkitTextFillColor: "#000000",
+                            <TextField type={showPassword ? 'text' : 'password'}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
                                 }
-                            }}
+
+                                sx={{
+                                    width: '95%',
+                                    marginBottom: 4,
+                                    "& .MuiInputBase-input.Mui-disabled": {
+                                        WebkitTextFillColor: "#000000",
+                                    }
+                                }}
                                 InputLabelProps={{ shrink: true }}
                                 inputProps={{
                                     style: {
@@ -375,7 +398,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                     </Box>
                 </Modal>
 
-                                {/* model editor */}
+                {/* model editor */}
                 <Modal
                     open={isModelOpen}
                     onClose={() => setIsModelOpen(false)}
@@ -413,7 +436,10 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                                 },
                                 marginTop: 2,
                             }}
-                                InputLabelProps={{ shrink: true }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                    style: { fontSize: '22px' }
+                                }}
                                 inputProps={{
                                     style: {
                                         marginTop: 5,
@@ -431,7 +457,10 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                                     WebkitTextFillColor: "#000000",
                                 }
                             }}
-                                InputLabelProps={{ shrink: true }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                    style: { fontSize: '22px' }
+                                }}
                                 inputProps={{
                                     style: {
                                         marginTop: 5,
@@ -440,9 +469,61 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                                 }}
                                 onChange={(e) => setDesc(e.target.value)} value={desc} id="standard-basic" label='Deskripsi' variant="standard" />
                         </div>
-                       
-                        <div className='row mt-3'>
-                        <Button className="w-25 ms-1" type="button" variant="contained" onClick={submitModelEdit}>Save Model</Button> 
+
+                        <div>
+                            <Box sx={{
+
+                                marginTop: 1,
+                                width: 900
+                            }}>
+                                <Typography sx={{
+
+                                    fontWeight: 400, fontSize: 18
+                                }} variant="h3" gutterBottom>
+                                    Model Program
+                                </Typography>
+
+                                <input type="file" accept=".pkl" onChange={handleFilesChange} />
+
+                            </Box>
+
+                            <Box sx={{
+
+                                marginTop: 1,
+                                width: 900
+                            }}>
+                                <Typography sx={{
+
+                                    fontWeight: 400, fontSize: 18
+                                }} variant="h3" gutterBottom>
+                                    Vectorizer
+                                </Typography>
+                                <input type="file" onChange={handleVectorizerChange} />
+
+                            </Box>
+                            <Box sx={{
+
+                                marginTop: 1,
+                                width: 900
+                            }}>
+                                <Typography sx={{
+
+                                    fontWeight: 400, fontSize: 18
+                                }} variant="h3" gutterBottom>
+                                    Model Accuracy
+                                </Typography>
+                                <input type="file" onChange={handleChangeAcc} />
+
+                            </Box>
+
+
+
+                        </div>
+
+
+
+                        <div className='row mt-5'>
+                            <Button className="w-25 ms-1" type="button" variant="contained" onClick={submitModelEdit}>Save Model</Button>
 
                             <Button className="w-25 ms-4" color="error" type="button" variant="contained" onClick={handleCloseModel}>Close</Button>
                         </div>

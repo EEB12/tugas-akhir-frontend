@@ -375,7 +375,7 @@ const DetailPenelitian = () => {
                                                                     <></>
                                                                     :
                                                                     <>
-                                                                        <section class="btn-group">
+                                                                        <section class="btn-group gap-5">
 
                                                                             <input type="radio"
                                                                                 class="btn-check"
