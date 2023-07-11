@@ -228,7 +228,8 @@ const ListMypenelitian = () => {
 
 
                                                                                 <div className='col-6 d-flex justify-content-end mt-3'>
-                                                                                <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/admin/editUser/` + item.id_anotasi}>Edit</a> </Box></button>
+                                                                                    {item.status == "finished" ? <></>:<> <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/admin/editUser/` + item.id_anotasi}>Edit</a> </Box></button></>}
+                                                                                   
                                                                                     <button onClick={() => download(item.id_anotasi, item.title)} type="button" class="  ms-4 interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingLeft: 2, paddingRight: 2 }}>Download .csv</Box></button>
                                                                                     <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/` + item.id_anotasi}>Detail</a> </Box></button>
 
