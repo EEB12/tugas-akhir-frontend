@@ -139,7 +139,7 @@ const MyTable = () => {
             const csvBlob = new Blob([csvData], { type: 'text/csv' });
             const formData = new FormData();
             formData.append('file', csvBlob, 'data_result_testing_auto.csv');
-            formData.append('id_anotasi', 12);
+            formData.append('id_anotasi', params.id);
 
             try {
                 const response = await axios.post('https://backend-ta.ndne.id/api/manual_anotate', formData, {
