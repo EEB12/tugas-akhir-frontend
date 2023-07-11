@@ -194,7 +194,7 @@ const EditPenelitian = () => {
 
             // console.log(response.data)
 
-            console.log(response?.data[0])
+            console.log(response.data)
             setDesc(response?.data[0].desc)
 
             setNamefile(response?.data[0].title)
