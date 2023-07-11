@@ -89,7 +89,7 @@ input[type=file]::file-selector-button {
 
 .interactive-button :active {
     background: #02A9F1;
-   
+
 }
 
 
@@ -109,6 +109,59 @@ button .detail:hover {
     /* no underline */
 }
 
-.text-deskripsi{
+.text-deskripsi {
     margin-right: 27px;
 }
+
+.carousel-caption {
+    top: 35%;
+    transform: translateY(-50%);
+    margin-top: 5%;
+    bottom: auto;
+  
+    max-width: 90%;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+}
+
+.custom-first{
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.custom-second{
+    background: rgba(255, 255, 255, 0.9);
+}
+
+
+/* .carousel-caption .step {
+    top: 35%;
+    transform: translateY(-50%);
+    margin-top: 5%;
+    bottom: auto;
+    background: rgba(255, 255, 255, 0.55);
+    max-width: 90%;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+} */
+
+
+.carousel-caption p {
+    margin: 0;
+    font-size: 18px;
+    text-align: justify;
+}
+
+.list-group-mine  {
+    background-color: #2699ca;
+    background: rgba(24, 120, 242, 0.4);
+    color: white;
+    border-radius: 0px;
+    display: inline-block;
+  }
+
+  .list-group-mine:hover {
+    background: rgba(24, 120, 242, 0.5);
+  }
+  
