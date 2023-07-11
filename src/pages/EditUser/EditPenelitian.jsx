@@ -141,7 +141,7 @@ const EditPenelitian = () => {
             })
                 .then((value) => {
 
-                    window.location.href = `/admin/list-penelitian`;
+                    window.location.href = `/list-penelitian`;
                 });
 
             swal("Failed", response.data.error, "error");
@@ -149,7 +149,8 @@ const EditPenelitian = () => {
 
         } catch (error) {
             // Handle the error
-            swal("Failed", error.response.data.message, "error");
+            swal("Failed", error.response.data.error, "error");
+            handleClose()
             console.error(error);
         }
         // const response = await axios({
@@ -194,9 +195,10 @@ const EditPenelitian = () => {
 
             // console.log(response.data)
 
-            console.log(response.data)
+            console.log(response.data[0].target)
             setDesc(response?.data[0].desc)
-
+            const mergedString=response.data[0].target.join(',')
+            setTarget(mergedString)
             setNamefile(response?.data[0].title)
             setdata(response?.data[0])
             handleClose()

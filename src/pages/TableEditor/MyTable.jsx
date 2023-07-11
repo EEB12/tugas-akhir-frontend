@@ -151,6 +151,7 @@ const MyTable = () => {
             }
             catch (error) {
                 swal("Error", "Ada kesalahan pada proses anotasi", "error");
+                
             }
 
 
