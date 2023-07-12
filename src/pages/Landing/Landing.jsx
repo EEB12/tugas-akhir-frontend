@@ -237,54 +237,54 @@ const Landing = () => {
           overflow: "hidden",
         }}
       >
-          <footer
-            className="footer row row-cols-1 row-cols-sm-2 row-cols-md-4 p-5 text-start text-light" 
-            style={{background:'linear-gradient(90deg, #02A9F1, #00DEF3)'}}
-          >
-            <div class="col mb-2 px-5">
-              <h5>Head Office</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2">
-                  <h5 class="nav-link p-0 text-light">
+        <footer
+          className="footer row row-cols-1 row-cols-sm-2 row-cols-md-4 p-5 text-start text-light"
+          style={{ background: "linear-gradient(90deg, #02A9F1, #00DEF3)" }}
+        >
+          <div class="col mb-2 px-5">
+            <h5>Head Office</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2">
+                <h5 class="nav-link p-0 text-light">
                   Kampus ITS Keputih, Sukolilo, Surabayaa 60111, Jawa Timur
-                  </h5>
-                </li>
-              </ul>
-            </div>
-            <div class="col mb-2 px-5">
-              <h5>Our Partners</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2">
-                  <a href="#" class="nav-link p-0 text-light">
+                </h5>
+              </li>
+            </ul>
+          </div>
+          <div class="col mb-2 px-5">
+            <h5>Our Partners</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2">
+                <a href="#" class="nav-link p-0 text-light">
                   Wallts Official Store
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="col mb-2 px-5">
-              <h5>Phone</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2">
-                  <a href="#" class="nav-link p-0 text-light">
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col mb-2 px-5">
+            <h5>Phone</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2">
+                <a href="#" class="nav-link p-0 text-light">
                   +62813-3412-6517
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="col mb-2 px-5">
-              <h5>Email</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2">
-                  <h5 class="nav-link p-0 text-light">
-                    rickysupriyanto.19051@mhs.its.ac.id
-                  </h5>
-                  <h5 class="nav-link p-0 text-light">
-                    taqarra.19051@mhs.its.ac.id
-                  </h5>
-                </li>
-              </ul>
-            </div>
-          </footer>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col mb-2 px-5">
+            <h5>Email</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2">
+                <h5 class="nav-link p-0 text-light">
+                  rickysupriyanto.19051@mhs.its.ac.id
+                </h5>
+                <h5 class="nav-link p-0 text-light">
+                  taqarra.19051@mhs.its.ac.id
+                </h5>
+              </li>
+            </ul>
+          </div>
+        </footer>
       </Box>
     </ThemeProvider>
   );

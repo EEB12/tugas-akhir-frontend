@@ -31,13 +31,11 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Navbar from "../Component/navbar";
 import swal from "sweetalert";
-import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 const mdTheme = createTheme();
 
 const NewPenelitian = () => {
-
-
   const [open, setOpen] = useState(false);
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setdata] = useState([]);
@@ -85,34 +83,28 @@ const NewPenelitian = () => {
     setInputValue(event.target.value);
   };
   const handleTargetButton = () => {
-
     // if(inputValue=""){
     //   return
     // }
     if (target == "") {
-      const merged = `${target}`
-      console.log(merged)
+      const merged = `${target}`;
+      console.log(merged);
       setTarget(inputValue);
 
-      setInputValue("")
-    }
-    else {
-      const merged = `${inputValue},${target}`
+      setInputValue("");
+    } else {
+      const merged = `${inputValue},${target}`;
       setTarget(merged);
-      setInputValue("")
+      setInputValue("");
     }
-
-
-
   };
   const getHeadings = () => {
     return Object.keys(data[0]).reverse();
   };
 
-
   const uploadFiles = async () => {
     // Create a form and post it to server
-    handleToggle()
+    handleToggle();
     let formData = new FormData();
     handleToggle();
     formData.append("file", filesToUpload);
@@ -150,7 +142,7 @@ const NewPenelitian = () => {
       }
     } catch (error) {
       swal("Failed", "Terjadi masalah pada proses upload", "error");
-      handleClose()
+      handleClose();
     }
   };
 
@@ -241,15 +233,12 @@ const NewPenelitian = () => {
                           >
                             <div className="container-fluid">
                               <div className="row mb-5">
-
                                 <div className="col-6">
-
                                   <div>
-
                                     <Typography
                                       sx={{
                                         fontWeight: 600,
-                                        
+
                                         fontSize: 35,
                                       }}
                                       variant="h3"
@@ -260,7 +249,6 @@ const NewPenelitian = () => {
 
                                     <TextField
                                       sx={{
-
                                         width: "95%",
                                         marginBottom: 4,
                                       }}
@@ -293,84 +281,70 @@ const NewPenelitian = () => {
                                       id="demo-simple-select"
                                       value={age}
                                       sx={{
-
                                         width: 200,
                                         marginBottom: 4,
                                       }}
                                       onChange={handleChange}
                                     >
                                       <MenuItem value={"AUTO"}>Auto</MenuItem>
-                                      <MenuItem value={"MANUAL"}>Manual</MenuItem>
+                                      <MenuItem value={"MANUAL"}>
+                                        Manual
+                                      </MenuItem>
                                     </Select>
-
                                   </div>
 
                                   <div>
-                                    
-                                      <Typography
-                                        sx={{
-                                          fontWeight: 600,
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 600,
 
-                                          fontSize: 35,
-                                        }}
-                                        variant="h3"
-                                        gutterBottom
-                                      >
-                                        Target Label
-                                      </Typography>
-                                      <TextField disabled
-                                        id="filled-multiline-static"
-                                        multiline
-                                        value={target}
-                                        variant="filled"
-
-                                        sx={{
-
-                                          width: "35%",
-                                          marginBottom: 4,
-                                          backgroundColor: "#FFFFFF",
-                                        }}
-                                      />
-
-                                    
+                                        fontSize: 35,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      Target Label
+                                    </Typography>
+                                    <TextField
+                                      disabled
+                                      id="filled-multiline-static"
+                                      multiline
+                                      value={target}
+                                      variant="filled"
+                                      sx={{
+                                        width: "35%",
+                                        marginBottom: 4,
+                                        backgroundColor: "#FFFFFF",
+                                      }}
+                                    />
                                   </div>
-
 
                                   <div>
-                                    
-                                      <TextField
-                                        id="filled-multiline-static"
-                                        multiline
-                                        value={inputValue}
-                                        onChange={handletarget}
-                                        sx={{
+                                    <TextField
+                                      id="filled-multiline-static"
+                                      multiline
+                                      value={inputValue}
+                                      onChange={handletarget}
+                                      sx={{
+                                        width: "35%",
+                                        marginBottom: 4,
+                                        backgroundColor: "#FFFFFF",
+                                      }}
+                                    />
 
-                                          width: "35%",
-                                          marginBottom: 4,
-                                          backgroundColor: "#FFFFFF",
-                                        }}
-                                      />
-
-                                      <Button
-                                        sx={{
-
-                                          width: 100,
-                                          height: 50,
-
-
-                                        }}
-                                        type="button"
-                                        variant="contained"
-                                        onClick={handleTargetButton}
-                                        className="ms-2"
-                                      >
-                                        Add
-                                      </Button>
-                                    
+                                    <Button
+                                      sx={{
+                                        width: 100,
+                                        height: 50,
+                                      }}
+                                      type="button"
+                                      variant="contained"
+                                      onClick={handleTargetButton}
+                                      className="ms-2"
+                                    >
+                                      Add
+                                    </Button>
                                   </div>
-
-
-
 
                                   <div>
                                     <Typography
@@ -390,20 +364,21 @@ const NewPenelitian = () => {
                                       id="demo-simple-select"
                                       value={lang}
                                       sx={{
-
                                         width: 200,
                                         marginBottom: 4,
                                       }}
                                       onChange={handleLang}
                                     >
-                                      <MenuItem value={"english"}>Inggris</MenuItem>
-                                      <MenuItem value={"indonesian"}>Indonesia</MenuItem>
+                                      <MenuItem value={"english"}>
+                                        Inggris
+                                      </MenuItem>
+                                      <MenuItem value={"indonesian"}>
+                                        Indonesia
+                                      </MenuItem>
                                     </Select>
                                   </div>
 
-
                                   <div>
-
                                     <Typography
                                       sx={{
                                         fontWeight: 600,
@@ -421,18 +396,15 @@ const NewPenelitian = () => {
                                       rows={2}
                                       onChange={handleDesc}
                                       sx={{
-
                                         width: "95%",
                                         marginBottom: 4,
                                         backgroundColor: "#FFFFFF",
                                       }}
                                     />
                                   </div>
-
                                 </div>
 
                                 <div className="col-6">
-
                                   <Box
                                     sx={{
                                       marginLeft: "8px",
@@ -456,8 +428,6 @@ const NewPenelitian = () => {
                                     />
                                   </Box>
                                 </div>
-
-
                               </div>
                             </div>
                             <br></br>
@@ -483,9 +453,8 @@ const NewPenelitian = () => {
           </Box>
         </Box>
         <Backdrop
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={open}
-
         >
           <CircularProgress color="inherit" />
         </Backdrop>
