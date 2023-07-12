@@ -192,7 +192,7 @@ const Listpenelitian = () => {
                                 style={{ width: "100%", height: "467px" }}
                                 alt="..."
                               />
-                              <div class="carousel-caption custom-first px-5 d-none d-md-block rounded-4">
+                              <div class="carousel-caption custom-first p-5 d-none d-md-block rounded-4">
                                 <h1>Selamat Datang di Website Anotasi</h1>
                                 <h5 className="fw-normal">
                                   Website Anotasi Data merupakan website yang
@@ -201,29 +201,6 @@ const Listpenelitian = () => {
                                   penelitian anotasi data. Website ini mendukung
                                   penggunaan model dalam berbagai penelitian.
                                 </h5>
-                                <p className="mt-3 text-md-center">
-                                  Fitur yang disediakan oleh website ini berupa:
-                                  <div class=" gap-3 d-flex align-items-center justify-content-center flex-column mt-3">
-                                    <div
-                                      class=" list-group-mine py-2 fw-normal w-25"
-                                      href="/#"
-                                    >
-                                      Membuat Penelitian Data
-                                    </div>
-                                    <div
-                                      class=" list-group-mine py-2 fw-normal w-25"
-                                      href="/#"
-                                    >
-                                      Melakukan Anotasi Data
-                                    </div>
-                                    <div
-                                      class=" list-group-mine py-2 fw-normal w-25"
-                                      href="/#"
-                                    >
-                                      Export Data Hasil Anotasi
-                                    </div>
-                                  </div>
-                                </p>
                               </div>
                             </div>
 
