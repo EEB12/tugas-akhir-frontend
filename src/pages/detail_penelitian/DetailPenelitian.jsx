@@ -445,22 +445,18 @@ const DetailPenelitian = () => {
                                                                         </div>
                                                                         <div className='pie-chart-container' style={{}}>
 
-                                                                            {chartType === 'pie' ? <Pie
-                                                                                ref={chartRef}
-                                                                                data={{
-                                                                                    labels: uniqueResults,
-                                                                                    datasets: [
+                                                                            {chartType === 'pie' ? 
+                                                                            <Pie ref={chartRef} data={{ labels: uniqueResults,
+                                                                                datasets: [
                                                                                         {
                                                                                             data: dataValues,
-
                                                                                             backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                             hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
                                                                                         },
                                                                                     ],
-
                                                                                 }}
-                                                                                options={chartOptions}
-                                                                            /> :
+                                                                                options={chartOptions}/> 
+                                                                            :
                                                                                 <Bar
                                                                                     ref={chartRef}
                                                                                     data={{

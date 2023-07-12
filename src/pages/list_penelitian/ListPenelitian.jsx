@@ -57,7 +57,6 @@ const Listpenelitian = () => {
     const download = async (id, name) => {
         var token = localStorage.getItem('tokenAccess')
         let formData = new FormData()
-
         formData.append("id_anotasi", id)
         const response = await axios({
             method: "get",
@@ -68,11 +67,8 @@ const Listpenelitian = () => {
                 'Content-Type': 'application/json'
             },
         }).then(data => data);
-
-        console.log(response.data)
         const dataDownload = response.data[1]
         var headers = Object.keys(dataDownload[0])
-        console.log(headers)
         const dataToConvert = {
             data: dataDownload,
             filename: `${name}`,
@@ -344,7 +340,9 @@ const Listpenelitian = () => {
                                                                         <button type="button" class="btn btn-primary w-25">Buat Penelitian</button>
 
                                                                     </div>
-                                                                    <p className='mt-3 text-center text-danger'>( Siapkan dataset penelitian sebelum membuat penelitian )</p>
+                                                                   
+
+
                                                                 </div>
                                                             </div>
 
@@ -359,22 +357,22 @@ const Listpenelitian = () => {
                                                     <>
                                                         <div className='col-12'>
                                                             <div className='row mb-4'>
-                                                            {data.map((item, index) =>
+                                                                {data.map((item, index) =>
                                                                     <>
                                                                         <div className='col-3 ml-3 mb-3'>
 
-                                                                            <div class="card card-layout" style={{  minHeight: '200px',maxWidth: '100%' }}>
-                                                                                <img src="/loginregister.jpg" style={{  maxHeight: '150px', width: '100%', objectFit: 'cover' }} class="card-img-top" alt="..." />
-                                                                                <div class="card-body detail-card " style={{  minHeight: '140px' }}>
-                                                                                    <h5 class="card-title text-white">{item.title}</h5>
-                                                                                    <p class="card-text text-white">{item.desc}.</p>
+                                                                            <div class="card card-layout" style={{ minHeight: '200px', maxWidth: '100%' }}>
+                                                                                <img src="/loginregister.jpg" style={{ maxHeight: '150px', width: '100%', objectFit: 'cover' }} class="card-img-top" alt="..." />
+                                                                                <div class="card-body detail-card " style={{ minHeight: '140px' }}>
+                                                                                    <h5 class="card-title text-blue">{item.title}</h5>
+                                                                                    <p class="card-text text-blue">{item.desc}.</p>
 
                                                                                 </div>
                                                                             </div>
-                                                                            <a href={`/detail-penelitian/` + item.id_anotasi}class="btn btn-primary button-detail" style={{ minWidth:'100%' , maxWidth: '40vh' }}>Detail Penelitian</a>
+                                                                            <a href={`/detail-penelitian/` + item.id_anotasi} class="btn btn-primary button-detail" style={{ minWidth: '100%', maxWidth: '40vh' }}>Detail Penelitian</a>
                                                                         </div>
 
-                                                    
+
 
                                                                     </>
                                                                 )}
