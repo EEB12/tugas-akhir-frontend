@@ -45,7 +45,7 @@ const bull = (
 
 const Listmodel = () => {
   const [data, setData] = useState([]);
-  const [id, setID] = useState('');
+  const [id, setID] = useState("");
   const [role, setRole] = useState("");
   const [age, setAge] = React.useState("");
   const [isModelOpen, setIsModelOpen] = useState(false);
@@ -77,10 +77,10 @@ const Listmodel = () => {
     csvDownload(dataToConvert);
   };
 
-  const openModel = (title, desc,id) => {
+  const openModel = (title, desc, id) => {
     setModelTitle(title);
     setDesc(desc);
-    setIsModelOpen(id)
+    setIsModelOpen(id);
     setIsModelOpen(true);
   };
   const submitModelEdit = async (e) => {
@@ -276,7 +276,11 @@ const Listmodel = () => {
 
                                           <button
                                             onClick={() =>
-                                              openModel(item.title, item.desc,item.id)
+                                              openModel(
+                                                item.title,
+                                                item.desc,
+                                                item.id
+                                              )
                                             }
                                             href={`#`}
                                             type="button"
