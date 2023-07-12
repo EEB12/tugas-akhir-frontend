@@ -37,7 +37,7 @@ const mdTheme = createTheme();
 
 const NewPenelitian = () => {
 
-  
+
   const [open, setOpen] = useState(false);
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setdata] = useState([]);
@@ -241,202 +241,223 @@ const NewPenelitian = () => {
                           >
                             <div className="container-fluid">
                               <div className="row mb-5">
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Judul Penelitian
-                                </Typography>
 
-                                <TextField
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                  }}
-                                  inputProps={{
-                                    style: {
-                                      marginTop: 6,
-                                      fontSize: "20px", // Adjust the font size as needed
-                                    },
-                                  }}
-                                  onChange={handleChangeTitle}
-                                  id="standard-basic"
-                                  variant="standard"
-                                />
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Type Anotasi
-                                </Typography>
+                                <div className="col-6">
 
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  value={age}
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: 200,
-                                    marginBottom: 4,
-                                  }}
-                                  onChange={handleChange}
-                                >
-                                  <MenuItem value={"AUTO"}>Auto</MenuItem>
-                                  <MenuItem value={"MANUAL"}>Manual</MenuItem>
-                                </Select>
+                                  <div>
+
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 600,
+                                        
+                                        fontSize: 35,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      Judul Penelitian
+                                    </Typography>
+
+                                    <TextField
+                                      sx={{
+
+                                        width: "95%",
+                                        marginBottom: 4,
+                                      }}
+                                      inputProps={{
+                                        style: {
+                                          marginTop: 6,
+                                          fontSize: "20px", // Adjust the font size as needed
+                                        },
+                                      }}
+                                      onChange={handleChangeTitle}
+                                      id="standard-basic"
+                                      variant="standard"
+                                    />
+                                  </div>
+                                  <div>
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 600,
+
+                                        fontSize: 35,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      Type Anotasi
+                                    </Typography>
+
+                                    <Select
+                                      labelId="demo-simple-select-label"
+                                      id="demo-simple-select"
+                                      value={age}
+                                      sx={{
+
+                                        width: 200,
+                                        marginBottom: 4,
+                                      }}
+                                      onChange={handleChange}
+                                    >
+                                      <MenuItem value={"AUTO"}>Auto</MenuItem>
+                                      <MenuItem value={"MANUAL"}>Manual</MenuItem>
+                                    </Select>
+
+                                  </div>
+
+                                  <div>
+                                    
+                                      <Typography
+                                        sx={{
+                                          fontWeight: 600,
+
+                                          fontSize: 35,
+                                        }}
+                                        variant="h3"
+                                        gutterBottom
+                                      >
+                                        Target Label
+                                      </Typography>
+                                      <TextField disabled
+                                        id="filled-multiline-static"
+                                        multiline
+                                        value={target}
+                                        variant="filled"
+
+                                        sx={{
+
+                                          width: "35%",
+                                          marginBottom: 4,
+                                          backgroundColor: "#FFFFFF",
+                                        }}
+                                      />
+
+                                    
+                                  </div>
+
+
+                                  <div>
+                                    
+                                      <TextField
+                                        id="filled-multiline-static"
+                                        multiline
+                                        value={inputValue}
+                                        onChange={handletarget}
+                                        sx={{
+
+                                          width: "35%",
+                                          marginBottom: 4,
+                                          backgroundColor: "#FFFFFF",
+                                        }}
+                                      />
+
+                                      <Button
+                                        sx={{
+
+                                          width: 100,
+                                          height: 50,
+
+
+                                        }}
+                                        type="button"
+                                        variant="contained"
+                                        onClick={handleTargetButton}
+                                        className="ms-2"
+                                      >
+                                        Add
+                                      </Button>
+                                    
+                                  </div>
 
 
 
-                                <div className="row">
-                                  <Typography
-                                    sx={{
-                                      fontWeight: 600,
-                                      m: 1,
-                                      fontSize: 35,
-                                    }}
-                                    variant="h3"
-                                    gutterBottom
-                                  >
-                                    Target Label
-                                  </Typography>
-                                  <TextField disabled
-                                    id="filled-multiline-static"
-                                    multiline
-                                    value={target}
-                                    variant="filled"
 
-                                    sx={{
-                                      marginLeft: 3,
-                                      width: "25%",
-                                      marginBottom: 4,
-                                      backgroundColor: "#FFFFFF",
-                                    }}
-                                  />
+                                  <div>
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 600,
+
+                                        fontSize: 35,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      Bahasa
+                                    </Typography>
+
+                                    <Select
+                                      labelId="demo-simple-select-label"
+                                      id="demo-simple-select"
+                                      value={lang}
+                                      sx={{
+
+                                        width: 200,
+                                        marginBottom: 4,
+                                      }}
+                                      onChange={handleLang}
+                                    >
+                                      <MenuItem value={"english"}>Inggris</MenuItem>
+                                      <MenuItem value={"indonesian"}>Indonesia</MenuItem>
+                                    </Select>
+                                  </div>
+
+
+                                  <div>
+
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 600,
+
+                                        fontSize: 35,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      Deskripsi
+                                    </Typography>
+                                    <TextField
+                                      id="filled-multiline-static"
+                                      multiline
+                                      rows={2}
+                                      onChange={handleDesc}
+                                      sx={{
+
+                                        width: "95%",
+                                        marginBottom: 4,
+                                        backgroundColor: "#FFFFFF",
+                                      }}
+                                    />
+                                  </div>
 
                                 </div>
 
-                                <div className="row">
-                                  <TextField
-                                    id="filled-multiline-static"
-                                    multiline
-                                    value={inputValue}
-                                    onChange={handletarget}
+                                <div className="col-6">
+
+                                  <Box
                                     sx={{
-                                      marginLeft: 3,
-                                      width: "25%",
-                                      marginBottom: 4,
-                                      backgroundColor: "#FFFFFF",
+                                      marginLeft: "8px",
+                                      marginTop: 1,
+                                      width: 900,
                                     }}
-                                  />
-
-                                  <Button
-                                    sx={{
-
-                                      width: 100,
-                                      height: 50,
-
-
-                                    }}
-                                    type="button"
-                                    variant="contained"
-                                    onClick={handleTargetButton}
-                                    className="ms-2"
                                   >
-                                    Add
-                                  </Button>
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 600,
+                                        fontSize: 35,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      DataSet
+                                    </Typography>
+                                    <input
+                                      type="file"
+                                      onChange={handleFilesChange}
+                                    />
+                                  </Box>
                                 </div>
 
-                                <br></br>
 
-
-
-
-
-
-
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Bahasa
-                                </Typography>
-
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  value={lang}
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: 200,
-                                    marginBottom: 4,
-                                  }}
-                                  onChange={handleLang}
-                                >
-                                  <MenuItem value={"english"}>Inggris</MenuItem>
-                                  <MenuItem value={"indonesian"}>Indonesia</MenuItem>
-                                </Select>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Deskripsi
-                                </Typography>
-                                <TextField
-                                  id="filled-multiline-static"
-                                  multiline
-                                  rows={2}
-                                  onChange={handleDesc}
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                    backgroundColor: "#FFFFFF",
-                                  }}
-                                />
-
-                                <Box
-                                  sx={{
-                                    marginLeft: "8px",
-                                    marginTop: 1,
-                                    width: 900,
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                      fontWeight: 600,
-                                      fontSize: 35,
-                                    }}
-                                    variant="h3"
-                                    gutterBottom
-                                  >
-                                    DataSet
-                                  </Typography>
-                                  <input
-                                    type="file"
-                                    onChange={handleFilesChange}
-                                  />
-                                </Box>
                               </div>
                             </div>
                             <br></br>

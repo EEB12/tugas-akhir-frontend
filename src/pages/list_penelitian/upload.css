@@ -165,7 +165,7 @@ button .detail:hover {
     background: rgba(24, 120, 242, 0.5);
   }
 .detail-card{
-    background-color: rgb(239, 128, 63);
+    
     
     border-bottom-right-radius: 0;
 
@@ -188,3 +188,8 @@ button .detail:hover {
 
     border-top-left-radius: 0;  
 }
+
+.text-blue{
+   color: #066d99;
+}
+

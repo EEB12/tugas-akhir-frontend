@@ -50,7 +50,7 @@ const bull = (
 
 const ListMypenelitian = () => {
 
-     // const getHeadings = () => {
+    // const getHeadings = () => {
     //     return Object.keys(contoh[0]);
     // }
     const [data, setData] = useState([]);
@@ -65,7 +65,7 @@ const ListMypenelitian = () => {
         const response = await axios({
             method: "get",
             url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
-           
+
             headers: {
                 "Authorization": `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const ListMypenelitian = () => {
         }).then(data => data);
 
         console.log(response.data)
-        const dataDownload=response.data[1]
+        const dataDownload = response.data[1]
         var headers = Object.keys(dataDownload[0]).reverse()
         console.log(headers)
         const dataToConvert = {
@@ -164,13 +164,13 @@ const ListMypenelitian = () => {
                                 {/* Chart */}
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={0}
-                                        
+
                                         sx={{
                                             p: 2,
                                             display: 'flex',
 
                                             height: '100vh',
-                                            width: '80%',
+                                            width: '100%%',
                                             pb: 10,
                                             flexDirection: 'column',
                                             backgroundColor: '#f5f5f5'
@@ -191,69 +191,84 @@ const ListMypenelitian = () => {
                                             </div>
                                             <div className='row'>
 
-                                                <div className='col-12'>
-                                                    {data.map((item, index) =>
+                                                <div className='row'>
+                                                    {console.log(data.length)}
+
+                                                    {data.length == 0 ?
                                                         <>
-                                                            <div className='row mb-4'>
-                                                                <Card sx={{ Width: '150%', Height: 200, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)', borderRadius: '10px', }} variant='outlined'>
-                                                                    <CardContent>
 
-                                                                        <div className='container-fluid'>
-                                                                            <div className='row'>
-                                                                                <div className='col-6 mt-3'>
-
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold me-1'>Nama Penelitian &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :<span className='fw-bold ms-2'>{item.title}</span>
-                                                                                    </Typography>
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold me-3'> Type Anotasi Data &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>:<span className='ms-2 text-muted' >{item.type_anotasi}</span>
-                                                                                    </Typography>
-
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold     text-deskripsi'>Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>:<span className='ms-2 text-muted'>{item.desc}</span>
-                                                                                    </Typography>
-
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold     text-deskripsi'>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>:<span className='ms-2 fw-bold'>{item.status}</span>
-                                                                                    </Typography>
+                                                            <div className='col-12 d-flex justify-content-center'>
 
 
 
+                                                                <div class="card empty" style={{ width: '80%' }}>
 
-                                                                                </div>
+                                                                    <div class="card-body" style={{ width: '100%' }}>
+                                                                        <h5 class="card-title text-center">Data Penelitian Kosong </h5>
 
+                                                                        <p class="card-text text-center">Klik "Buat Penelitian" untuk membuat penelitian</p>
+                                                                        <div className='w-100 d-flex justify-content-center'>
 
-                                                                                <div className='col-6 d-flex justify-content-end mt-3'>
-                                                                                    {item.status == "finished" ? <></>:<> <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/admin/editUser/` + item.id_anotasi}>Edit</a> </Box></button></>}
-                                                                                   
-                                                                                    <button onClick={() => download(item.id_anotasi, item.title)} type="button" class="  ms-4 interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingLeft: 2, paddingRight: 2 }}>Download .csv</Box></button>
-                                                                                    <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/` + item.id_anotasi}>Detail</a> </Box></button>
+                                                                            <a href='/new-penelitian' type="button" class="btn btn-primary w-25">Buat Penelitian</a>
 
-                                                                                    {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
-                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
-
-
-                                                                                </div>
-
-
-                                                                            </div>
                                                                         </div>
+                                                                        <p className='mt-3 text-center text-danger'>( Siapkan dataset penelitian sebelum membuat penelitian )</p>
+                                                                    </div>
+                                                                </div>
 
 
-
-
-                                                                    </CardContent>
-
-                                                                </Card>
 
                                                             </div>
+
+
                                                         </>
-                                                    )}
+                                                        :
+
+                                                        <><div className='col-12'>
+
+
+
+
+
+                                                            <div className='row mb-4'>
+                                                                {data.map((item, index) =>
+                                                                    <>
+                                                                        <div className='col-3 ml-3 mb-3'>
+
+                                                                            <div class="card card-layout" style={{  minHeight: '200px',maxWidth: '100%' }}>
+                                                                                <img src="/loginregister.jpg" style={{  maxHeight: '150px', width: '100%', objectFit: 'cover' }} class="card-img-top" alt="..." />
+                                                                                <div class="card-body detail-card " style={{  minHeight: '140px' }}>
+                                                                                    <h5 class="card-title text-blue">{item.title}</h5>
+                                                                                    <p class="card-text text-blue">{item.desc}.</p>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <a href={`/detail-penelitian/` + item.id_anotasi} class="btn btn-primary button-detail" style={{ minWidth:'100%' , maxWidth: '40vh' }}>Detail Penelitian</a>
+                                                                        </div>
+
+                                                                        
+
+                                                                        
+
+                                                                       
+
+                                                                       
+
+
+                                                                    </>
+                                                                )}
+
+
+
+                                                            </div >
+
+                                                        </div></>}
+
+
+
+
                                                 </div>
+
 
 
 

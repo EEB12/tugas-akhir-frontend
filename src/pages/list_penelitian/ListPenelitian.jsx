@@ -166,7 +166,7 @@ const Listpenelitian = () => {
                                             width: '100%',
                                             height: '100%',
                                             overflowX: 'hidden',
-                                            
+
                                             backgroundColor: '#f5f5f5',
                                             overflowY: 'auto',
                                         }}
@@ -325,36 +325,67 @@ const Listpenelitian = () => {
                                             </div>
                                             <div className='row'>
                                                 {console.log(data.length)}
-                                                <div className='col-12'>
-                                                    {data.map((item, index) =>
-                                                        <>
+
+                                                {data.length == 0 ?
+                                                    <>
+
+                                                        <div className='col-12 d-flex justify-content-center'>
 
 
 
+                                                            <div class="card empty" style={{ width: '80%' }}>
 
-                                                            <div className='row mb-4'>
-                                                                <div className='col-3 ml-3 mb-3'>
+                                                                <div class="card-body" style={{ width: '100%' }}>
+                                                                    <h5 class="card-title text-center">Data Penelitian Selesai Kosong </h5>
 
-                                                                    <div class="card card-layout"  style={{ width: '18rem' }}>
-                                                                        <img src="/loginregister.jpg"  style={{ maxHeight: '150px',width:'100%',objectFit:'cover' }} class="card-img-top" alt="..."/>
-                                                                            <div class="card-body detail-card ">
-                                                                                <h5 class="card-title">{item.title}</h5>
-                                                                                <p class="card-text">{item.desc}.</p>
-                                                                              
-                                                                            </div>
+                                                                    <p class="card-text text-center">Klik "Buat Penelitian" untuk membuat penelitian</p>
+                                                                    <div className='w-100 d-flex justify-content-center'>
+
+                                                                        <button type="button" class="btn btn-primary w-25">Buat Penelitian</button>
+
                                                                     </div>
-                                                                    <a href="/new-penelitian" class="btn btn-primary button-detail" style={{ width: '18rem' }}>Detail Penelitian</a>
+                                                                    <p className='mt-3 text-center text-danger'>( Siapkan dataset penelitian sebelum membuat penelitian )</p>
                                                                 </div>
-
-                                                                
-
-                                                                
-                                                                
-
                                                             </div>
-                                                        </>
-                                                    )}
-                                                </div>
+
+
+
+                                                        </div>
+
+
+                                                    </>
+                                                    :
+
+                                                    <>
+                                                        <div className='col-12'>
+                                                            <div className='row mb-4'>
+                                                            {data.map((item, index) =>
+                                                                    <>
+                                                                        <div className='col-3 ml-3 mb-3'>
+
+                                                                            <div class="card card-layout" style={{  minHeight: '200px',maxWidth: '100%' }}>
+                                                                                <img src="/loginregister.jpg" style={{  maxHeight: '150px', width: '100%', objectFit: 'cover' }} class="card-img-top" alt="..." />
+                                                                                <div class="card-body detail-card " style={{  minHeight: '140px' }}>
+                                                                                    <h5 class="card-title text-white">{item.title}</h5>
+                                                                                    <p class="card-text text-white">{item.desc}.</p>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <a href={`/detail-penelitian/` + item.id_anotasi}class="btn btn-primary button-detail" style={{ minWidth:'100%' , maxWidth: '40vh' }}>Detail Penelitian</a>
+                                                                        </div>
+
+                                                    
+
+                                                                    </>
+                                                                )}
+
+
+
+                                                            </div >
+                                                        </div>
+
+                                                    </>}
+
 
 
 
