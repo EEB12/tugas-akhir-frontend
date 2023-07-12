@@ -31,11 +31,14 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Navbar from "../Component/navbar";
 import swal from "sweetalert";
-import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+import { FileUploader } from "react-drag-drop-files";
 const mdTheme = createTheme();
-
+const fileTypes = ["CSV"];
 const NewPenelitian = () => {
+
+
   const [open, setOpen] = useState(false);
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setdata] = useState([]);
@@ -45,7 +48,7 @@ const NewPenelitian = () => {
   const [desc, setDesc] = useState("");
   const [target, setTarget] = useState("");
   const [inputValue, setInputValue] = useState("");
-
+  const [isUploaded, setIsUploaded] = useState(false)
   const handleClose = () => {
     setOpen(false);
   };
@@ -68,8 +71,9 @@ const NewPenelitian = () => {
 
   const handleFilesChange = (e) => {
     // Update chosen files
-    console.log(e.target.files[0]);
-    setFilesToUpload(e.target.files[0]);
+    console.log(e);
+    setFilesToUpload(e);
+    setIsUploaded(true);
   };
   // const handleFilesChange = (files) => {
   //     // Update chosen files
@@ -83,28 +87,34 @@ const NewPenelitian = () => {
     setInputValue(event.target.value);
   };
   const handleTargetButton = () => {
+
     // if(inputValue=""){
     //   return
     // }
     if (target == "") {
-      const merged = `${target}`;
-      console.log(merged);
+      const merged = `${target}`
+      console.log(merged)
       setTarget(inputValue);
 
-      setInputValue("");
-    } else {
-      const merged = `${inputValue},${target}`;
-      setTarget(merged);
-      setInputValue("");
+      setInputValue("")
     }
+    else {
+      const merged = `${inputValue},${target}`
+      setTarget(merged);
+      setInputValue("")
+    }
+
+
+
   };
   const getHeadings = () => {
     return Object.keys(data[0]).reverse();
   };
 
+
   const uploadFiles = async () => {
     // Create a form and post it to server
-    handleToggle();
+    handleToggle()
     let formData = new FormData();
     handleToggle();
     formData.append("file", filesToUpload);
@@ -142,7 +152,7 @@ const NewPenelitian = () => {
       }
     } catch (error) {
       swal("Failed", "Terjadi masalah pada proses upload", "error");
-      handleClose();
+      handleClose()
     }
   };
 
@@ -233,13 +243,16 @@ const NewPenelitian = () => {
                           >
                             <div className="container-fluid">
                               <div className="row mb-5">
+
                                 <div className="col-6">
+
                                   <div>
+
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -249,6 +262,7 @@ const NewPenelitian = () => {
 
                                     <TextField
                                       sx={{
+
                                         width: "95%",
                                         marginBottom: 4,
                                       }}
@@ -266,9 +280,9 @@ const NewPenelitian = () => {
                                   <div>
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -281,51 +295,58 @@ const NewPenelitian = () => {
                                       id="demo-simple-select"
                                       value={age}
                                       sx={{
+
                                         width: 200,
                                         marginBottom: 4,
                                       }}
                                       onChange={handleChange}
                                     >
                                       <MenuItem value={"AUTO"}>Auto</MenuItem>
-                                      <MenuItem value={"MANUAL"}>
-                                        Manual
-                                      </MenuItem>
+                                      <MenuItem value={"MANUAL"}>Manual</MenuItem>
                                     </Select>
+
                                   </div>
 
                                   <div>
+
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
                                     >
                                       Target Label
                                     </Typography>
-                                    <TextField
-                                      disabled
+                                    <TextField disabled
                                       id="filled-multiline-static"
                                       multiline
                                       value={target}
                                       variant="filled"
+
                                       sx={{
+
                                         width: "35%",
                                         marginBottom: 4,
                                         backgroundColor: "#FFFFFF",
                                       }}
                                     />
+
+
                                   </div>
 
+
                                   <div>
+
                                     <TextField
                                       id="filled-multiline-static"
                                       multiline
                                       value={inputValue}
                                       onChange={handletarget}
                                       sx={{
+
                                         width: "35%",
                                         marginBottom: 4,
                                         backgroundColor: "#FFFFFF",
@@ -334,8 +355,11 @@ const NewPenelitian = () => {
 
                                     <Button
                                       sx={{
+
                                         width: 100,
                                         height: 50,
+
+
                                       }}
                                       type="button"
                                       variant="contained"
@@ -344,14 +368,18 @@ const NewPenelitian = () => {
                                     >
                                       Add
                                     </Button>
+
                                   </div>
+
+
+
 
                                   <div>
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -364,26 +392,25 @@ const NewPenelitian = () => {
                                       id="demo-simple-select"
                                       value={lang}
                                       sx={{
+
                                         width: 200,
                                         marginBottom: 4,
                                       }}
                                       onChange={handleLang}
                                     >
-                                      <MenuItem value={"english"}>
-                                        Inggris
-                                      </MenuItem>
-                                      <MenuItem value={"indonesian"}>
-                                        Indonesia
-                                      </MenuItem>
+                                      <MenuItem value={"english"}>Inggris</MenuItem>
+                                      <MenuItem value={"indonesian"}>Indonesia</MenuItem>
                                     </Select>
                                   </div>
 
+
                                   <div>
+
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -396,16 +423,54 @@ const NewPenelitian = () => {
                                       rows={2}
                                       onChange={handleDesc}
                                       sx={{
+
                                         width: "95%",
                                         marginBottom: 4,
                                         backgroundColor: "#FFFFFF",
                                       }}
                                     />
                                   </div>
+
                                 </div>
 
                                 <div className="col-6">
-                                  <Box
+                                  <Typography
+                                    sx={{
+                                      fontWeight: 500,
+                                      fontSize: 25,
+                                      marginBottom: 2
+                                    }}
+                                    variant="h3"
+                                    gutterBottom
+                                  >
+                                    DataSet
+                                  </Typography>
+                                  <div className="file-uploader-container">
+                                    <FileUploader multiple={false} handleChange={handleFilesChange} name="file" types={fileTypes} >
+
+                                      <div className={`drop-area ${isUploaded ? 'uploaded' : ''}`}>
+                                        {isUploaded ?
+                                          <>
+                                           <img src="./check.png" className="drop-img-success"></img>
+                                            <p>File uploaded successfully!</p>
+                                          </>
+
+
+
+                                          : <>
+                                            <img src="./drop.png" className="drop-img"></img>
+                                            <p>Drag and drop a file here</p>
+                                          </>
+
+
+                                        }
+                                      </div>
+                                    </FileUploader>
+
+                                  </div>
+
+                                  {/* <p>{filesToUpload ? `File name: ${filesToUpload.name}` : "no files uploaded yet"}</p> */}
+                                  {/* <Box
                                     sx={{
                                       marginLeft: "8px",
                                       marginTop: 1,
@@ -426,8 +491,10 @@ const NewPenelitian = () => {
                                       type="file"
                                       onChange={handleFilesChange}
                                     />
-                                  </Box>
+                                  </Box> */}
                                 </div>
+
+
                               </div>
                             </div>
                             <br></br>
@@ -453,8 +520,9 @@ const NewPenelitian = () => {
           </Box>
         </Box>
         <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={open}
+
         >
           <CircularProgress color="inherit" />
         </Backdrop>
