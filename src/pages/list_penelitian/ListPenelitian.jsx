@@ -166,7 +166,7 @@ const Listpenelitian = () => {
                                             width: '100%',
                                             height: '100%',
                                             overflowX: 'hidden',
-                                            position: 'fixed',
+                                            
                                             backgroundColor: '#f5f5f5',
                                             overflowY: 'auto',
                                         }}
@@ -201,7 +201,7 @@ const Listpenelitian = () => {
                                                                         <div class=" list-group-mine py-2 fw-normal w-25" href="/#">Melakukan Anotasi Data</div>
                                                                         <div class=" list-group-mine py-2 fw-normal w-25" href="/#">Export Data Hasil Anotasi</div>
                                                                     </div>
-                                                                  
+
                                                                 </p>
 
 
@@ -277,7 +277,7 @@ const Listpenelitian = () => {
 
 
                                                                         </div>
-                                                                       
+
 
 
 
@@ -324,59 +324,32 @@ const Listpenelitian = () => {
 
                                             </div>
                                             <div className='row'>
-
+                                                {console.log(data.length)}
                                                 <div className='col-12'>
                                                     {data.map((item, index) =>
                                                         <>
+
+
+
+
                                                             <div className='row mb-4'>
-                                                                <Card sx={{ Width: '150%', Height: 200, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)', borderRadius: '10px', }} variant='outlined'>
-                                                                    <CardContent>
+                                                                <div className='col-3 ml-3 mb-3'>
 
-                                                                        <div className='container-fluid'>
-                                                                            <div className='row'>
-                                                                                <div className='col-6 mt-3'>
-
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold me-1'>Nama Penelitian &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> :<span className='fw-bold ms-2'>{item.title}</span>
-                                                                                    </Typography>
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold me-3'> Type Anotasi Data &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>:<span className='ms-2 text-muted' >{item.type_anotasi}</span>
-                                                                                    </Typography>
-
-                                                                                    <Typography component="div">
-
-                                                                                        <span className='fw-bold     text-deskripsi'>Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>:<span className='ms-2 text-muted'>{item.desc}</span>
-                                                                                    </Typography>
-
-
-
-
-                                                                                </div>
-
-
-                                                                                <div className='col-6 d-flex justify-content-end mt-3'>
-
-                                                                                    <button onClick={() => download(item.id_anotasi, item.title)} type="button" class="  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16, paddingLeft: 2, paddingRight: 2 }}>Download .csv</Box></button>
-                                                                                    <button href={`/detail-penelitian/` + item.id_anotasi} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/` + item.id_anotasi}>Detail</a> </Box></button>
-
-                                                                                    {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
-                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
-
-
-                                                                                </div>
-
-
+                                                                    <div class="card card-layout"  style={{ width: '18rem' }}>
+                                                                        <img src="/loginregister.jpg"  style={{ maxHeight: '150px',width:'100%',objectFit:'cover' }} class="card-img-top" alt="..."/>
+                                                                            <div class="card-body detail-card ">
+                                                                                <h5 class="card-title">{item.title}</h5>
+                                                                                <p class="card-text">{item.desc}.</p>
+                                                                              
                                                                             </div>
-                                                                        </div>
+                                                                    </div>
+                                                                    <a href="/new-penelitian" class="btn btn-primary button-detail" style={{ width: '18rem' }}>Detail Penelitian</a>
+                                                                </div>
 
+                                                                
 
-
-
-                                                                    </CardContent>
-
-                                                                </Card>
+                                                                
+                                                                
 
                                                             </div>
                                                         </>

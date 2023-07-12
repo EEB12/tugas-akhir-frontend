@@ -164,4 +164,27 @@ button .detail:hover {
   .list-group-mine:hover {
     background: rgba(24, 120, 242, 0.5);
   }
-  
+.detail-card{
+    background-color: rgb(239, 128, 63);
+    
+    border-bottom-right-radius: 0;
+
+    border-bottom-left-radius: 0;  
+    border-bottom-color: transparent;
+}
+
+.detail-card .card-img-top{
+    object-fit: cover;
+}
+
+.card-layout{
+    border-bottom-left-radius: 0px; /* Adjust the radius as needed */
+    border-bottom-right-radius: 0px; /* Adjust the radius as needed */
+    border-bottom-color: rgb(223, 78, 78);
+}
+
+.button-detail{
+    border-top-right-radius: 0;
+
+    border-top-left-radius: 0;  
+}
