@@ -33,8 +33,9 @@ import Navbar from "../Component/navbar";
 import swal from "sweetalert";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import { FileUploader } from "react-drag-drop-files";
 const mdTheme = createTheme();
-
+const fileTypes = ["CSV"];
 const NewPenelitian = () => {
 
 
@@ -47,7 +48,7 @@ const NewPenelitian = () => {
   const [desc, setDesc] = useState("");
   const [target, setTarget] = useState("");
   const [inputValue, setInputValue] = useState("");
-
+  const [isUploaded, setIsUploaded] = useState(false)
   const handleClose = () => {
     setOpen(false);
   };
@@ -70,8 +71,9 @@ const NewPenelitian = () => {
 
   const handleFilesChange = (e) => {
     // Update chosen files
-    console.log(e.target.files[0]);
-    setFilesToUpload(e.target.files[0]);
+    console.log(e);
+    setFilesToUpload(e);
+    setIsUploaded(true);
   };
   // const handleFilesChange = (files) => {
   //     // Update chosen files
@@ -248,9 +250,9 @@ const NewPenelitian = () => {
 
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
-                                        
-                                        fontSize: 35,
+                                        fontWeight: 500,
+
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -278,9 +280,9 @@ const NewPenelitian = () => {
                                   <div>
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -306,67 +308,67 @@ const NewPenelitian = () => {
                                   </div>
 
                                   <div>
-                                    
-                                      <Typography
-                                        sx={{
-                                          fontWeight: 600,
 
-                                          fontSize: 35,
-                                        }}
-                                        variant="h3"
-                                        gutterBottom
-                                      >
-                                        Target Label
-                                      </Typography>
-                                      <TextField disabled
-                                        id="filled-multiline-static"
-                                        multiline
-                                        value={target}
-                                        variant="filled"
+                                    <Typography
+                                      sx={{
+                                        fontWeight: 500,
 
-                                        sx={{
+                                        fontSize: 25,
+                                      }}
+                                      variant="h3"
+                                      gutterBottom
+                                    >
+                                      Target Label
+                                    </Typography>
+                                    <TextField disabled
+                                      id="filled-multiline-static"
+                                      multiline
+                                      value={target}
+                                      variant="filled"
 
-                                          width: "35%",
-                                          marginBottom: 4,
-                                          backgroundColor: "#FFFFFF",
-                                        }}
-                                      />
+                                      sx={{
 
-                                    
+                                        width: "35%",
+                                        marginBottom: 4,
+                                        backgroundColor: "#FFFFFF",
+                                      }}
+                                    />
+
+
                                   </div>
 
 
                                   <div>
-                                    
-                                      <TextField
-                                        id="filled-multiline-static"
-                                        multiline
-                                        value={inputValue}
-                                        onChange={handletarget}
-                                        sx={{
 
-                                          width: "35%",
-                                          marginBottom: 4,
-                                          backgroundColor: "#FFFFFF",
-                                        }}
-                                      />
+                                    <TextField
+                                      id="filled-multiline-static"
+                                      multiline
+                                      value={inputValue}
+                                      onChange={handletarget}
+                                      sx={{
 
-                                      <Button
-                                        sx={{
+                                        width: "35%",
+                                        marginBottom: 4,
+                                        backgroundColor: "#FFFFFF",
+                                      }}
+                                    />
 
-                                          width: 100,
-                                          height: 50,
+                                    <Button
+                                      sx={{
+
+                                        width: 100,
+                                        height: 50,
 
 
-                                        }}
-                                        type="button"
-                                        variant="contained"
-                                        onClick={handleTargetButton}
-                                        className="ms-2"
-                                      >
-                                        Add
-                                      </Button>
-                                    
+                                      }}
+                                      type="button"
+                                      variant="contained"
+                                      onClick={handleTargetButton}
+                                      className="ms-2"
+                                    >
+                                      Add
+                                    </Button>
+
                                   </div>
 
 
@@ -375,9 +377,9 @@ const NewPenelitian = () => {
                                   <div>
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -406,9 +408,9 @@ const NewPenelitian = () => {
 
                                     <Typography
                                       sx={{
-                                        fontWeight: 600,
+                                        fontWeight: 500,
 
-                                        fontSize: 35,
+                                        fontSize: 25,
                                       }}
                                       variant="h3"
                                       gutterBottom
@@ -432,8 +434,43 @@ const NewPenelitian = () => {
                                 </div>
 
                                 <div className="col-6">
+                                  <Typography
+                                    sx={{
+                                      fontWeight: 500,
+                                      fontSize: 25,
+                                      marginBottom: 2
+                                    }}
+                                    variant="h3"
+                                    gutterBottom
+                                  >
+                                    DataSet
+                                  </Typography>
+                                  <div className="file-uploader-container">
+                                    <FileUploader multiple={false} handleChange={handleFilesChange} name="file" types={fileTypes} >
 
-                                  <Box
+                                      <div className={`drop-area ${isUploaded ? 'uploaded' : ''}`}>
+                                        {isUploaded ?
+                                          <>
+                                           <img src="./check.png" className="drop-img-success"></img>
+                                            <p>File uploaded successfully!</p>
+                                          </>
+
+
+
+                                          : <>
+                                            <img src="./drop.png" className="drop-img"></img>
+                                            <p>Drag and drop a file here</p>
+                                          </>
+
+
+                                        }
+                                      </div>
+                                    </FileUploader>
+
+                                  </div>
+
+                                  {/* <p>{filesToUpload ? `File name: ${filesToUpload.name}` : "no files uploaded yet"}</p> */}
+                                  {/* <Box
                                     sx={{
                                       marginLeft: "8px",
                                       marginTop: 1,
@@ -454,7 +491,7 @@ const NewPenelitian = () => {
                                       type="file"
                                       onChange={handleFilesChange}
                                     />
-                                  </Box>
+                                  </Box> */}
                                 </div>
 
 
