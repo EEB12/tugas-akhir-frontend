@@ -23,6 +23,7 @@
     "react-bootstrap": "^2.5.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-drag-drop-files": "^2.3.10",
     "react-easy-edit": "^1.16.0",
     "react-jwt": "^1.2.0",
     "react-mui-fileuploader": "^0.5.2",
