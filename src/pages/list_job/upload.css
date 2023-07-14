@@ -73,3 +73,12 @@ input[type=file]::file-selector-button {
     cursor: pointer;
     transition: background .2s ease-in-out;
 }
+
+.menu-filter{
+    width: 250px;
+}
+
+.filter-title{
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 2px solid rgba(0,0,0,.125);
+}

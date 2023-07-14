@@ -5,21 +5,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Table from "../Component/Table";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
+
 import axios from "axios";
 import { useState, useEffect, useParams } from "react";
 import "./upload.css";
@@ -34,7 +20,10 @@ import swal from "sweetalert";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 const mdTheme = createTheme();
 
 const Listjob = () => {
@@ -43,31 +32,79 @@ const Listjob = () => {
   // }
   const [data, setData] = useState([]);
   const [role, setRole] = useState("");
-  const [age, setAge] = React.useState("");
+  
+  const [filteredData, setFilteredData] = useState([]);
+  const [statusFilters, setStatusFilters] = useState([]);
+  const [typeFilters, setTypeFilters] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("tokenAccess");
+      const response = await axios.get(
+        "https://backend-ta.ndne.id/api/list_job_penelitian",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const responseData = response.data;
+      setData(responseData);
+      setFilteredData(responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    var token = localStorage.getItem("tokenAccess");
-
-    console.log(token);
-
-    var role = localStorage.getItem("role");
-    setRole(role);
-    const handleSubmit = async (event) => {
-      const response = await axios({
-        method: "get",
-        url: "https://backend-ta.ndne.id/api/list_job_penelitian",
-
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((data) => data);
-
-      console.log(response.data);
-      setData(response.data);
-    };
-
-    handleSubmit();
+    fetchData()
   }, []);
+
+  const handleStatusChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setStatusFilters((prevFilters) => [...prevFilters, value]);
+    } else {
+      setStatusFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== value)
+      );
+    }
+  };
+
+  const handleTypeChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setTypeFilters((prevFilters) => [...prevFilters, value]);
+    } else {
+      setTypeFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== value)
+      );
+    }
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [statusFilters, typeFilters]);
+
+
+  const applyFilters = () => {
+    let filtered = data.filter((item) => {
+      if (
+        statusFilters.length === 0 ||
+        statusFilters.includes(item.status.toLowerCase())
+      ) {
+        if (
+          typeFilters.length === 0 ||
+          typeFilters.includes(item.type_anotasi.toLowerCase())
+        ) {
+          return true;
+        }
+      }
+      return false;
+    });
+    setFilteredData(filtered);
+  };
+
 
   useEffect(() => {
     // Calculate the height based on the number of cards
@@ -108,168 +145,164 @@ const Listjob = () => {
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
+            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3 style={{ color: "#0285F1" }}>My Job</h3>
+                <div>
+                  <button type="button" class="btn btn-custom shadow me-4 " id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <FontAwesomeIcon icon={faFilter} size="lg" className="pe-2 " />
+                    Filter
+                  </button>
+                  <div class="dropdown-menu menu-filter " aria-labelledby="dropdownMenuButton1">
+                    <div className="filter-title  p-2 mb-2">
+                      Status
+                    </div>
 
-                backgroundColor: "#f5f5f5",
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      width: "80%",
-                      height: "100%",
-                      overflowX: "hidden",
-                      position: "fixed",
-                      backgroundColor: "#f5f5f5",
-                      overflowY: "auto",
-                      scrollbarWidth: "thin",
-                      scrollbarColor: "transparent transparent", // Set the color of the scrollbar track and thumb to transparent
-                      "&::-webkit-scrollbar": {
-                        width: "6px", // Customize the width of the scrollbar
-                      },
-                      "&::-webkit-scrollbar-track": {
-                        background: "transparent", // Set the background color of the scrollbar track to transparent
-                      },
-                      "&::-webkit-scrollbar-thumb": {
-                        background: "transparent", // Set the color of the scrollbar thumb to transparent
-                      },
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          List Job Anotate
-                        </Typography>
+                    <div class="filter-content">
+                      <div class="card-body p-2">
+                        <form>
+                          <label class="form-check">
+                            <input class="form-check-input" type="checkbox"  value="finished" onChange={handleStatusChange} />
+                            <span class="form-check-label">
+                              Finished
+                            </span>
+                          </label>
+                          <label class="form-check">
+                            <input class="form-check-input" type="checkbox"  value="progress" onChange={handleStatusChange}/>
+                            <span class="form-check-label">
+                              Progress
+                            </span>
+                          </label>
+
+                        </form>
+
                       </div>
-                      <div className="row">
-                        <div
-                          className="col-12"
-                          style={{ height: "var(--col-height)" }}
-                        >
-                          {data.map((item, index) => (
-                            <>
-                              <div className="row mb-4">
-                                <Card
-                                  sx={{
-                                    maxWidth: 1500,
-                                    Height: 200,
-                                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
-                                    borderRadius: "10px",
-                                  }}
-                                  variant="outlined"
-                                >
-                                  <CardContent>
-                                    <div className="container-fluid">
-                                      <div className="row">
-                                        <div className="col-6 mt-3">
-                                          <Typography component="div">
-                                            <span className="fw-bold me-2">
-                                              Nama Penelitian
-                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </span>{" "}
-                                            :
-                                            <span className="fw-bold ms-2">
-                                              {item.title}
-                                            </span>
-                                          </Typography>
-                                          <Typography component="div">
-                                            <span className="fw-bold me-2">
-                                              {" "}
-                                              Type Anotasi Data
-                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </span>{" "}
-                                            :&nbsp;&nbsp;{item.type_anotasi}
-                                          </Typography>
-                                          <Typography component="div">
-                                            <span className="fw-bold me-2">
-                                              {" "}
-                                              Author
-                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </span>{" "}
-                                            :&nbsp;&nbsp;{item.author}
-                                          </Typography>
-                                        </div>
+                    </div>
 
-                                        <div className="col-6 d-flex justify-content-end">
-                                          {item.type_anotasi == "manual" ? (
-                                            <>
-                                              <Button
-                                                href={
-                                                  `/mytable/` + item.id_anotasi
-                                                }
-                                                type="button"
-                                                class="interactive-button detail ms-4 "
-                                              >
-                                                <Box
-                                                  sx={{
-                                                    color: "#FFFFFF",
-                                                    fontWeight: 600,
-                                                    fontSize: 16,
-                                                    paddingTop: 1,
-                                                    paddingLeft: 4,
-                                                  }}
-                                                >
-                                                  Anotate{" "}
-                                                </Box>
-                                              </Button>
-                                            </>
-                                          ) : (
-                                            <>
-                                              <Button
-                                                href={
-                                                  `/anotate-auto/` +
-                                                  item.id_anotasi
-                                                }
-                                                type="button"
-                                                class="interactive-button detail ms-4 "
-                                              >
-                                                <Box
-                                                  sx={{
-                                                    color: "#FFFFFF",
-                                                    fontWeight: 600,
-                                                    fontSize: 16,
-                                                    paddingTop: 1,
-                                                    paddingLeft: 4,
-                                                  }}
-                                                >
-                                                  Anotate{" "}
-                                                </Box>
-                                              </Button>
-                                            </>
-                                          )}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              </div>
-                            </>
-                          ))}
+                    <div className="filter-title border-bottom-2 p-2">
+                      Type
+                    </div>
+
+                    <div class="filter-content">
+                      <div class="card-body p-2">
+                        <form>
+                          <label class="form-check">
+                            <input class="form-check-input" type="checkbox" value="auto" onChange={handleTypeChange} />
+                            <span class="form-check-label">
+                              Auto
+                            </span>
+                          </label>
+                          <label class="form-check">
+                            <input class="form-check-input" type="checkbox"  value="manual" onChange={handleTypeChange} />
+                            <span class="form-check-label">
+                              Manual
+                            </span>
+                          </label>
+
+                        </form>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <button type="button" class="btn btn-custom shadow">
+                    <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                    Tutorial
+                  </button>
+                </div>
+
+              </div>
+              <div className="row">
+                {console.log(data.length)}
+
+                {filteredData.length == 0 ? (
+                  <>
+                    <div className="col-12 d-flex justify-content-center">
+                      <div class="card empty" style={{ width: "80%" }}>
+                        <div class="card-body" style={{ width: "100%" }}>
+                          <h5 class="card-title text-center">
+                            Data Penelitian Kosong{" "}
+                          </h5>
+
+                          <p class="card-text text-center">
+                            Klik "Buat Penelitian" untuk membuat penelitian
+                          </p>
+                          <div className="w-100 d-flex justify-content-center">
+                            <a
+                              href="/new-penelitian"
+                              type="button"
+                              class="btn btn-primary w-25"
+                            >
+                              Buat Penelitian
+                            </a>
+                          </div>
+                          <p className="mt-3 text-center text-danger">
+                            ( Siapkan dataset penelitian sebelum
+                            membuat penelitian )
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+                  </>
+                ) : (
+                  <>
+                    {filteredData.map((item, index) => (
+                      <>
+                        <div className="col-4 mb-4">
+                          <a href={`/detail-penelitian/` + item.id_anotasi}>
+                            <div class="card card-penelitian">
+                              <img
+                                src="/loginregister.jpg"
+                                style={{
+                                  maxHeight: "80px",
+                                  width: "100%",
+                                  objectFit: "cover",
+                                }}
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div
+                                class="card-body"
+                                style={{ height: "150px" }}
+                              >
+                                <h5 class="card-title text-title">
+                                  {item.title}
+                                </h5>
+
+                                <div className="d-flex justify-content-start">
+                                  <h5 class="card-text text-label">Tipe&nbsp;&nbsp;&nbsp;&nbsp;:</h5>
+                                  <h5 class="card-text text-status">
+                                    {item.type_anotasi}
+                                  </h5>
+                                </div>
+
+                                <div className="d-flex justify-content-start">
+                                  <h5 class="card-text text-label">Status :</h5>
+                                  <h5 class="card-text text-status">
+                                    {item.status}
+                                  </h5>
+                                </div>
+                                {item.desc.length > 10 ? (
+                                  <>
+                                    <p className="card-text text-desc fw-normal">
+                                      {item.desc.slice(0, 40)}...
+                                    </p>
+                                  </>
+                                ) : (
+                                  <p className="card-text text-desc">
+                                    {item.desc}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
           </Box>
         </Box>
       </ThemeProvider>
