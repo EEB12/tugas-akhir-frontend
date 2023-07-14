@@ -32,6 +32,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import csvDownload from "json-to-csv-export";
 import Modal from "@mui/material/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 const mdTheme = createTheme();
 
 const bull = (
@@ -162,256 +164,92 @@ const Listmodel = () => {
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
+            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3 style={{ color: "#0285F1" }}>List Model</h3>
+                <button type="button" class="btn btn-custom shadow">
+                <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2"/>
+                  Tutorial
+                </button>
+              </div>
+              <div className="row">
+                {console.log(data.length)}
 
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
+                {data.length == 0 ? (
+                  <>
+                    <div className="col-12 d-flex justify-content-center">
+                      <div class="card empty" style={{ width: "80%" }}>
+                        <div class="card-body" style={{ width: "100%" }}>
+                          <h5 class="card-title text-center">
+                            Model Kosong{" "}
+                          </h5>
 
-                      height: "100vh",
-                      width: "80%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          List Model
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="col-12">
-                          {data.map((item, index) => (
-                            <>
-                              <div className="row mb-4">
-                                <Card
-                                  sx={{
-                                    maxWidth: 1500,
-                                    Height: 200,
-                                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
-                                    borderRadius: "10px",
-                                  }}
-                                  variant="outlined"
-                                >
-                                  <CardContent>
-                                    <div className="container-fluid">
-                                      <div className="row">
-                                        <div className="col-6 mt-3">
-                                          <Typography component="div">
-                                            <span className="fw-bold me-1">
-                                              {" "}
-                                              Judul
-                                              Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </span>{" "}
-                                            :&nbsp;{item.title}
-                                          </Typography>
-                                          <Typography component="div">
-                                            <span className="fw-bold me-1">
-                                              {" "}
-                                              Deskripsi
-                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </span>
-                                            :&nbsp;{item.desc}
-                                          </Typography>
-
-                                          <Typography component="div">
-                                            <span className="fw-bold me-1">
-                                              Model Program&nbsp;&nbsp;&nbsp;{" "}
-                                            </span>
-                                            :&nbsp;tes model
-                                          </Typography>
-                                          <Typography component="div">
-                                            <span className="fw-bold me-1">
-                                              {" "}
-                                              Vectorizer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
-                                            </span>{" "}
-                                            :&nbsp;tes vectorizer
-                                          </Typography>
-                                        </div>
-
-                                        <div className="col-6 d-flex justify-content-end mt-4">
-                                          {/* <button    onClick={() => download(item.id_anotasi)} type="button" class="btn btn-light  interactive-button "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16}}>Download .pickle</Box></button>
-                                                                                    <Button href={`/detail-penelitian/`+item.id_anotasi} type="button" class="btn btn-light  interactive-button detail "><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16,paddingTop:2 }}>Detail </Box></Button> */}
-                                          <button
-                                            type="button"
-                                            class="  interactive-button "
-                                          >
-                                            <Box
-                                              sx={{
-                                                color: "#FFFFFF",
-                                                fontWeight: 600,
-                                                fontSize: 16,
-                                                paddingLeft: 2,
-                                                paddingRight: 2,
-                                              }}
-                                            >
-                                              Download .pickle
-                                            </Box>
-                                          </button>
-                                          {/* <button href={`#`} type="button" class=" interactive-button detail ms-4"><Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}><a className='detail' href={`/detail-penelitian/` + item.id_anotasi}>Detail</a> </Box></button> */}
-
-                                          <button
-                                            onClick={() =>
-                                              openModel(
-                                                item.title,
-                                                item.desc,
-                                                item.id
-                                              )
-                                            }
-                                            href={`#`}
-                                            type="button"
-                                            class=" interactive-button detail ms-4"
-                                          >
-                                            <Box
-                                              sx={{
-                                                color: "#FFFFFF",
-                                                fontWeight: 600,
-                                                fontSize: 16,
-                                              }}
-                                            >
-                                              <a className="detail" href="#">
-                                                Edit
-                                              </a>{" "}
-                                            </Box>
-                                          </button>
-                                          {/* {role == '"peneliti"' ?<Button href={`/list-anotator/`+item.id_anotasi}  type="button" class="btn btn-light  interactive-button detail ">
-                                                                                        <Box sx={{ color: '#FFFFFF', fontWeight: 600, fontSize: 16 }}>Pilih Anotator </Box></Button>:<></>} */}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              </div>
-                            </>
-                          ))}
+                          <p class="card-text text-center">
+                            Klik "Buat Model" untuk membuat Model
+                          </p>
+                          <div className="w-100 d-flex justify-content-center">
+                            <a
+                              href="/new-penelitian"
+                              type="button"
+                              class="btn btn-primary w-25"
+                            >
+                              Buat Model
+                            </a>
+                          </div>
+                          <p className="mt-3 text-center text-danger">
+                            ( Siapkan Data Program Model  sebelum
+                            membuat Model )
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-              <Modal
-                open={isModelOpen}
-                onClose={() => setIsModelOpen(false)}
-                aria-labelledby="modal-title"
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: 700,
-                    modal: 500,
-                    bgcolor: "background.paper",
-                    boxShadow: 24,
-                    p: 4,
-                  }}
-                >
-                  {}
-                  <Typography id="modal-title" variant="h5" component="h2">
-                    Edit Model
-                  </Typography>
-                  <Divider sx={{ bgcolor: "secondary.light" }} />
-
-                  {/* Form */}
-
-                  <div>
-                    <TextField
-                      sx={{
-                        width: "95%",
-                        marginBottom: 4,
-                        "& .MuiInputBase-input.Mui-disabled": {
-                          WebkitTextFillColor: "#000000",
-                        },
-                        marginTop: 2,
-                      }}
-                      InputLabelProps={{ shrink: true }}
-                      inputProps={{
-                        style: {
-                          marginTop: 5,
-                          fontSize: "20px", // Adjust the font size as needed
-                        },
-                      }}
-                      onChange={(e) => setModelTitle(e.target.value)}
-                      id="standard-basic"
-                      value={modelTitle}
-                      label="Title"
-                      variant="standard"
-                    />
-                  </div>
-
-                  <div>
-                    <TextField
-                      sx={{
-                        width: "95%",
-                        marginBottom: 4,
-                        "& .MuiInputBase-input.Mui-disabled": {
-                          WebkitTextFillColor: "#000000",
-                        },
-                      }}
-                      InputLabelProps={{ shrink: true }}
-                      inputProps={{
-                        style: {
-                          marginTop: 5,
-                          fontSize: "20px", // Adjust the font size as needed
-                        },
-                      }}
-                      onChange={(e) => setDesc(e.target.value)}
-                      value={desc}
-                      id="standard-basic"
-                      label="Deskripsi"
-                      variant="standard"
-                    />
-                  </div>
-
-                  <div className="row mt-3">
-                    <Button
-                      className="w-25 ms-1"
-                      type="button"
-                      variant="contained"
-                      onClick={submitModelEdit}
-                    >
-                      Save
-                    </Button>
-
-                    <Button
-                      className="w-25 ms-4"
-                      color="error"
-                      type="button"
-                      variant="contained"
-                      onClick={handleCloseModel}
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </Box>
-              </Modal>
-            </Container>
+                  </>
+                ) : (
+                  <>
+                    {data.map((item, index) => (
+                      <>
+                        <div className="col-4">
+                          <a href={`/detail-penelitian/` + item.id_anotasi}>
+                            <div class="card card-penelitian">
+                              <img
+                                src="/loginregister.jpg"
+                                style={{
+                                  maxHeight: "80px",
+                                  width: "100%",
+                                  objectFit: "cover",
+                                }}
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div
+                                class="card-body"
+                                style={{ height: "120px" }}
+                              >
+                                <h5 class="card-title text-title  ">
+                                  {item.title}
+                                </h5>
+                                
+                                {item.desc.length > 10 ? (
+                                  <>
+                                    <p className="card-text text-desc fw-normal d-block text-start">
+                                      {item.desc.slice(0, 40)}... 
+                                    </p>
+                                  </>
+                                ) : (
+                                  <p className="card-text text-desc fw-normal d-block text-start">
+                                    {item.desc} 
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
           </Box>
         </Box>
       </ThemeProvider>

@@ -192,7 +192,7 @@ const Listpenelitian = () => {
                                 style={{ width: "100%", height: "467px" }}
                                 alt="..."
                               />
-                              <div class="carousel-caption custom-first px-5 d-none d-md-block rounded-4">
+                              <div class="carousel-caption custom-first p-5 d-none d-md-block rounded-4">
                                 <h1>Selamat Datang di Website Anotasi</h1>
                                 <h5 className="fw-normal">
                                   Website Anotasi Data merupakan website yang
@@ -201,29 +201,6 @@ const Listpenelitian = () => {
                                   penelitian anotasi data. Website ini mendukung
                                   penggunaan model dalam berbagai penelitian.
                                 </h5>
-                                <p className="mt-3 text-md-center">
-                                  Fitur yang disediakan oleh website ini berupa:
-                                  <div class=" gap-3 d-flex align-items-center justify-content-center flex-column mt-3">
-                                    <div
-                                      class=" list-group-mine py-2 fw-normal w-25"
-                                      href="/#"
-                                    >
-                                      Membuat Penelitian Data
-                                    </div>
-                                    <div
-                                      class=" list-group-mine py-2 fw-normal w-25"
-                                      href="/#"
-                                    >
-                                      Melakukan Anotasi Data
-                                    </div>
-                                    <div
-                                      class=" list-group-mine py-2 fw-normal w-25"
-                                      href="/#"
-                                    >
-                                      Export Data Hasil Anotasi
-                                    </div>
-                                  </div>
-                                </p>
                               </div>
                             </div>
 
@@ -460,58 +437,51 @@ const Listpenelitian = () => {
                           </>
                         ) : (
                           <>
-                            <div className="col-12">
-                              <div className="row mb-4">
-                                {data.map((item, index) => (
-                                  <>
-                                    <div className="col-3 ml-3 mb-3">
+                            {data.map((item, index) => (
+                              <>
+                                <div className="col-4">
+                                  <a href={`/detail-penelitian/` + item.id_anotasi}>
+                                    <div class="card card-penelitian">
+                                      <img
+                                        src="/loginregister.jpg"
+                                        style={{
+                                          maxHeight: "80px",
+                                          width: "100%",
+                                          objectFit: "cover",
+                                        }}
+                                        class="card-img-top"
+                                        alt="..."
+                                      />
                                       <div
-                                        class="card card-layout"
-                                        style={{
-                                          minHeight: "200px",
-                                          maxWidth: "100%",
-                                        }}
+                                        class="card-body"
+                                        style={{ height: "120px" }}
                                       >
-                                        <img
-                                          src="/loginregister.jpg"
-                                          style={{
-                                            maxHeight: "150px",
-                                            width: "100%",
-                                            objectFit: "cover",
-                                          }}
-                                          class="card-img-top"
-                                          alt="..."
-                                        />
-                                        <div
-                                          class="card-body detail-card "
-                                          style={{ minHeight: "140px" }}
-                                        >
-                                          <h5 class="card-title text-blue">
-                                            {item.title}
+                                        <h5 class="card-title text-title">
+                                          {item.title}
+                                        </h5>
+                                        <div className="d-flex justify-content-start">
+                                          <h5 class="card-text text-label">Status :</h5>
+                                          <h5 class="card-text text-status">
+                                            {item.status}
                                           </h5>
-                                          <p class="card-text text-blue">
-                                            {item.desc}.
-                                          </p>
                                         </div>
+                                        {item.desc.length > 10 ? (
+                                          <>
+                                            <p className="card-text text-desc fw-normal">
+                                              {item.desc.slice(0, 40)}...
+                                            </p>
+                                          </>
+                                        ) : (
+                                          <p className="card-text text-desc">
+                                            {item.desc}
+                                          </p>
+                                        )}
                                       </div>
-                                      <a
-                                        href={
-                                          `/detail-penelitian/` +
-                                          item.id_anotasi
-                                        }
-                                        class="btn btn-primary button-detail"
-                                        style={{
-                                          minWidth: "100%",
-                                          maxWidth: "40vh",
-                                        }}
-                                      >
-                                        Detail Penelitian
-                                      </a>
                                     </div>
-                                  </>
-                                ))}
-                              </div>
-                            </div>
+                                  </a>
+                                </div>
+                              </>
+                            ))}
                           </>
                         )}
                       </div>

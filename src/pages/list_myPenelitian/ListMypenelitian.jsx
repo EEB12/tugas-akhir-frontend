@@ -35,6 +35,9 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import csvDownload from "json-to-csv-export";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+
 const mdTheme = createTheme();
 
 const bull = (
@@ -124,7 +127,6 @@ const ListMypenelitian = () => {
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
           <Navbar />
-
           <Box
             component="main"
             sx={{
@@ -137,150 +139,97 @@ const ListMypenelitian = () => {
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
+            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3 style={{ color: "#0285F1" }}>My Penelitian</h3>
+                <button type="button" class="btn btn-custom shadow">
+                <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2"/>
+                  Tutorial
+                </button>
+              </div>
+              <div className="row">
+                {console.log(data.length)}
 
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
+                {data.length == 0 ? (
+                  <>
+                    <div className="col-12 d-flex justify-content-center">
+                      <div class="card empty" style={{ width: "80%" }}>
+                        <div class="card-body" style={{ width: "100%" }}>
+                          <h5 class="card-title text-center">
+                            Data Penelitian Kosong{" "}
+                          </h5>
 
-                      height: "100vh",
-                      width: "100%%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          My Penelitian
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="row">
-                          {console.log(data.length)}
-
-                          {data.length == 0 ? (
-                            <>
-                              <div className="col-12 d-flex justify-content-center">
-                                <div
-                                  class="card empty"
-                                  style={{ width: "80%" }}
-                                >
-                                  <div
-                                    class="card-body"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <h5 class="card-title text-center">
-                                      Data Penelitian Kosong{" "}
-                                    </h5>
-
-                                    <p class="card-text text-center">
-                                      Klik "Buat Penelitian" untuk membuat
-                                      penelitian
-                                    </p>
-                                    <div className="w-100 d-flex justify-content-center">
-                                      <a
-                                        href="/new-penelitian"
-                                        type="button"
-                                        class="btn btn-primary w-25"
-                                      >
-                                        Buat Penelitian
-                                      </a>
-                                    </div>
-                                    <p className="mt-3 text-center text-danger">
-                                      ( Siapkan dataset penelitian sebelum
-                                      membuat penelitian )
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="col-12">
-                                <div className="row mb-4">
-                                  {data.map((item, index) => (
-                                    <>
-                                      <div className="col-3 ml-3 mb-3">
-                                        <div
-                                          class="card card-layout"
-                                          style={{
-                                            minHeight: "200px",
-                                            maxWidth: "100%",
-                                          }}
-                                        >
-                                          <img
-                                            src="/loginregister.jpg"
-                                            style={{
-                                              maxHeight: "150px",
-                                              width: "100%",
-                                              objectFit: "cover",
-                                            }}
-                                            class="card-img-top"
-                                            alt="..."
-                                          />
-                                          <div
-                                            class="card-body detail-card "
-                                            style={{ minHeight: "140px" }}
-                                          >
-                                            <h5 class="card-title text-blue">
-                                              {item.title}
-                                            </h5>
-                                            <p class="card-text text-blue">
-                                              {item.desc}.
-                                            </p>
-                                          </div>
-                                        </div>
-                                        <a
-                                          href={
-                                            `/detail-penelitian/` +
-                                            item.id_anotasi
-                                          }
-                                          class="btn btn-primary button-detail"
-                                          style={{
-                                            minWidth: "100%",
-                                            maxWidth: "40vh",
-                                          }}
-                                        >
-                                          Detail Penelitian
-                                        </a>
-                                      </div>
-                                    </>
-                                  ))}
-                                </div>
-                              </div>
-                            </>
-                          )}
+                          <p class="card-text text-center">
+                            Klik "Buat Penelitian" untuk membuat penelitian
+                          </p>
+                          <div className="w-100 d-flex justify-content-center">
+                            <a
+                              href="/new-penelitian"
+                              type="button"
+                              class="btn btn-primary w-25"
+                            >
+                              Buat Penelitian
+                            </a>
+                          </div>
+                          <p className="mt-3 text-center text-danger">
+                            ( Siapkan dataset penelitian sebelum
+                            membuat penelitian )
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+                  </>
+                ) : (
+                  <>
+                    {data.map((item, index) => (
+                      <>
+                        <div className="col-4">
+                          <a href={`/detail-penelitian/` + item.id_anotasi}>
+                            <div class="card card-penelitian">
+                              <img
+                                src="/loginregister.jpg"
+                                style={{
+                                  maxHeight: "80px",
+                                  width: "100%",
+                                  objectFit: "cover",
+                                }}
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div
+                                class="card-body"
+                                style={{ height: "120px" }}
+                              >
+                                <h5 class="card-title text-title">
+                                  {item.title}
+                                </h5>
+                                <div className="d-flex justify-content-start">
+                                  <h5 class="card-text text-label">Status :</h5>
+                                  <h5 class="card-text text-status">
+                                    {item.status}
+                                  </h5>
+                                </div>
+                                {item.desc.length > 10 ? (
+                                  <>
+                                    <p className="card-text text-desc fw-normal">
+                                      {item.desc.slice(0, 40)}...
+                                    </p>
+                                  </>
+                                ) : (
+                                  <p className="card-text text-desc">
+                                    {item.desc}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
           </Box>
         </Box>
       </ThemeProvider>
