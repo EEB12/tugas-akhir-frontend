@@ -209,7 +209,7 @@ const MyListmodel = () => {
                     {data.map((item, index) => (
                       <>
                         <div className="col-4">
-                          <a href={`/detail-penelitian/` + item.id_anotasi}>
+                          <a >
                             <div class="card card-penelitian">
                               <img
                                 src="/loginregister.jpg"
