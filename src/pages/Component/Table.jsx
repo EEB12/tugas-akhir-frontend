@@ -5,14 +5,6 @@ export default function Table({ theadData, tbodyData }) {
     console.log(theadData)
     return (
         <table className=' fl-table   '>
-
-            {/* 
-            <colgroup>
-                <col span="1" style={{width: "20%"}} />
-                <col span="1"style={{width: "50%"}} />
-                <col span="1" style={{width: "10%"}} />
-                <col span="1" style={{width: "10%"}} />
-            </colgroup> */}
             <thead>
                 <tr>
                     {theadData.map(heading => {
