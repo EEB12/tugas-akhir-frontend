@@ -25,6 +25,8 @@ import Stack from "@mui/material/Stack";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 const mdTheme = createTheme();
 
 const Profile = () => {
@@ -65,9 +67,9 @@ const Profile = () => {
     return {
       sx: {
         bgcolor: stringToColor(name),
-        width: 241,
-        height: 241,
-        fontSize: 95,
+        width: 200,
+        height: 200,
+        fontSize: 55,
       },
       children: `${name.split(" ")[0][0]}`,
     };
@@ -152,211 +154,78 @@ const Profile = () => {
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
               width: "100%",
               height: "100%",
-              overflowX: "initial",
+              overflowX: "hidden",
+              position: "fixed",
+              backgroundColor: "#f5f5f5",
+              overflowY: "auto",
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
+            <div>
 
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
+            </div>
+            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-50">
+              <div className="mb-4 d-flex justify-content-between   profile-title ">
+                <h3 style={{ color: "#0285F1" }}>Informasi Pengguna</h3>
+                {/* <button type="button" class="btn btn-custom shadow">
+                  <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                  Tutorial
+                </button> */}
 
-                      height: "100%",
-                      width: "100%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          Profile
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="col-12">
-                          <Paper
-                            elevation={0}
-                            sx={{
-                              p: 2,
-                              display: "flex",
-
-                              height: "130vh",
-                              width: "100%",
-                              pb: 10,
-                              flexDirection: "column",
-                              backgroundColor: "#fffff",
-                              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
-                              borderRadius: "5px",
-                            }}
-                          >
-                            <div className="container-fluid">
-                              <div className="row mb-5 ">
-                                <div className="col-12  d-flex justify-content-center">
-                                  <Stack direction="row" spacing={2}>
-                                    <Avatar
-                                      {...stringAvatar(
-                                        `${data.username?.toUpperCase()}`
-                                      )}
-                                    />
-                                  </Stack>
-                                </div>
-                              </div>
-                              <div className="row mb-5">
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Nama Pengguna
-                                </Typography>
-
-                                <TextField
-                                  sx={{
-                                    marginLeft: 3,
-                                    marginTop: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                    "& .MuiInputBase-input.Mui-disabled": {
-                                      WebkitTextFillColor: "#000000",
-                                    },
-                                  }}
-                                  inputProps={{
-                                    style: {
-                                      marginTop: 6,
-                                      fontSize: "20px", // Adjust the font size as needed
-                                    },
-                                  }}
-                                  onChange={handlename}
-                                  id="standard-basic"
-                                  variant="standard"
-                                  value={name}
-                                />
-
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Email
-                                </Typography>
-
-                                <TextField
-                                  inputProps={{
-                                    style: {
-                                      marginTop: 6,
-                                      fontSize: "20px", // Adjust the font size as needed
-                                    },
-                                  }}
-                                  sx={{
-                                    marginLeft: 3,
-                                    marginTop: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                    "& .MuiInputBase-input.Mui-disabled": {
-                                      WebkitTextFillColor: "#000000",
-                                    },
-                                  }}
-                                  onChange={handlemail}
-                                  id="standard-basic"
-                                  variant="standard"
-                                  value={email}
-                                />
-
-                                <Typography
-                                  inputProps={{
-                                    style: {
-                                      marginTop: 6,
-                                      fontSize: "20px", // Adjust the font size as needed
-                                    },
-                                  }}
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  NIK/NRP
-                                </Typography>
-
-                                <TextField
-                                  disabled
-                                  sx={{
-                                    marginLeft: 3,
-                                    marginTop: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                  }}
-                                  onChange={handleNIK}
-                                  id="standard-basic"
-                                  variant="standard"
-                                  value={data.nrp_nik}
-                                />
-                              </div>
-                              <div className="row mb-5">
-                                <Button
-                                  type="button"
-                                  variant="contained"
-                                  onClick={handleSubmit}
-                                  className="ms-2 mt-3 w-25"
-                                >
-                                  Submit
-                                </Button>
-                              </div>
-                            </div>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            {/* <Button type="button" variant="contained" onClick={handleSubmit} className="ms-2 mt-3 w-25">Upload</Button> */}
-                          </Paper>
-                        </div>
-                      </div>
+              </div>
+              <div className="row">
+                <div className="col-6 ps-4 mt-4">
+                  <div class="row mb-4">
+                    <label for="nama" class="col-lg-4 col-form-label">Nama</label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" id="nama" value={name} onChange={handlename} />
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+                  </div>
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">Email</label>
+                    <div class="col-lg-8">
+                      <input type="email" class="form-control" id="email" value={email} onChange={handlemail} />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">NIK/NRP</label>
+                    <div class="col-lg-8">
+                      <input disabled type="email" class="form-control" id="email" value={data.nrp_nik} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-6">
+                  <div className="row mb-5 ">
+                    <div className="col-12  d-flex justify-content-center">
+                      <Stack direction="row" spacing={2}>
+                        <Avatar
+                          {...stringAvatar(
+                            `${data.username?.toUpperCase()}`
+                          )}
+
+
+                        />
+                      </Stack>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <Button
+                  type="button"
+                  variant="contained"
+                  onClick={handleSubmit}
+                  className="ms-2 mt-3 w-25"
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
           </Box>
         </Box>
         <Backdrop
