@@ -223,7 +223,7 @@ const NewPenelitian = () => {
 
                 <div className="col-6">
                   <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="9"></textarea>
                 </div>
               </div>
 
