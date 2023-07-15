@@ -193,20 +193,46 @@ const NewPenelitian = () => {
                   <div class="row mb-4">
                     <label for="nama" class="col-lg-4 col-form-label">Judul Penelitian</label>
                     <div class="col-lg-8">
-                      <input type="text" class="form-control" id="nama" />
+                      <input type="text" class="form-control" id="nama" onChange={handleChangeTitle} />
                     </div>
                   </div>
                   <div class="row mb-4">
                     <label for="email" class="col-lg-4 col-form-label">Type Anotasi</label>
                     <div class="col-lg-8">
-                      <input type="email" class="form-control" id="email" />
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        sx={{
+                          height: "38px",
+                          width: 200,
+
+                        }}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={"AUTO"}>Auto</MenuItem>
+                        <MenuItem value={"MANUAL"}>Manual</MenuItem>
+                      </Select>
                     </div>
                   </div>
 
                   <div class="row mb-4">
                     <label for="email" class="col-lg-4 col-form-label">Bahasa</label>
                     <div class="col-lg-8">
-                      <input disabled type="email" class="form-control" id="email" value={data.nrp_nik} />
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={lang}
+                        sx={{
+                          height: "38px",
+                          width: 200,
+
+                        }}
+                        onChange={handleLang}
+                      >
+                        <MenuItem value={"english"}>Inggris</MenuItem>
+                        <MenuItem value={"indonesian"}>Indonesia</MenuItem>
+                      </Select>
                     </div>
                   </div>
 
@@ -223,7 +249,7 @@ const NewPenelitian = () => {
 
                 <div className="col-6">
                   <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="9"></textarea>
+                  <textarea class="form-control"  onChange={handleDesc}  id="exampleFormControlTextarea1" rows="9"></textarea>
                 </div>
               </div>
 
