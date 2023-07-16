@@ -164,7 +164,7 @@ const Profile = () => {
           >
             <Toolbar />
             
-            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-50">
+            <div className="container bg-white my-4 rounded-5 p-4">
               <div className="mb-4 d-flex justify-content-between   profile-title ">
                 <h3 style={{ color: "#0285F1" }}>Informasi Pengguna</h3>
               </div>

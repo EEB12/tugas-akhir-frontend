@@ -110,6 +110,15 @@ const EditPenelitian = () => {
 
 
     };
+
+    const handleTargetDelete = () => {
+
+        setTarget("");
+       
+
+
+
+    };
     const uploadFiles = async () => {
         // Create a form and post it to server
         let formData = new FormData()
