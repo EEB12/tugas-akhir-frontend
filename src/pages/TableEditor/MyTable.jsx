@@ -177,19 +177,6 @@ const MyTable = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((data) => data);
-
-    // if (response.data.message == 'Data created successfully') {
-    //     swal("Success", "Model Uploaded", "success", {
-    //         buttons: false,
-    //         timer: 2000,
-    //     })
-    //         .then((value) => {
-
-    //             // window.location.href = "/list-job";
-    //         });
-    // } else {
-    //     swal("Failed", "Model Upload Failed", "error");
-    // }
   };
 
   const cancel = () => {};
@@ -443,32 +430,44 @@ const MyTable = () => {
                 </div>
               </div>
 
-              <div className="border-line">
+              <div className="border-line mb-4">
                 <h5 className="mb-4">Detail Penelitian</h5>
                 <div className="row">
                   <div className="col-4 col-md-2">
                     <h6 className="fw-normal grey">Tipe Anotasi</h6>
                   </div>
                   <div className="col-8 col-md-10">
-                    <h6>: {detail.type_anotasi}</h6>
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6> {detail.type_anotasi}</h6>
+                    </div>
                   </div>
                   <div className="col-4 col-md-2">
                     <h6 className="fw-normal grey">Author</h6>
                   </div>
                   <div className="col-8 col-md-10">
-                    <h6>: {detail.author}</h6>
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6>{detail.author}</h6>
+                    </div>
                   </div>
                   <div className="col-4 col-md-2">
                     <h6 className="fw-normal grey">Anotator</h6>
                   </div>
                   <div className="col-8 col-md-10">
-                    <h6>: {detail.anotator}</h6>
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6>{detail.anotator}</h6>
+                    </div>
                   </div>
                   <div className="col-4 col-md-2">
                     <h6 className="fw-normal grey">Deskripsi</h6>
                   </div>
                   <div className="col-8 col-md-10">
-                    <h6>: {detail.desc}</h6>
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6>{detail.desc}</h6>
+                    </div>
                   </div>
                   <div className="col-4 col-md-2">
                     <h6 className="fw-normal grey">Target</h6>
@@ -476,12 +475,15 @@ const MyTable = () => {
                   <div className="col-8 col-md-10">
                     {detail.target &&
                       detail.target.map((item, index) => (
-                        <h6 key={index}>: {item}</h6>
+                        <div className="d-flex justify-content-start gap-4">
+                          <h6>:</h6>
+                          <h6 key={index}>{item}</h6>
+                        </div>
                       ))}
                   </div>
                 </div>
               </div>
-              <div className="border-line mt-2">
+              <div className="border-line">
                 <div className="d-flex justify-content-between">
                   <h5 className="pt-2">Edit Dataset</h5>
                   <button

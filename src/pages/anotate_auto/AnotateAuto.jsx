@@ -1,366 +1,352 @@
-import React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import React from "react";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 
+import Box from "@mui/material/Box";
 
-import Box from '@mui/material/Box';
+import Toolbar from "@mui/material/Toolbar";
 
-import Toolbar from '@mui/material/Toolbar';
+import Typography from "@mui/material/Typography";
+import Table from "../Component/Table";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
-import Typography from '@mui/material/Typography';
-import Table from '../Component/Table';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-
-import Button from '@mui/material/Button';
-import axios from 'axios';
+import Button from "@mui/material/Button";
+import axios from "axios";
 import { useState, useEffect } from "react";
-import './upload.css'
-import { useParams } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import Navbar from '../Component/navbar';
-import swal from 'sweetalert';
-
+import "./upload.css";
+import { useParams } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Navbar from "../Component/navbar";
+import swal from "sweetalert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
 const mdTheme = createTheme();
 
-
-
-
-
 const AnotateAuto = () => {
-    const [open, setOpen] = useState(false);
-    const [filesToUpload, setFilesToUpload] = useState();
-    const [data, setData] = useState([]);
-    const [table, setTable] = useState([]);
-    const [age, setAge] = React.useState('');
-    const [namefile, setNamefile] = useState('')
-    const [modelid, setModelid] = useState('')
-    const [preview, setPreview] = React.useState([]);
-    const [detail,setDetail]=useState([])
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const handleToggle = () => {
-        setOpen(!open);
-    };
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+  const [open, setOpen] = useState(false);
+  const [filesToUpload, setFilesToUpload] = useState();
+  const [data, setData] = useState([]);
+  const [table, setTable] = useState([]);
+  const [age, setAge] = React.useState("");
+  const [namefile, setNamefile] = useState("");
+  const [modelid, setModelid] = useState("");
+  const [preview, setPreview] = React.useState([]);
+  const [detail, setDetail] = useState([]);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
-    const handleChangeTitle = (event) => {
-        setNamefile(event.target.value);
-    };
+  const handleChangeTitle = (event) => {
+    setNamefile(event.target.value);
+  };
 
-    const handleFilesChange = (e) => {
-        // Update chosen files
-        console.log(e.target.files[0])
-        setFilesToUpload(e.target.files[0])
-    };
+  const handleFilesChange = (e) => {
+    // Update chosen files
+    console.log(e.target.files[0]);
+    setFilesToUpload(e.target.files[0]);
+  };
 
-    const handlename = (event) => {
-        setNamefile(event.target.value)
+  const handlename = (event) => {
+    setNamefile(event.target.value);
+  };
+  const getHeadings = () => {
+    return Object.keys(preview[0]).reverse();
+  };
+
+  const params = useParams();
+
+  const download = async (id, name) => {
+    var token = localStorage.getItem("tokenAccess");
+    let formData = new FormData();
+
+    formData.append("id_anotasi", id);
+    const response = await axios({
+      method: "get",
+      url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
+
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((data) => data);
+
+    console.log(response.data);
+    const dataDownload = response.data[1];
+    var headers = Object.keys(dataDownload[0]).reverse();
+    console.log(headers);
+    const dataToConvert = {
+      data: dataDownload,
+      filename: `${name}`,
+      delimiter: ",",
+      headers: headers,
+    };
+    // csvDownload(dataToConvert)
+  };
+
+  const handleSubmit = async () => {
+    let formData = new FormData();
+
+    formData.append("id_anotasi", params.id);
+    formData.append("id_model", modelid);
+
+    var token = localStorage.getItem("tokenAccess");
+
+    const response = await axios({
+      method: "post",
+      url: "https://backend-ta.ndne.id/api/anotate_model",
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((data) => data);
+
+    const preview1 = response.data.data.slice(0, 5);
+
+    setPreview(preview1);
+
+    if (response.data) {
+      swal("Success", "Model Uploaded", "success", {
+        buttons: false,
+        timer: 2000,
+      }).then((value) => {
+        // console.log(response.data)
+        window.location.href = `/mytable/${params.id}`;
+      });
+    } else {
+      swal("Failed", "Model Upload Failed", "error");
     }
-    const getHeadings = () => {
-        return Object.keys(preview[0]).reverse();
-    }
+  };
 
-    const params = useParams();
+  useEffect(() => {
+    var token = localStorage.getItem("tokenAccess");
+    console.log(token);
 
-    const download = async (id, name) => {
-        var token = localStorage.getItem('tokenAccess')
-        let formData = new FormData()
+    const handleSubmit = async (event) => {
+      const response = await axios({
+        method: "get",
+        url: "https://backend-ta.ndne.id/api/list_model",
 
-        formData.append("id_anotasi", id)
-        const response = await axios({
-            method: "get",
-            url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
-           
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-        }).then(data => data);
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((data) => data);
 
-        console.log(response.data)
-        const dataDownload=response.data[1]
-        var headers = Object.keys(dataDownload[0]).reverse()
-        console.log(headers)
-        const dataToConvert = {
-            data: dataDownload,
-            filename: `${name}`,
-            delimiter: ',',
-            headers: headers
-        }
-        // csvDownload(dataToConvert)
-    }
-
-    const handleSubmit = async () => {
-
-
-
-
-        let formData = new FormData()
-
-
-
-
-        formData.append("id_anotasi", params.id)
-        formData.append("id_model", modelid)
-
-
-
-        var token = localStorage.getItem('tokenAccess')
-
-
-        const response = await axios({
-            method: "post",
-            url: "https://backend-ta.ndne.id/api/anotate_model",
-            data: formData,
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-        }).then(data => data);
-
-        const preview1 = response.data.data.slice(0, 5)
-
-        setPreview(preview1)
-
-
-        if (response.data) {
-            swal("Success", "Model Uploaded", "success", {
-                buttons: false,
-                timer: 2000,
-            })
-                .then((value) => {
-                    // console.log(response.data)
-                    window.location.href = `/mytable/${params.id}`;
-
-                });
-        } else {
-            swal("Failed", "Model Upload Failed", "error");
-        }
+      console.log(response.data);
+      setData(response.data);
     };
 
-    useEffect(() => {
-        var token = localStorage.getItem('tokenAccess')
-        console.log(token)
+    const handleDetail = async (event) => {
+      handleToggle();
+      const response = await axios({
+        method: "get",
+        url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
 
-        const handleSubmit = async (event) => {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((data) => data);
 
-            const response = await axios({
-                method: "get",
-                url: "https://backend-ta.ndne.id/api/list_model",
+      // console.log(response.data)
 
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            }).then(data => data);
+      console.log(response?.data[0]);
+      // setDesc(response?.data[0].desc)
 
-            console.log(response.data)
-            setData(response.data)
-        };
+      // setNamefile(response?.data[0].title)
+      setDetail(response?.data[0]);
+      handleClose();
+    };
 
-        const handleDetail = async (event) => {
-            handleToggle()
-            const response = await axios({
-                method: "get",
-                url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${params.id}`,
+    handleDetail();
+    handleSubmit();
+  }, []);
 
-                headers: {
-                    "Authorization": `Bearer ${token}`,
+  useEffect(() => {
+    // Update the document title using the browser API
+  }, [preview]);
 
-                },
-            }).then(data => data);
+  return (
+    <>
+      <ThemeProvider theme={mdTheme}>
+        <Box sx={{ display: "flex" }}>
+          <Navbar />
 
-            // console.log(response.data)
-
-            console.log(response?.data[0])
-            // setDesc(response?.data[0].desc)
-
-            // setNamefile(response?.data[0].title)
-            setDetail(response?.data[0])
-            handleClose()
-        };
-
-        handleDetail()
-        handleSubmit()
-
-    }, []);
-
-
-
-
-
-    useEffect(() => {
-        // Update the document title using the browser API
-
-    }, [preview]);
-
-
-
-
-    return (
-        <>
-            <ThemeProvider theme={mdTheme}>
-                <Box sx={{ display: 'flex' }}>
-
-                    <Navbar />
-
-                    <Box
-                        component="main"
-                        sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
-                            width: '100%',
-                            height: '100%',
-                            overflowX: 'initial',
-                        }}
+          <Box
+            component="main"
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              width: "100%",
+              height: "100%",
+              overflowX: "initial",
+            }}
+          >
+            <Toolbar />
+            <div className="container mt-4">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3>Anotasi Manual</h3>
+                <button
+                  type="button"
+                  class="btn btn-light shadow"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    size="lg"
+                    className="pe-2"
+                  />
+                  Tutorial Anotasi Otomatis
+                </button>
+                <div
+                  class="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <Toolbar />
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header" style={{ color: "#02a9f1" }}>
+                        <FontAwesomeIcon
+                          icon={faCircleQuestion}
+                          size="lg"
+                          className="pe-2"
+                        />
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Tutorial
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div className="px-2">
+                          <ol>
+                            <li>Buka Dropdown Pilihan Model</li>
+                            <li>Pilih Program Model yang ingin digunakan</li>
+                            <li>Klik "Anotate"</li>
+                          </ol>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+              <div className="row d-flex justify-content-between align-items-center">
+                <div className="col-auto">
+                  <h4>{detail.title}</h4>
+                  <p className="text-title">Status : {detail.status}</p>
+                </div>
+              </div>
+              <div className="border-line mb-4">
+                <h5 className="mb-4">Detail Penelitian</h5>
+                <div className="row">
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Tipe Anotasi</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6> {detail.type_anotasi}</h6>
+                    </div>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Author</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6>{detail.author}</h6>
+                    </div>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Anotator</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6>{detail.anotator}</h6>
+                    </div>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Deskripsi</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <div className="d-flex justify-content-start gap-4">
+                      <h6>:</h6>
+                      <h6>{detail.desc}</h6>
+                    </div>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Target</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    {detail.target &&
+                      detail.target.map((item, index) => (
+                        <div className="d-flex justify-content-start gap-4">
+                          <h6>:</h6>
+                          <h6 key={index}>{item}</h6>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+              <div className="border-line">
+                <div className="d-flex justify-content-between">
+                  <div className="">
+                    <h5 className="pt-2">Pilih Model</h5>
+                    <select
+                      onChange={(e) => setModelid(e.target.value)}
+                      class="form-select"
+                      aria-label=" example"
                     >
-
-                        <Toolbar />
-                        <Container maxWidth="lg" sx={{
-                            mr: 80,
-                            p: 2,
-                            display: 'flex',
-
-
-                            alignItems: 'center'
-                        }}>
-
-                            <Grid container spacing={1}>
-                                {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
-                                    <Paper elevation={0}
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-
-                                            height: '100vh',
-                                            width: 1600,
-                                            pb: 10,
-                                            flexDirection: 'column',
-                                            backgroundColor: '#f5f5f5'
-                                        }}
-
-                                    >
-                                        <div className='container-fluid'>
-                                            <div className='row mb-5'>
-                                                <Typography sx={{
-                                                    color: '#0285F1',
-                                                    fontWeight: 600, m: 1, fontSize: 60
-                                                }} variant="h3" gutterBottom>
-                                                    Anotasi otomatis
-                                                </Typography>
-
-                                            </div>
-                                            <div className='row'>
-
-                                                <div className='col-12'>
-                                                    <Paper elevation={0}
-                                                        sx={{
-                                                            p: 2,
-                                                            display: 'flex',
-
-                                                            height: '80vh',
-                                                            width: 1600,
-                                                            pb: 10,
-                                                            flexDirection: 'column',
-                                                            backgroundColor: '#fffff',
-                                                            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
-                                                            borderRadius: '5px'
-                                                        }}
-                                                    >
-                                                        <div className='container-fluid'>
-                                                            <div className='row mb-5'>
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Judul Penelitian
-                                                                </Typography>
-
-                                                                <TextField value={detail.title} disabled sx={{
-                                                                    marginLeft: 3,
-                                                                    marginTop: 3,
-                                                                    width: 1400,
-                                                                    marginBottom: 4
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard"  />
-
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Type anotasi
-                                                                </Typography>
-
-                                                                <TextField value={detail.type_anotasi} disabled sx={{
-                                                                    marginLeft: 3,
-                                                                    marginTop: 3,
-                                                                    width: 1400,
-                                                                    marginBottom: 4
-                                                                }} onChange={handleChangeTitle} id="standard-basic" variant="standard" value="Auto" />
-
-
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Pilih Model
-                                                                </Typography>
-
-                                                                <select onChange={(e) => setModelid(e.target.value)} class="form-select form-select-lg ms-3 mt-3 mb-3 w-25" aria-label=".form-select-lg example">
-                                                                    <option selected>Program Model</option>
-                                                                    {data.map((option, idx) => (
-                                                                        <option value={option.id}>{option.desc}</option>
-                                                                    ))}
-
-                                                                </select>
-                                                            </div>
-                                                            <div className='row mt-2'>
-                                                                {preview.length > 0 ? <>
-
-                                                                    <Table theadData={getHeadings()} tbodyData={preview}>
-
-                                                                    </Table>
-
-                                                                    {console.log(preview.length, "true")}
-
-                                                                </> : <>
-
-
-                                                                    {console.log(preview, "false")}
-
-                                                                </>}
-
-
-                                                            </div>
-
-                                                        </div>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <Button type="button" variant="contained" onClick={handleSubmit} className="ms-2 mt-3 w-25">Upload</Button>
-
-                                                    </Paper>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Paper>
-                                </Grid>
-                            </Grid>
-                        </Container>
-                    </Box>
-                </Box>
-            </ThemeProvider >
-
-
-        </>
-    );
-}
+                      <option selected>Program Model</option>
+                      {data.map((option, idx) => (
+                        <option value={option.id}>{option.desc}</option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-xl shadow mt-4"
+                      onClick={handleSubmit}
+                    >
+                      Anotate
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Box>
+        </Box>
+      </ThemeProvider>
+    </>
+  );
+};
 
 export default AnotateAuto;
