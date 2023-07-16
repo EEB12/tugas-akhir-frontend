@@ -15,6 +15,8 @@ import Paper from "@mui/material/Paper";
 
 import Table from "../Component/Table";
 import TableAdmin from "../Component/TableAdmin";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import axios from "axios";
@@ -157,64 +159,30 @@ const ManagePenelitian = () => {
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
-
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
-
-                      height: "100vh",
-                      width: "100%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          List Penelitian
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="col"></div>
-                        <div className="col-10">
-                          <TableAdmin
-                            theadData={header}
-                            tbodyData={data}
-                            flag="delete_penelitian"
-                          ></TableAdmin>
-                        </div>
-
-                        <div className="col"></div>
-                      </div>
-                    </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+            <div className="container mt-4">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3>Daftar Penelitian</h3>
+                <button type="button" class="btn btn-light shadow">
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    size="lg"
+                    className="pe-2"
+                  />
+                  Tutorial
+                </button>
+              </div>
+            </div>
+            <div className="container">
+              <div className="card my-4 h-100 bg-white rounded-5 p-4">
+                <div className="card-body">
+                  <TableAdmin
+                    theadData={header}
+                    tbodyData={data}
+                    flag="delete_penelitian"
+                  ></TableAdmin>
+                </div>
+              </div>
+            </div>
           </Box>
         </Box>
       </ThemeProvider>

@@ -21,6 +21,8 @@ import { useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Navbar from "../Component/navbar";
 import swal from "sweetalert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
 const mdTheme = createTheme();
 
@@ -362,186 +364,146 @@ const MyTable = () => {
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
-
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
-
-                      height: "100%",
-                      width: "100%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          Anotasi Manual
-                        </Typography>
+            <div className="container mt-4">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3>Anotasi Manual</h3>
+                <button
+                  type="button"
+                  class="btn btn-light shadow"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    size="lg"
+                    className="pe-2"
+                  />
+                  Tutorial Anotasi Manual
+                </button>
+                <div
+                  class="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <Toolbar />
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header" style={{ color: "#02a9f1" }}>
+                        <FontAwesomeIcon
+                          icon={faCircleQuestion}
+                          size="lg"
+                          className="pe-2"
+                        />
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Tutorial
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
                       </div>
-                      <div className="row">
-                        <div className="col-12">
-                          <Paper
-                            elevation={0}
-                            sx={{
-                              p: 2,
-                              display: "flex",
-
-                              height: "100%",
-                              width: "100%",
-                              pb: 10,
-                              flexDirection: "column",
-                              backgroundColor: "#fffff",
-                              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
-                              borderRadius: "5px",
-                            }}
-                          >
-                            <div className="container-fluid">
-                              <div className="row mb-5">
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Judul Penelitian
-                                </Typography>
-
-                                <TextField
-                                  disabled
-                                  value={detail.title}
-                                  sx={{
-                                    marginLeft: 3,
-                                    marginTop: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                  }}
-                                  id="standard-basic"
-                                  variant="standard"
-                                />
-
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Type anotasi
-                                </Typography>
-
-                                <TextField
-                                  disabled
-                                  sx={{
-                                    marginLeft: 3,
-                                    marginTop: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                  }}
-                                  id="standard-basic"
-                                  variant="standard"
-                                  value={detail.type_anotasi}
-                                />
-
-                                <div>
-                                  <Typography
-                                    sx={{ fontWeight: 600, m: 1, fontSize: 35 }}
-                                    variant="h3"
-                                    gutterBottom
-                                  >
-                                    Instruksi Anotasi Data Manual
-                                  </Typography>
-
-                                  <Typography
-                                    variant="subtitle1"
-                                    display="inline"
-                                  >
-                                    <ol>
-                                      <li>
-                                        Memilih dropdown pada kolom result
-                                      </li>
-                                      <li>
-                                        Melakukan save edit pada row untuk
-                                        konfirmasi perubahan pada row tersebut
-                                      </li>
-                                      <li>
-                                        Klik Update data untuk menyimpan
-                                        perubahan pada tabel
-                                      </li>
-                                      <li>
-                                        Klik Update status to finish untuk
-                                        melakukan update job dari progress
-                                        menjadi finish
-                                      </li>
-                                    </ol>
-                                  </Typography>
-                                </div>
-                              </div>
-                              <div className="row mt-2">
-                                <Table
-                                  theadData={getHeadings()}
-                                  tbodyData={jsonData}
-                                ></Table>
-                                {/* <button onClick={() => buttonhandler()}>upload</button> */}
-
-                                <Pagination
-                                  count={40} // Total number of pages
-                                  page={currentPage} // Current active page
-                                  onChange={handlePageChange} // Callback function for page change
-                                />
-                              </div>
-                            </div>
-                            <br></br>
-                            <br></br>
-                         
-                            <Button
-                              type="button"
-                              variant="contained"
-                              onClick={() => buttonhandler()}
-                              className="button-submit mt-3 w-25"
-                            >
-                              Update Data
-                            </Button>
-                            <br></br>
-
-                            <br></br>
-                          </Paper>
+                      <div class="modal-body">
+                        <div className="px-2">
+                          <ol>
+                            <li>Memilih dropdown pada kolom result</li>
+                            <li>
+                              Melakukan save edit pada row untuk konfirmasi
+                              perubahan pada row tersebut
+                            </li>
+                            <li>
+                              Klik "Save Dataset" untuk menyimpan perubahan pada
+                              tabel
+                            </li>
+                          </ol>
                         </div>
                       </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+              <div className="row d-flex justify-content-between align-items-center">
+                <div className="col-auto">
+                  <h4>{detail.title}</h4>
+                  <p className="text-title">Status : {detail.status}</p>
+                </div>
+              </div>
+
+              <div className="border-line">
+                <h5 className="mb-4">Detail Penelitian</h5>
+                <div className="row">
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Tipe Anotasi</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <h6>: {detail.type_anotasi}</h6>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Author</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <h6>: {detail.author}</h6>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Anotator</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <h6>: {detail.anotator}</h6>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Deskripsi</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    <h6>: {detail.desc}</h6>
+                  </div>
+                  <div className="col-4 col-md-2">
+                    <h6 className="fw-normal grey">Target</h6>
+                  </div>
+                  <div className="col-8 col-md-10">
+                    {detail.target &&
+                      detail.target.map((item, index) => (
+                        <h6 key={index}>: {item}</h6>
+                      ))}
+                  </div>
+                </div>
+              </div>
+              <div className="border-line mt-2">
+                <div className="d-flex justify-content-between">
+                  <h5 className="pt-2">Edit Dataset</h5>
+                  <button
+                    type="button"
+                    class="btn btn-light shadow"
+                    onClick={() => buttonhandler()}
+                  >
+                    Save Dataset
+                  </button>
+                </div>
+                <div className="row mt-4">
+                  <Table theadData={getHeadings()} tbodyData={jsonData}></Table>
+                  {/* <button onClick={() => buttonhandler()}>upload</button> */}
+
+                  <Pagination
+                    count={40} // Total number of pages
+                    page={currentPage} // Current active page
+                    onChange={handlePageChange} // Callback function for page change
+                  />
+                </div>
+              </div>
+            </div>
           </Box>
         </Box>
       </ThemeProvider>
