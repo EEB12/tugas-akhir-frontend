@@ -33,6 +33,7 @@ import Navbar from "../Component/navbar";
 import swal from "sweetalert";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import csvDownload from 'json-to-csv-export'
 const mdTheme = createTheme();
 
 const NewPenelitian = () => {
@@ -47,7 +48,29 @@ const NewPenelitian = () => {
   const [desc, setDesc] = useState("");
   const [target, setTarget] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const download = async (id, name) => {
+    var token = localStorage.getItem('tokenAccess')
+    let formData = new FormData()
+    formData.append("id_anotasi", id)
+    const response = await axios({
+        method: "get",
+        url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
 
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+    }).then(data => data);
+    const dataDownload = response.data[1]
+    var headers = Object.keys(dataDownload[0])
+    const dataToConvert = {
+        data: dataDownload,
+        filename: `${name}`,
+        delimiter: ',',
+        headers: headers
+    }
+    csvDownload(dataToConvert)
+}
   const handleClose = () => {
     setOpen(false);
   };
@@ -143,13 +166,16 @@ const NewPenelitian = () => {
           buttons: false,
           timer: 2000,
         }).then((value) => {
+          handleClose();
           window.location.href = `/list-anotator/${response.data.id_anotasi}`;
         });
       } else {
         swal("Failed", response.data.message, "error");
+        handleClose();
       }
     } catch (error) {
-      swal("Failed", error.response.data.message, "error");
+      swal("Failed", error.response.data.error, "error");
+      handleClose();
     }
   };
 
@@ -179,7 +205,7 @@ const NewPenelitian = () => {
             }}
           >
             <Toolbar />
-            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-50">
+            <div className="container bg-white my-4 rounded-5 p-4 w-75 ">
               <div className="mb-4 d-flex justify-content-between   profile-title ">
                 <h3 style={{ color: "#0285F1" }}>Buat Penelitian</h3>
                 {/* <button type="button" class="btn btn-custom shadow">
@@ -235,6 +261,22 @@ const NewPenelitian = () => {
                       </Select>
                     </div>
                   </div>
+                  <div class="row mb-4">
+                    <label for="nama" class="col-lg-4 col-form-label">Target Penelitian</label>
+                    <div class="col-lg-5">
+                      <input disabled  value={target} type="text" class="form-control " id="nama"  />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="nama" class="col-lg-4 col-form-label"></label>
+                    <div class="col-lg-5">
+                      <input type="text" class="form-control " value={inputValue} onChange={handletarget} id="nama" />
+                    </div>
+                    <div className="col-lg-3">
+                      <button type="button" class="btn btn-primary w-100" onClick={handleTargetButton}>Tambah</button>
+                    </div>
+                  </div>
 
                   <div class="row mb-4">
                     <label for="email" class="col-lg-4 col-form-label">Dataset</label>
@@ -249,7 +291,7 @@ const NewPenelitian = () => {
 
                 <div className="col-6">
                   <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                  <textarea class="form-control"  onChange={handleDesc}  id="exampleFormControlTextarea1" rows="9"></textarea>
+                  <textarea class="form-control" onChange={handleDesc} id="exampleFormControlTextarea1" rows="9"></textarea>
                 </div>
               </div>
 
@@ -257,11 +299,11 @@ const NewPenelitian = () => {
 
               </div>
 
-              <div className="row">
+              <div className="row mt-5">
                 <Button
                   type="button"
                   variant="contained"
-
+                  onClick={uploadFiles}
                   className="ms-2 mt-3 w-25"
                 >
                   Submit

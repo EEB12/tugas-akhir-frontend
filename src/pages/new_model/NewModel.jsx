@@ -181,224 +181,87 @@ const NewModel = () => {
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
               width: "100%",
               height: "100%",
-              overflowX: "initial",
+              overflowX: "hidden",
+              position: "fixed",
+              backgroundColor: "#f5f5f5",
+              overflowY: "auto",
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
+            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-50">
+              <div className="mb-4 d-flex justify-content-between   profile-title ">
+                <h3 style={{ color: "#0285F1" }}>Buat Penelitian</h3>
+                {/* <button type="button" class="btn btn-custom shadow">
+                  <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                  Tutorial
+                </button> */}
 
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
-
-                      height: "100vh",
-                      width: "100%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          Upload Program Model
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="col-12">
-                          <Paper
-                            elevation={0}
-                            sx={{
-                              p: 2,
-                              display: "flex",
-
-                              height: "100%",
-                              width: "100%",
-                              pb: 10,
-                              flexDirection: "column",
-                              backgroundColor: "#fffff",
-                              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
-                              borderRadius: "5px",
-                            }}
-                          >
-                            <div className="container-fluid">
-                              <div className="row mb-5">
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Judul Model
-                                </Typography>
-
-                                <TextField
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                  }}
-                                  onChange={handleChangedesc}
-                                  inputProps={{
-                                    style: {
-                                      marginTop: 6,
-                                      fontSize: "20px", // Adjust the font size as needed
-                                    },
-                                  }}
-                                  id="standard-basic"
-                                  variant="standard"
-                                />
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Deskripsi Model dan Penggunaan
-                                </Typography>
-
-                                <TextField
-                                  sx={{
-                                    marginLeft: 3,
-                                    width: "95%",
-                                    marginBottom: 4,
-                                  }}
-                                  inputProps={{
-                                    style: {
-                                      marginTop: 6,
-                                      fontSize: "20px", // Adjust the font size as needed
-                                    },
-                                  }}
-                                  onChange={handleChangeTitle}
-                                  id="deskripsi"
-                                  variant="standard"
-                                />
-
-                                <Box
-                                  sx={{
-                                    marginLeft: "8px",
-                                    marginTop: 1,
-                                    width: 900,
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                      fontWeight: 600,
-                                      fontSize: 35,
-                                    }}
-                                    variant="h3"
-                                    gutterBottom
-                                  >
-                                    Model Program
-                                  </Typography>
-
-                                  <input
-                                    type="file"
-                                    accept=".pkl"
-                                    onChange={handleFilesChange}
-                                  />
-                                </Box>
-
-                                <Box
-                                  sx={{
-                                    marginLeft: "8px",
-                                    marginTop: 1,
-                                    width: 900,
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                      fontWeight: 600,
-                                      fontSize: 35,
-                                    }}
-                                    variant="h3"
-                                    gutterBottom
-                                  >
-                                    Vectorizer
-                                  </Typography>
-                                  <input
-                                    type="file"
-                                    onChange={handleVectorizerChange}
-                                  />
-                                </Box>
-                                <Box
-                                  sx={{
-                                    marginLeft: "8px",
-                                    marginTop: 1,
-                                    width: 900,
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                      fontWeight: 600,
-                                      fontSize: 35,
-                                    }}
-                                    variant="h3"
-                                    gutterBottom
-                                  >
-                                    Model Accuracy
-                                  </Typography>
-                                  <input
-                                    type="file"
-                                    onChange={handleChangeAcc}
-                                  />
-                                </Box>
-                              </div>
-                            </div>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <Button
-                              type="button"
-                              variant="contained"
-                              onClick={handleSubmit}
-                              className="ms-2 mt-3 w-25"
-                            >
-                              Upload
-                            </Button>
-                          </Paper>
-                        </div>
-                      </div>
+              </div>
+              <div className="row">
+                <div className="col-6 ps-4 mt-4">
+                  <div class="row mb-4">
+                    <label for="nama" class="col-lg-4 col-form-label">Judul Model</label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" id="nama" onChange={handleChangeTitle} />
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+                  </div>
+                  
+
+                  
+
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">Model</label>
+                    <div class="col-lg-8">
+                      <input
+                        type="file"
+                        onChange={handleFilesChange}
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">Vectorizer</label>
+                    <div class="col-lg-8">
+                      <input
+                        type="file"
+                        onChange={handleFilesChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">Akurasi Model</label>
+                    <div class="col-lg-8">
+                      <input
+                        type="file"
+                        onChange={handleChangeAcc}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-6">
+                  <label for="exampleFormControlTextarea1" class="form-label">Deskripsi Model Penggunaan</label>
+                  <textarea class="form-control" onChange={handleChangedesc} id="exampleFormControlTextarea1" rows="10"></textarea>
+                </div>
+              </div>
+
+              <div className="row">
+
+              </div>
+
+              <div className="row">
+                <Button
+                  type="button"
+                  variant="contained"
+
+                  className="ms-2 mt-3 w-25"
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
           </Box>
         </Box>
         <Backdrop

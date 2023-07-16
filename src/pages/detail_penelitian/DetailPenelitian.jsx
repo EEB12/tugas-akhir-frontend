@@ -26,7 +26,7 @@ import html2canvas from "html2canvas";
 import Pagination from "@mui/material/Pagination";
 import ProgressBar from "../Component/ProgressBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import csvDownload from 'json-to-csv-export'
 const mdTheme = createTheme();
 
 const DetailPenelitian = () => {
@@ -35,8 +35,7 @@ const DetailPenelitian = () => {
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setData] = useState([]);
   const [dataBig, setDataBig] = useState([]);
-  const [table, setTable] = useState([]);
-  const [age, setAge] = React.useState("");
+
   const [namefile, setNamefile] = useState("");
   const [modelid, setModelid] = useState("");
   const [preview, setPreview] = React.useState([]);
@@ -50,6 +49,23 @@ const DetailPenelitian = () => {
     setOpen(!open);
   };
 
+
+  const download = async (id, name) => {
+    var token = localStorage.getItem('tokenAccess')
+    // let formData = new FormData()
+    // formData.append("id_anotasi", id)
+    console.log(dataBig)
+    console.log(name)
+    const dataDownload = dataBig
+    var headers = Object.keys(dataDownload[0])
+    const dataToConvert = {
+      data: dataDownload,
+      filename: `${name}`,
+      delimiter: ',',
+      headers: headers
+    }
+    csvDownload(dataToConvert)
+  }
   const handleChangeTitle = (event) => {
     setNamefile(event.target.value);
   };
@@ -67,6 +83,10 @@ const DetailPenelitian = () => {
     } else if (event.target.id === "gfg4") {
       setDisplay("accuracy");
     }
+  };
+
+  const handleSelectChange = (event) => {
+    setDisplay(event.target.value);
   };
 
   const handleExport = () => {
@@ -87,7 +107,7 @@ const DetailPenelitian = () => {
 
   const params = useParams();
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => { };
 
   useEffect(() => {
     var token = localStorage.getItem("tokenAccess");
@@ -116,7 +136,7 @@ const DetailPenelitian = () => {
 
         // console.log(response.data[0].model.detail)
         const preview1 = response?.data[1].slice(0, 5);
-
+        console.log(response.data)
         setDataBig(response?.data[1]);
         // console.log(preview1)
         setPreview(preview1);
@@ -200,8 +220,18 @@ const DetailPenelitian = () => {
               </div>
             </div>
             <div className="container bg-white my-4 rounded-5 p-4 h-100">
-              <h4>{data.title}</h4>
-              <p className="text-title">Status : {data.status}</p>
+              <div className="row d-flex justify-content-between align-items-center">
+                <div className="col-auto">
+                  <h4>{data.title}</h4>
+                  <p className="text-title">Status : {data.status}</p>
+                </div>
+
+                <div className="col-2">
+                  <a href={`/admin/editUser/${data.id_anotasi}`}><button type="button" class="btn btn-primary w-75" >Edit</button></a>
+                </div>
+
+              </div>
+
               <div className="border-line">
                 <h5 className="mb-4">Detail Penelitian</h5>
                 <div className="row">
@@ -247,48 +277,28 @@ const DetailPenelitian = () => {
                     <></>
                   ) : (
                     <>
-                      <section class="btn-group gap-5">
-                        <input
-                          type="radio"
-                          class="btn-check"
-                          name="btnradio"
-                          id="gfg2"
-                          checked={display === "table"}
-                          onChange={handleInputChange}
-                        />
-                        <label class="btn btn-outline-primary" for="gfg2">
-                          Table
-                        </label>
+                      <select
+                        className="form-select ms-2 menu-data"
+                        value={display}
+                        onChange={handleSelectChange}
+                      >
+                        <option value="table">Table</option>
+                        <option value="chart">Chart</option>
+                        <option value="accuracy">Accuracy</option>
+                      </select>
 
-                        <input
-                          type="radio"
-                          class="btn-check"
-                          name="btnradio"
-                          id="gfg3"
-                          checked={display === "chart"}
-                          onChange={handleInputChange}
-                        />
-                        <label class="btn btn-outline-primary" for="gfg3">
-                          Chart
-                        </label>
-                        <input
-                          type="radio"
-                          class="btn-check"
-                          name="btnradio"
-                          id="gfg4"
-                          checked={display === "accuracy"}
-                          onChange={handleInputChange}
-                        />
-                        <label class="btn btn-outline-primary" for="gfg4">
-                          Accuracy
-                        </label>
-                      </section>
                     </>
                   )}
                 </div>
                 <div className="row mt-2  d-flex justify-content-center">
                   {display === "table" ? (
                     <>
+                      <div className="col-12 p-0 mb-3">
+                        <button onClick={() => download(data.id_anotasi, data.title)} type="button" class="btn btn-primary w-25" >Download .CSV</button>
+
+
+                      </div>
+
                       <Table
                         theadData={getHeadings()}
                         tbodyData={preview}

@@ -197,7 +197,7 @@ const EditPenelitian = () => {
 
             console.log(response.data[0].target)
             setDesc(response?.data[0].desc)
-            const mergedString=response.data[0].target.join(',')
+            const mergedString = response.data[0].target.join(',')
             setTarget(mergedString)
             setNamefile(response?.data[0].title)
             setdata(response?.data[0])
@@ -258,221 +258,82 @@ const EditPenelitian = () => {
                     >
 
                         <Toolbar />
-                        <Container maxWidth="100vh" sx={{
-                            mr: 80,
-                            p: 2,
-                            display: 'flex',
+                        <div className="container bg-white my-4 rounded-5 p-4 w-75 ">
+                            <div className="mb-4 d-flex justify-content-between   profile-title ">
+                                <h3 style={{ color: "#0285F1" }}>Edit Penelitian</h3>
+                                {/* <button type="button" class="btn btn-custom shadow">
+                  <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                  Tutorial
+                </button> */}
 
-
-                            alignItems: 'center'
-                        }}>
-
-                            <Grid container spacing={1}>
-                                {/* Chart */}
-                                <Grid item xs={12} md={12} lg={12} >
-                                    <Paper elevation={0}
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-
-                                            height: '100%',
-                                            width: '100%',
-                                            pb: 10,
-                                            flexDirection: 'column',
-                                            backgroundColor: '#f5f5f5'
-                                        }}
-
-                                    >
-                                        <div className='container-fluid'>
-                                            <div className='row mb-5'>
-
-
-                                                <Typography sx={{
-                                                    color: '#0285F1',
-                                                    fontWeight: 600, m: 1, fontSize: 60
-                                                }} variant="h3" gutterBottom>
-                                                    Edit Penelitian
-                                                </Typography>
-
-                                            </div>
-                                            <div className='row'>
-
-                                                <div className='col-12'>
-                                                    <Paper elevation={0}
-                                                        sx={{
-                                                            p: 2,
-                                                            display: 'flex',
-
-
-                                                            height: '100%',
-                                                            width: '100%',
-                                                            pb: 10,
-                                                            flexDirection: 'column',
-                                                            backgroundColor: '#fffff',
-                                                            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
-                                                            borderRadius: '5px'
-                                                        }}
-
-                                                    >
-                                                        <div className='container-fluid'>
-                                                            <div className='row mb-5'>
-
-
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Judul Penelitian
-                                                                </Typography>
-
-                                                                <TextField sx={{
-                                                                    marginLeft: 3,
-                                                                    width: '95%',
-                                                                    marginBottom: 4
-                                                                }}
-                                                                    inputProps={{
-                                                                        style: {
-                                                                            marginTop: 6,
-                                                                            fontSize: '20px', // Adjust the font size as needed
-                                                                        },
-                                                                    }}
-                                                                    value={namefile}
-                                                                    onChange={handleChangeTitle} id="standard-basic" variant="standard" />
-
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Deskripsi
-                                                                </Typography>
-                                                                <TextField
-                                                                    id="filled-multiline-static"
-
-                                                                    multiline
-                                                                    rows={2}
-                                                                    value={desc}
-                                                                    onChange={handleDesc}
-                                                                    sx={{
-                                                                        marginLeft: 3,
-                                                                        width: '95%',
-                                                                        marginBottom: 4,
-                                                                        backgroundColor: '#FFFFFF'
-                                                                    }}
-                                                                />
-
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Pilih Anotator
-                                                                </Typography>
-
-                                                                <select onChange={(e) => setMyValue(e.target.value)} class="form-select ms-4 form-select-lg mb-3 w-25" aria-label=".form-select-lg example">
-                                                                    <option selected>Open this select menu</option>
-                                                                    {dataAnotator?.map((option, idx) => (
-                                                                        <option value={option.id_anotator}>{option.username}</option>
-                                                                    ))}
-
-                                                                </select>
-
-                                                                <div className="row">
-                                                                    <Typography
-                                                                        sx={{
-                                                                            fontWeight: 600,
-                                                                            m: 1,
-                                                                            fontSize: 35,
-                                                                        }}
-                                                                        variant="h3"
-                                                                        gutterBottom
-                                                                    >
-                                                                        Target Label
-                                                                    </Typography>
-                                                                    <TextField disabled
-                                                                        id="filled-multiline-static"
-                                                                        multiline
-                                                                        value={target}
-                                                                        variant="filled"
-
-                                                                        sx={{
-                                                                            marginLeft: 3,
-                                                                            width: "25%",
-                                                                            marginBottom: 4,
-                                                                            backgroundColor: "#FFFFFF",
-                                                                        }}
-                                                                    />
-
-                                                                </div>
-                                                                <div className="row">
-                                                                    <TextField
-                                                                        id="filled-multiline-static"
-                                                                        multiline
-                                                                        value={inputValue}
-                                                                        onChange={handletarget}
-                                                                        sx={{
-                                                                            marginLeft: 3,
-                                                                            width: "25%",
-                                                                            marginBottom: 4,
-                                                                            backgroundColor: "#FFFFFF",
-                                                                        }}
-                                                                    />
-
-                                                                    <Button
-                                                                        sx={{
-
-                                                                            width: 100,
-                                                                            height: 50,
-
-
-                                                                        }}
-                                                                        type="button"
-                                                                        variant="contained"
-                                                                        onClick={handleTargetButton}
-                                                                        className="ms-2"
-                                                                    >
-                                                                        Add
-                                                                    </Button>
-                                                                </div>
-
-
-
-                                                            </div>
-
-                                                        </div>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <Button type="button" variant="contained" onClick={uploadFiles} className="ms-2 mt-3 w-25">Upload</Button>
-
-                                                    </Paper>
-                                                </div>
-
-
-
-                                            </div>
-
-
-
-
-
+                            </div>
+                            <div className="row">
+                                <div className="col-6 ps-4 mt-4">
+                                    <div class="row mb-4">
+                                        <label for="nama" class="col-lg-4 col-form-label">Judul Penelitian</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" class="form-control"  value={namefile} id="nama" onChange={handleChangeTitle} />
                                         </div>
+                                    </div>
 
 
 
+                                    <div class="row mb-4">
+                                        <label for="nama" class="col-lg-4 col-form-label">Target Penelitian</label>
+                                        <div class="col-lg-5">
+                                            <input disabled value={target} type="text" class="form-control " id="nama" />
+                                        </div>
+                                        <div className="col-lg-3">
+                                            <button type="button" class="btn btn-danger w-100" onClick={handleTargetButton}>Hapus</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="nama" class="col-lg-4 col-form-label"></label>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control " value={inputValue} onChange={handletarget} id="nama" />
+                                        </div>
+                                        <div className="col-lg-3">
+                                            <button type="button" class="btn btn-primary w-100" onClick={handleTargetButton}>Tambah</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label for="nama" class="col-lg-4 col-form-label">Pilih Anotator</label>
+                                        <div class="col-lg-8">
+                                            <select onChange={(e) => setMyValue(e.target.value)} className="form-select  " >
+                                                <option selected>Open this select menu</option>
+                                                {dataAnotator?.map((option, idx) => (
+                                                    <option value={option.id_anotator}>{option.username}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
 
 
+                                </div>
 
+                                <div className="col-6">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
+                                    <textarea class="form-control" onChange={handleDesc} id="exampleFormControlTextarea1" rows="9"></textarea>
+                                </div>
+                            </div>
 
+                            <div className="row">
 
+                            </div>
 
-
-                                    </Paper>
-                                </Grid>
-
-
-                            </Grid>
-
-                        </Container>
+                            <div className="row mt-5">
+                                <Button
+                                    type="button"
+                                    variant="contained"
+                                    onClick={uploadFiles}
+                                    className="ms-2 mt-3 w-25"
+                                >
+                                    Submit
+                                </Button>
+                            </div>
+                        </div>
                     </Box>
                 </Box>
                 <Backdrop
