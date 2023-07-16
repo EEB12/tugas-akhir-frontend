@@ -138,7 +138,7 @@ const Profile = () => {
         buttons: false,
         timer: 6000,
       });
-      window.location.href = `/list-penelitian`;
+      window.location.href = `/profile`;
     } catch (error) {
       swal("Failed", error.response.data.message, "error");
       handleClose();
@@ -164,64 +164,74 @@ const Profile = () => {
           >
             <Toolbar />
             
-            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-75">
+            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-50">
               <div className="mb-4 d-flex justify-content-between   profile-title ">
                 <h3 style={{ color: "#0285F1" }}>Informasi Pengguna</h3>
-                {/* <button type="button" class="btn btn-custom shadow">
-                  <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
-                  Tutorial
-                </button> */}
-
               </div>
               <div className="row">
-                <div className="col-6 ps-4 mt-4">
-                  <div class="row mb-4">
-                    <label for="nama" class="col-lg-4 col-form-label">Nama</label>
-                    <div class="col-lg-8">
-                      <input type="text" class="form-control" id="nama" value={name} onChange={handlename} />
-                    </div>
-                  </div>
-                  <div class="row mb-4">
-                    <label for="email" class="col-lg-4 col-form-label">Email</label>
-                    <div class="col-lg-8">
-                      <input type="email" class="form-control" id="email" value={email} onChange={handlemail} />
-                    </div>
-                  </div>
-
-                  <div class="row mb-4">
-                    <label for="email" class="col-lg-4 col-form-label">NIK/NRP</label>
-                    <div class="col-lg-8">
-                      <input disabled type="email" class="form-control" id="email" value={data.nrp_nik} />
-                    </div>
+                <div className="col-sm-12 col-md-4">
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Stack direction="row" spacing={2}>
+                      <Avatar
+                        {...stringAvatar(`${data.username?.toUpperCase()}`)}
+                      />
+                    </Stack>
                   </div>
                 </div>
-
-                <div className="col-6">
-                  <div className="row mb-5 ">
-                    <div className="col-12  d-flex justify-content-center">
-                      <Stack direction="row" spacing={2}>
-                        <Avatar
-                          {...stringAvatar(
-                            `${data.username?.toUpperCase()}`
-                          )}
-
-
-                        />
-                      </Stack>
+                <div className="col-sm-12 col-md-6  ps-4 mt-4">
+                  <div class="row mb-4">
+                    <label for="nama" class="col-lg-4 col-form-label">
+                      Nama
+                    </label>
+                    <div class="col-lg-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nama"
+                        value={name}
+                        onChange={handlename}
+                      />
                     </div>
                   </div>
-                </div>
-              </div>
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">
+                      Email
+                    </label>
+                    <div class="col-lg-8">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        value={email}
+                        onChange={handlemail}
+                      />
+                    </div>
+                  </div>
 
-              <div className="row">
-                <Button
-                  type="button"
-                  variant="contained"
-                  onClick={handleSubmit}
-                  className="ms-2 mt-2 w-25"
-                >
-                  Submit
-                </Button>
+                  <div class="row mb-4">
+                    <label for="email" class="col-lg-4 col-form-label">
+                      NIK/NRP
+                    </label>
+                    <div class="col-lg-8">
+                      <input
+                        disabled
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        value={data.nrp_nik}
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    type="button"
+                    variant="contained"
+                    onClick={handleSubmit}
+                    className="btn btn-primary"
+                  >
+                    Submit
+                  </Button>
+                </div>
               </div>
             </div>
           </Box>
