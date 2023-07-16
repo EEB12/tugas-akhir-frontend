@@ -53,24 +53,24 @@ const NewPenelitian = () => {
     let formData = new FormData()
     formData.append("id_anotasi", id)
     const response = await axios({
-        method: "get",
-        url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
+      method: "get",
+      url: `https://backend-ta.ndne.id/api/get_detail_penelitian/${id}}`,
 
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     }).then(data => data);
     const dataDownload = response.data[1]
     var headers = Object.keys(dataDownload[0])
     const dataToConvert = {
-        data: dataDownload,
-        filename: `${name}`,
-        delimiter: ',',
-        headers: headers
+      data: dataDownload,
+      filename: `${name}`,
+      delimiter: ',',
+      headers: headers
     }
     csvDownload(dataToConvert)
-}
+  }
   const handleClose = () => {
     setOpen(false);
   };
@@ -264,7 +264,10 @@ const NewPenelitian = () => {
                   <div class="row mb-4">
                     <label for="nama" class="col-lg-4 col-form-label">Target Penelitian</label>
                     <div class="col-lg-5">
-                      <input disabled  value={target} type="text" class="form-control " id="nama"  />
+                      <input disabled value={target} type="text" class="form-control " id="nama" />
+                    </div>
+                    <div className="col-lg-3">
+                      <button type="button" class="btn btn-danger w-100" onClick={handleTargetButton}>Hapus</button>
                     </div>
                   </div>
 

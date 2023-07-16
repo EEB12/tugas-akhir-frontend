@@ -134,7 +134,7 @@ const DetailPenelitian = () => {
           },
         }).then((data) => data);
 
-        // console.log(response.data[0].model.detail)
+
         const preview1 = response?.data[1].slice(0, 5);
         console.log(response.data)
         setDataBig(response?.data[1]);
@@ -153,6 +153,22 @@ const DetailPenelitian = () => {
         setData(response?.data[0]);
       }
 
+      const responsePagination = await axios({
+        method: "get",
+        url: `https://backend-ta.ndne.id/api/get-data-progress-pagination/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          page: currentPage,
+          per_page: 5,
+          id_anotasi: params.id,
+        },
+      }).then((data) => data);
+      // console.log(response.data[0].model.detail)
+      const dataPagination=responsePagination.data.data
+      setPreview(dataPagination)
       handleClose();
     };
 
@@ -163,6 +179,30 @@ const DetailPenelitian = () => {
     // Update the document title using the browser API
   }, [preview]);
 
+  useEffect(() => {
+    console.log(currentPage, "berubah pagenya");
+    var token = localStorage.getItem("tokenAccess");
+    const dataRetriever = async (event) => {
+      const response = await axios({
+        method: "get",
+        url: `https://backend-ta.ndne.id/api/get-data-progress-pagination/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          page: currentPage,
+          per_page: 5,
+          id_anotasi: params.id,
+        },
+      }).then((data) => data);
+
+      setPreview(response.data.data);
+      console.log(response.data.data);
+      // setDataResult([...dataResult, ...jsonData]);
+    };
+    dataRetriever();
+  }, [currentPage]);
   useEffect(() => {
     // Update the document title using the browser API
   }, [display]);
@@ -201,13 +241,12 @@ const DetailPenelitian = () => {
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
               width: "100%",
               height: "100%",
-              overflowX: "initial",
+              overflowX: "hidden",
+              position: "fixed",
+              backgroundColor: "#f5f5f5",
+              overflowY: "auto",
             }}
           >
             <Toolbar />

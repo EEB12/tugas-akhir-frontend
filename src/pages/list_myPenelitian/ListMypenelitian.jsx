@@ -183,7 +183,7 @@ const ListMypenelitian = () => {
                   <>
                     {data.map((item, index) => (
                       <>
-                        <div className="col-4">
+                        <div className="col-4 mb-4">
                           <a href={`/detail-penelitian/` + item.id_anotasi}>
                             <div class="card card-penelitian">
                               <img

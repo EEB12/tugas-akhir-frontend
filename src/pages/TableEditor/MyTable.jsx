@@ -522,14 +522,7 @@ const MyTable = () => {
                             </div>
                             <br></br>
                             <br></br>
-                            <Button
-                              type="button"
-                              variant="contained"
-                              onClick={() => updateStatus()}
-                              className="button-submit mt-3 w-25"
-                            >
-                              Update Status to Finish
-                            </Button>
+                         
                             <Button
                               type="button"
                               variant="contained"

@@ -249,7 +249,7 @@ const Listjob = () => {
                     {filteredData.map((item, index) => (
                       <>
                         <div className="col-4 mb-4">
-                          <a href={`/detail-penelitian/` + item.id_anotasi}>
+                          <a href={item.type_anotasi == 'manual' ? `/mytable/ ${item.id_anotasi}` : `/anotate-auto/${item.id_anotasi}`}>
                             <div class="card card-penelitian">
                               <img
                                 src="/loginregister.jpg"

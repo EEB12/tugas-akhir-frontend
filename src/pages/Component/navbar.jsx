@@ -125,7 +125,7 @@ const Navbar = () => {
                   : data == '"peneliti"' ? <>
 
                     <li><a class="dropdown-item" href="/list-mypenelitian">Penelitian Saya</a></li>
-                    <li><a class="dropdown-item" href="/list-penelitian">Progress Penelitian</a></li>
+                    {/* <li><a class="dropdown-item" href="/list-penelitian">Progress Penelitian</a></li> */}
                     <li><a class="dropdown-item" href="/new-penelitian">Buat Penelitian</a></li>
 
                   </> : data == '"admin"' ?
