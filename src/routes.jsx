@@ -45,6 +45,8 @@ const RouteApp = () => {
         <Route path='/new-model' element={<NewModel/>}/>
         <Route path='/anotate-auto/:id' element={<AnotateAuto/>}/>
         <Route path='/detail-penelitian/:id' element={<DetailPenelitian/>}/>
+        <Route path='/detail-model/:id' element={<DetailModel/>}/>
+
         <Route path='/update-role' element={<UpgradeRole/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/admin/list-user' element={<ListUser/>}/>

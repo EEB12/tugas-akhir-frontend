@@ -208,7 +208,7 @@ const Listmodel = () => {
                   <>
                     {data.map((item, index) => (
                       <>
-                        <div className="col-4">
+                        <div className="col-4 mb-4">
                           <a >
                             <div class="card card-penelitian">
                               <img
