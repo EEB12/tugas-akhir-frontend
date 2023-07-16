@@ -107,6 +107,9 @@ const NewPenelitian = () => {
   const handletarget = (event) => {
     setInputValue(event.target.value);
   };
+  const handleTargetDelete = () => {
+    setTarget("")
+};
   const handleTargetButton = () => {
 
     // if(inputValue=""){
@@ -205,7 +208,7 @@ const NewPenelitian = () => {
             }}
           >
             <Toolbar />
-            <div className="container bg-white my-4 rounded-5 p-4 w-75 ">
+            <div className="container bg-white my-4 rounded-5 p-4  ">
               <div className="mb-4 d-flex justify-content-between   profile-title ">
                 <h3 style={{ color: "#0285F1" }}>Buat Penelitian</h3>
                 {/* <button type="button" class="btn btn-custom shadow">
@@ -267,7 +270,7 @@ const NewPenelitian = () => {
                       <input disabled value={target} type="text" class="form-control " id="nama" />
                     </div>
                     <div className="col-lg-3">
-                      <button type="button" class="btn btn-danger w-100" onClick={handleTargetButton}>Hapus</button>
+                      <button type="button" class="btn btn-danger w-100" onClick={handleTargetDelete}>Hapus</button>
                     </div>
                   </div>
 

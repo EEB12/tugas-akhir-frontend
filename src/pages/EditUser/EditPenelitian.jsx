@@ -112,12 +112,7 @@ const EditPenelitian = () => {
     };
 
     const handleTargetDelete = () => {
-
-        setTarget("");
-       
-
-
-
+        setTarget("")
     };
     const uploadFiles = async () => {
         // Create a form and post it to server
@@ -256,13 +251,12 @@ const EditPenelitian = () => {
                     <Box
                         component="main"
                         sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
-                            width: '100%',
-                            height: '100%',
-                            overflowX: 'initial',
+                            width: "100%",
+                            height: "100%",
+                            overflowX: "hidden",
+                            position: "fixed",
+                            backgroundColor: "#f5f5f5",
+                            overflowY: "auto",
                         }}
                     >
 
@@ -293,7 +287,7 @@ const EditPenelitian = () => {
                                             <input disabled value={target} type="text" class="form-control " id="nama" />
                                         </div>
                                         <div className="col-lg-3">
-                                            <button type="button" class="btn btn-danger w-100" onClick={handleTargetButton}>Hapus</button>
+                                            <button type="button" class="btn btn-danger w-100" onClick={handleTargetDelete}>Hapus</button>
                                         </div>
                                     </div>
 
