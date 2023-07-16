@@ -129,8 +129,8 @@ const DetailModel = () => {
                     Authorization: `Bearer ${token}`,
                 },
             }).then((data) => data);
-
-            console.log(response.data);
+            const filteredData = response.data.filter(item => item.id === 4);
+            console.log(filteredData);
             setData(response.data);
         };
 
@@ -141,30 +141,7 @@ const DetailModel = () => {
         // Update the document title using the browser API
     }, [preview]);
 
-    useEffect(() => {
-        console.log(currentPage, "berubah pagenya");
-        var token = localStorage.getItem("tokenAccess");
-        const dataRetriever = async (event) => {
-            const response = await axios({
-                method: "get",
-                url: `https://backend-ta.ndne.id/api/get-data-progress-pagination/${params.id}`,
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                params: {
-                    page: currentPage,
-                    per_page: 5,
-                    id_anotasi: params.id,
-                },
-            }).then((data) => data);
-
-            setPreview(response.data.data);
-            console.log(response.data.data);
-            // setDataResult([...dataResult, ...jsonData]);
-        };
-        dataRetriever();
-    }, [currentPage]);
+   
     useEffect(() => {
         // Update the document title using the browser API
     }, [display]);
@@ -302,7 +279,7 @@ const DetailModel = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <div className="container-fluid">
+                                            {/* <div className="container-fluid">
                                                 <div className="row">
                                                     <div className="col-6">
                                                         <Typography
@@ -562,7 +539,7 @@ const DetailModel = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </>
                                     )}
                                 </div>
