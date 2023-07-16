@@ -8,7 +8,6 @@ import Model from './pages/upload_model/Model';
 import Listmodel from './pages/list_model/Listmodel';
 import Listpenelitian from './pages/list_penelitian/ListPenelitian';
 import Listpenelitianmanual from './pages/list_penelitian_manual/ListPenelitianManual';
-import AnotateManual from './pages/Manual/AnotateManual';
 import NewPenelitian from './pages/new_penelitian/NewPenelitian';
 import ListAnotator from './pages/list_anotator/ListAnotator';
 import Listjob from './pages/list_job/Listjob';
@@ -38,7 +37,6 @@ const RouteApp = () => {
         <Route path='/mylist-model' element={<MyListmodel/>}/>
         <Route path='/list-penelitian' element={<Listpenelitian/>}/>
         <Route path='/list-penelitian-manual' element={<Listpenelitianmanual/>}/>
-        <Route path='/anotasi-manual/:id' element={<AnotateManual/>}/>
         <Route path='/new-penelitian' element={<NewPenelitian/>}/>
         <Route path='/list-anotator/:id' element={<ListAnotator/>}/>
         <Route path='/list-job' element={<Listjob/>}/>
