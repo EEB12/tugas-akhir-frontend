@@ -40,6 +40,7 @@ const NewPenelitian = () => {
 
 
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [filesToUpload, setFilesToUpload] = useState();
   const [data, setdata] = useState([]);
   const [age, setAge] = React.useState("AUTO");
@@ -48,6 +49,8 @@ const NewPenelitian = () => {
   const [desc, setDesc] = useState("");
   const [target, setTarget] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [dataAnotator, setDataAnotator] = useState([]);
+  const [myValue, setMyValue] = useState("");
   const download = async (id, name) => {
     var token = localStorage.getItem('tokenAccess')
     let formData = new FormData()
@@ -76,6 +79,14 @@ const NewPenelitian = () => {
   };
   const handleToggle = () => {
     setOpen(!open);
+  };
+
+  const handleToggleModal = () => {
+    setOpenModal(!openModal);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(!openModal);
   };
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -109,7 +120,7 @@ const NewPenelitian = () => {
   };
   const handleTargetDelete = () => {
     setTarget("")
-};
+  };
   const handleTargetButton = () => {
 
     // if(inputValue=""){
@@ -140,7 +151,7 @@ const NewPenelitian = () => {
     // Create a form and post it to server
     handleToggle()
     let formData = new FormData();
-    handleToggle();
+
     formData.append("file", filesToUpload);
     formData.append("title", namefile);
     formData.append("type_anotasi", age);
@@ -151,6 +162,9 @@ const NewPenelitian = () => {
     // console.log(formData.get('file'))
     var token = localStorage.getItem("tokenAccess");
     console.log(token);
+    // const modalElement = document.getElementById("exampleModal");
+    // const modal = new window.bootstrap.Modal(modalElement);
+    // modal.show();
     try {
       const response = await axios({
         method: "post",
@@ -170,6 +184,7 @@ const NewPenelitian = () => {
           timer: 2000,
         }).then((value) => {
           handleClose();
+    
           window.location.href = `/list-anotator/${response.data.id_anotasi}`;
         });
       } else {
@@ -177,9 +192,10 @@ const NewPenelitian = () => {
         handleClose();
       }
     } catch (error) {
-      swal("Failed", error.response.data.error, "error");
+      swal("Failed", error.response.data.message, "error");
       handleClose();
     }
+    handleClose();
   };
 
   useEffect(() => {
@@ -190,10 +206,33 @@ const NewPenelitian = () => {
     // Update the document title using the browser API
   }, [age]);
 
+  useEffect(() => {
+    var token = localStorage.getItem("tokenAccess");
+    console.log(token);
+    const handleSubmit = async (event) => {
+      const response = await axios({
+        method: "get",
+        url: "https://backend-ta.ndne.id/api/anotators",
+
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((data) => data);
+
+      console.log(response.data);
+      setDataAnotator(response.data);
+    };
+
+    handleSubmit()
+
+  }, [])
   return (
     <>
+
+      
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
+
           <Navbar />
 
           <Box
@@ -306,15 +345,17 @@ const NewPenelitian = () => {
               </div>
 
               <div className="row mt-5">
-                <Button
-                  type="button"
-                  variant="contained"
+                <button
+                  type="button" class="btn btn-primary ms-2 mt-3 w-25"
                   onClick={uploadFiles}
-                  className="ms-2 mt-3 w-25"
+
                 >
                   Submit
-                </Button>
+                </button>
+
               </div>
+
+
             </div>
           </Box>
         </Box>

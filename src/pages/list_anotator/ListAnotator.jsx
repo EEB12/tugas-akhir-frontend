@@ -97,124 +97,59 @@ const ListAnotator = () => {
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
               width: "100%",
               height: "100%",
-              overflowX: "initial",
+              overflowX: "hidden",
+              position: "fixed",
+              backgroundColor: "#f5f5f5",
+              overflowY: "auto",
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="lg"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
+            <div className="container bg-white my-4 rounded-5 p-4  ">
+              <div className="mb-4 d-flex justify-content-between   profile-title ">
+                <h3 style={{ color: "#0285F1" }}>Buat Penelitian</h3>
+                {/* <button type="button" class="btn btn-custom shadow">
+                  <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                  Tutorial
+                </button> */}
 
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={8} lg={9}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
-
-                      height: "100vh",
-                      width: 1600,
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          Buat Penelitian
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="col-12">
-                          <Paper
-                            elevation={0}
-                            sx={{
-                              p: 2,
-                              display: "flex",
-
-                              height: "50vh",
-                              width: 1600,
-                              pb: 10,
-                              flexDirection: "column",
-                              backgroundColor: "#fffff",
-                              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
-                              borderRadius: "5px",
-                            }}
-                          >
-                            <div className="container-fluid">
-                              <div className="row mb-5">
-                                <Typography
-                                  sx={{
-                                    fontWeight: 600,
-                                    m: 1,
-                                    fontSize: 35,
-                                  }}
-                                  variant="h3"
-                                  gutterBottom
-                                >
-                                  Pilih Anotator
-                                </Typography>
-
-                                <select
-                                  onChange={(e) => setMyValue(e.target.value)}
-                                  class="form-select form-select-lg mb-3 w-25"
-                                  aria-label=".form-select-lg example"
-                                >
-                                  <option selected>
-                                    Open this select menu
-                                  </option>
-                                  {data.map((option, idx) => (
-                                    <option value={option.id_anotator}>
-                                      {option.username}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            </div>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <Button
-                              type="button"
-                              onClick={uploadFiles}
-                              variant="contained"
-                              className="button-submit mt-3 w-25"
-                            >
-                              Submit
-                            </Button>
-                          </Paper>
-                        </div>
-                      </div>
+              </div>
+              <div className="row">
+                <div className="col-6 ps-4 mt-4">
+                  <div class="row mb-4">
+                    <label for="nama" class="col-lg-4 col-form-label">Pilih Anotator</label>
+                    <div class="col-lg-8">
+                      <select onChange={(e) => setMyValue(e.target.value)} value={myValue} className="form-select  " >
+                        <option selected>Open this select menu</option>
+                        {data.map((option, idx) => (
+                          <option value={option.id_anotator}>{option.username}</option>
+                        ))}
+                      </select>
                     </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+                  </div>
+                </div>
+
+                <div className="col-6">
+
+                </div>
+              </div>
+
+              <div className="row">
+
+              </div>
+
+              <div className="row mt-5">
+                <Button
+                  type="button"
+                  variant="contained"
+                  onClick={uploadFiles}
+                  className="ms-2 mt-3 w-25"
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
           </Box>
         </Box>
       </ThemeProvider>

@@ -99,7 +99,7 @@ const DetailPenelitian = () => {
     setNamefile(event.target.value);
   };
   const getHeadings = () => {
-    if (preview.length > 0) {
+    if (preview?.length > 0) {
       return Object.keys(preview[0]).reverse();
     }
     return [];
@@ -166,8 +166,8 @@ const DetailPenelitian = () => {
           id_anotasi: params.id,
         },
       }).then((data) => data);
-      // console.log(response.data[0].model.detail)
-      const dataPagination=responsePagination.data.data
+      console.log(responsePagination.data)
+      const dataPagination=responsePagination?.data?.data
       setPreview(dataPagination)
       handleClose();
     };
@@ -197,7 +197,7 @@ const DetailPenelitian = () => {
         },
       }).then((data) => data);
 
-      setPreview(response.data.data);
+      setPreview(response?.data.data);
       console.log(response.data.data);
       // setDataResult([...dataResult, ...jsonData]);
     };

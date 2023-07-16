@@ -37,7 +37,7 @@ const Navbar = () => {
 
   },);
   return (
-    <AppBar sx={{ bgcolor: '#FFFFFF' }} position="absolute" >
+    <AppBar sx={{ bgcolor: '#FFFFFF',  zIndex: 100 }} position="absolute" >
       <Toolbar
 
       >

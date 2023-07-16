@@ -30,10 +30,10 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
   const [modelTitle, setModelTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [accfile, setAccfile] = useState();
+  const [accfile, setAccfile] = useState('');
 
-  const [vectorizer, setVectorizer] = useState();
-  const [filesToUpload, setFilesToUpload] = useState();
+  const [vectorizer, setVectorizer] = useState('');
+  const [filesToUpload, setFilesToUpload] = useState('');
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleChangeAcc = (e) => {
     setAccfile(e.target.files[0]);
@@ -179,7 +179,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
 
     formData.append("file_vectorizer", vectorizer);
     formData.append("file_accuracy", accfile);
-    console.log(accfile);
+    // console.log(accfile);
     formData.append("file", filesToUpload);
 
     const response = await axios({

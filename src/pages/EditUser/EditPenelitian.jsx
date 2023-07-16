@@ -157,16 +157,7 @@ const EditPenelitian = () => {
             handleClose()
             console.error(error);
         }
-        // const response = await axios({
-        //     method: "post",
-        //     url: `https://backend-ta.ndne.id/api/edit_penelitian/${data.id_anotasi}`,
-        //     data: formData,
-        //     headers: {
-        //         "Authorization": `Bearer ${token}`,
-        //     },
-        // }).then(data => data);
-
-        // console.log(response.data.data)
+       
 
 
 
@@ -205,6 +196,7 @@ const EditPenelitian = () => {
             setTarget(mergedString)
             setNamefile(response?.data[0].title)
             setdata(response?.data[0])
+            setMyValue(response?.data[0].id_anotator)
             handleClose()
         };
 
@@ -304,7 +296,7 @@ const EditPenelitian = () => {
                                     <div class="row mb-4">
                                         <label for="nama" class="col-lg-4 col-form-label">Pilih Anotator</label>
                                         <div class="col-lg-8">
-                                            <select onChange={(e) => setMyValue(e.target.value)} className="form-select  " >
+                                            <select onChange={(e) => setMyValue(e.target.value)} value={myValue}className="form-select  " >
                                                 <option selected>Open this select menu</option>
                                                 {dataAnotator?.map((option, idx) => (
                                                     <option value={option.id_anotator}>{option.username}</option>
@@ -318,7 +310,7 @@ const EditPenelitian = () => {
 
                                 <div className="col-6">
                                     <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" onChange={handleDesc} id="exampleFormControlTextarea1" rows="9"></textarea>
+                                    <textarea class="form-control" onChange={handleDesc} value={desc} id="exampleFormControlTextarea1" rows="9"></textarea>
                                 </div>
                             </div>
 
