@@ -25,6 +25,7 @@ import EditPenelitian from './pages/EditUser/EditPenelitian';
 import ManageModel from './pages/Manage_model/ManageModel';
 import DetailModel from './pages/detail_model/DetailModel';
 import MyListmodel from './pages/mylist_model/MyListmodel';
+import EditModel from './pages/EditModel/EditModel';
 const RouteApp = () => {
   return (
     <BrowserRouter>
@@ -55,6 +56,7 @@ const RouteApp = () => {
         <Route path='/list-mypenelitian' element={<ListMypenelitian/>}/>
         <Route path='/admin/editUser/:id' element={<EditPenelitian/>}/>
         <Route path='/admin/list-model' element={<ManageModel/>}/>
+        <Route path='/admin/edit-model/:id' element={<EditModel/>}/>
       </Routes>
     </BrowserRouter>
   );

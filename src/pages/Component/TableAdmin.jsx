@@ -31,10 +31,10 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
   const [modelTitle, setModelTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [accfile, setAccfile] = useState('');
+  const [accfile, setAccfile] = useState(null);
 
-  const [vectorizer, setVectorizer] = useState('');
-  const [filesToUpload, setFilesToUpload] = useState('');
+  const [vectorizer, setVectorizer] = useState(null);
+  const [filesToUpload, setFilesToUpload] = useState(null);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleChangeAcc = (e) => {
     setAccfile(e.target.files[0]);
@@ -55,7 +55,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
   const handleChange = (event) => {
     setRole(event.target.value);
   };
-  useEffect(() => {}, [tbodyData]);
+  useEffect(() => { }, [tbodyData]);
   const handlerdelete = async (id) => {
     var token = localStorage.getItem("tokenAccess");
 
@@ -102,6 +102,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
   // edit user
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     var token = localStorage.getItem("tokenAccess");
     // Perform any necessary actions with the form data
     let formData = new FormData();
@@ -302,43 +303,46 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                       </button>
                     </div>
                   ) : // <Button onClick={() => openModal(row)}>{"Edit"}</Button>
-                  flag === "delete_penelitian" ? (
-                    <div className="d-flex justify-content-end gap-4">
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary"
-                        href={`/admin/editUser/${row.id_anotasi}`}
-                      >
-                        {"Edit"}
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline-danger"
-                        onClick={() => handlerdelete(row.id_anotasi)}
-                      >
-                        {"Delete"}
-                      </button>
-                    </div>
-                  ) : (
-                    <>
+                    flag === "delete_penelitian" ? (
                       <div className="d-flex justify-content-end gap-4">
-                        <button
-                          type="button"
-                          class="btn btn-outline-primary"
-                          onClick={() => openModel(row)}
-                        >
-                          {"Edit"}
-                        </button>
+                        <a href={`/admin/editUser/${row.id_anotasi}`}>
+                          <button
+                            type="button"
+                            class="btn btn-outline-primary"
+
+                          >
+                            {"Edit"}
+                          </button>
+                        </a>
+
                         <button
                           type="button"
                           class="btn btn-outline-danger"
-                          onClick={() => handlerdelete(row.id)}
+                          onClick={() => handlerdelete(row.id_anotasi)}
                         >
                           {"Delete"}
                         </button>
                       </div>
-                    </>
-                  )}
+                    ) : (
+                      <>
+                        <div className="d-flex justify-content-end gap-4">
+                          <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            onClick={() => openModel(row)}
+                          >
+                            {"Edit"}
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-outline-danger"
+                            onClick={() => handlerdelete(row.id)}
+                          >
+                            {"Delete"}
+                          </button>
+                        </div>
+                      </>
+                    )}
                 </td>
               </tr>
             );
@@ -362,7 +366,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
               p: 4,
             }}
           >
-            {}
+            { }
             <Typography id="modal-title" variant="h5" component="h2">
               {title} User
             </Typography>
@@ -527,7 +531,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
               p: 4,
             }}
           >
-            {}
+            { }
             <Typography id="modal-title" variant="h5" component="h2">
               Edit Model
             </Typography>

@@ -63,7 +63,7 @@ const UpgradeRole = () => {
         var role = decodedToken.role;
         var extractedRole = role.split('.')[1].toLowerCase();
         localStorage.setItem('tokenAccess', response.data.token);
-        localStorage.setItem('role', `"${extractedRole}"` );
+        localStorage.setItem('role', `"${extractedRole}"`);
 
 
         handleClose()
@@ -105,128 +105,67 @@ const UpgradeRole = () => {
                     <Box
                         component="main"
                         sx={{
-                            backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
-                            width: '100%',
-                            height: '100%',
-                            overflowX: 'initial',
+                            width: "100%",
+                            height: "100%",
+                            overflowX: "hidden",
+                            position: "fixed",
+                            backgroundColor: "#f5f5f5",
+                            overflowY: "auto",
                         }}
                     >
 
                         <Toolbar />
-                        <Container maxWidth="lg" sx={{
-                            mr: 80,
-                            p: 2,
-                            display: 'flex',
 
+                        <div className="container bg-white my-4 rounded-5 p-4  ">
+                            <div className="mb-4 d-flex justify-content-between   profile-title ">
+                                <h3 style={{ color: "#0285F1" }}>Buat Penelitian</h3>
+                                {/* <button type="button" class="btn btn-custom shadow">
+                  <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                  Tutorial
+                </button> */}
 
-                            alignItems: 'center'
-                        }}>
-
-                            <Grid container spacing={1}>
-                                {/* Chart */}
-                                <Grid item xs={12} md={8} lg={9}>
-                                    <Paper elevation={0}
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-
-                                            height: '100vh',
-                                            width: 1600,
-                                            pb: 10,
-                                            flexDirection: 'column',
-                                            backgroundColor: '#f5f5f5'
-                                        }}
-
-                                    >
-                                        <div className='container-fluid'>
-                                            <div className='row mb-5'>
-
-
-                                                <Typography sx={{
-                                                    color: '#0285F1',
-                                                    fontWeight: 600, m: 1, fontSize: 60
-                                                }} variant="h3" gutterBottom>
-                                                    Upgrade to Anotator
-                                                </Typography>
-
-                                            </div>
-                                            <div className='row'>
-
-                                                <div className='col-12'>
-                                                    <Paper elevation={0}
-                                                        sx={{
-                                                            p: 2,
-                                                            display: 'flex',
-
-                                                            height: '50vh',
-                                                            width: 1600,
-                                                            pb: 10,
-                                                            flexDirection: 'column',
-                                                            backgroundColor: '#fffff',
-                                                            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
-                                                            borderRadius: '5px'
-                                                        }}
-
-                                                    >
-                                                        <div className='container-fluid'>
-                                                            <div className='row mb-5'>
-
-
-                                                                <Typography sx={{
-
-                                                                    fontWeight: 600, m: 1, fontSize: 35
-                                                                }} variant="h3" gutterBottom>
-                                                                    Masukkan NIK
-                                                                </Typography>
-
-                                                                <TextField sx={{
-                                                                    marginLeft: 3,
-                                                                    width: 1400,
-                                                                    marginBottom: 4
-                                                                }} onChange={handleChangeNIK} id="standard-basic" variant="standard" />
-
-
-                                                            </div>
-
-                                                        </div>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <br></br>
-                                                        <Button type="button" onClick={UploadFiles} variant="contained" className="button-submit mt-3 w-25">Submit</Button>
-
-                                                    </Paper>
-                                                </div>
-
-
-
-                                            </div>
-
-
-
-
-
+                            </div>
+                            <div className="row">
+                                <div className="col-6 ps-4 mt-4">
+                                    <div class="row mb-4">
+                                        <label for="nama" class="col-lg-4 col-form-label">NIK/NRP</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" class="form-control" id="nama" onChange={handleChangeNIK} />
                                         </div>
+                                    </div>
+                               
+
+                                    
+                              
+
+                                 
+
+                                    
+                                </div>
+
+                                <div className="col-6">
+                                    
+                                </div>
+                            </div>
+
+                            <div className="row">
+
+                            </div>
+
+                            <div className="row mt-5">
+                                <button
+                                    type="button" class="btn btn-primary ms-2 mt-3 w-25"
+                                   
+
+                                >
+                                    Submit
+                                </button>
+
+                            </div>
 
 
-
-
-
-
-
-
-
-
-                                    </Paper>
-                                </Grid>
-
-
-                            </Grid>
-
-                        </Container>
+                        </div>
+                        
                     </Box>
                 </Box>
             </ThemeProvider >

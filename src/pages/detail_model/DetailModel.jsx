@@ -119,7 +119,7 @@ const DetailModel = () => {
         console.log(token);
 
         var role = localStorage.getItem("role");
-        
+
         const getModel = async (event) => {
             const response = await axios({
                 method: "get",
@@ -130,7 +130,7 @@ const DetailModel = () => {
                 },
             }).then((data) => data);
             // console.log(int(params.id))
-            const filteredData = response.data.filter(item =>parseInt(params.id));
+            const filteredData = response.data.filter(item => parseInt(params.id));
             console.log(filteredData);
             setData(filteredData);
         };
@@ -142,7 +142,7 @@ const DetailModel = () => {
         // Update the document title using the browser API
     }, [preview]);
 
-   
+
     useEffect(() => {
         // Update the document title using the browser API
     }, [display]);
@@ -198,52 +198,35 @@ const DetailModel = () => {
                                 <h3>Detail Informasi Penelitian</h3>
                             </div>
                         </div>
-                        <div className="container bg-white my-4 rounded-5 p-4 h-100">
-                            <div className="row d-flex justify-content-between align-items-center">
-                                <div className="col-auto">
-                                    <h4>{data[0]?.title}</h4>
-                                    <p className="text-title">Status : {data.status}</p>
+                        <div className="container bg-white my-4 rounded-5 p-4">
+                           
+                                <div className="row mb-4 d-flex justify-content-between align-items-center">
+                                    <div className="col-auto">
+                                        <h4>{data[0]?.title}</h4>
+                                     
+                                    </div>
+
+                                    <div className="col-2">
+                                        <a href={`/admin/edit-model/${data[0]?.id}`}><button type="button" class="btn btn-primary w-75" >Edit</button></a>
+                                    </div>
+
                                 </div>
-
-                                <div className="col-2">
-                                    <a href={`/admin/editUser/${data.id_anotasi}`}><button type="button" class="btn btn-primary w-75" >Edit</button></a>
-                                </div>
-
-                            </div>
-
+                           
                             <div className="border-line">
                                 <h5 className="mb-4">Detail Penelitian</h5>
-                                <div className="row">
-                                    
+                                <div className="row mb-4">
+
                                     <div className="col-4 col-md-2">
                                         <h6 className="fw-normal grey">Deskripsi</h6>
                                     </div>
                                     <div className="col-8 col-md-10">
                                         <h6>: {data[0]?.desc}</h6>
                                     </div>
-                                    
-                                </div>
-                            </div>
-                            <div className="border-line">
-                                <h4>Data Preview</h4>
-                                <div className="row mb-5">
-                                    {data.status === "progress" ? (
-                                        <></>
-                                    ) : (
-                                        <>
-                                            <select
-                                                className="form-select ms-2 menu-data"
-                                                value={display}
-                                                onChange={handleSelectChange}
-                                            >
-                                                <option value="table">Table</option>
-                                                <option value="chart">Chart</option>
-                                                <option value="accuracy">Accuracy</option>
-                                            </select>
 
-                                        </>
-                                    )}
                                 </div>
+                            
+
+
                                 <div className="row mt-2  d-flex justify-content-center">
                                     {display === "table" ? (
                                         <>
@@ -261,8 +244,8 @@ const DetailModel = () => {
                                                         <Typography
                                                             sx={{
                                                                 fontWeight: 500,
-                                                                m: 1,
-                                                                fontSize: 30,
+                                                               
+                                                                fontSize: 20,
                                                             }}
                                                             variant="h3"
                                                             gutterBottom
@@ -274,7 +257,7 @@ const DetailModel = () => {
                                                                 sx={{
                                                                     fontWeight: 400,
                                                                     m: 1,
-                                                                    fontSize: 20,
+                                                                    fontSize: 15,
                                                                 }}
                                                                 variant="h5"
                                                                 gutterBottom
@@ -294,8 +277,8 @@ const DetailModel = () => {
                                                             <Typography
                                                                 sx={{
                                                                     fontWeight: 500,
-                                                                    m: 1,
-                                                                    fontSize: 30,
+                                                                   
+                                                                    fontSize: 20,
                                                                 }}
                                                                 variant="h3"
                                                                 gutterBottom
@@ -307,7 +290,7 @@ const DetailModel = () => {
                                                                     sx={{
                                                                         fontWeight: 400,
                                                                         m: 1,
-                                                                        fontSize: 20,
+                                                                        fontSize: 15,
                                                                     }}
                                                                     variant="h5"
                                                                     gutterBottom
@@ -328,7 +311,7 @@ const DetailModel = () => {
                                                                     sx={{
                                                                         fontWeight: 400,
                                                                         m: 1,
-                                                                        fontSize: 20,
+                                                                        fontSize: 15,
                                                                     }}
                                                                     variant="h5"
                                                                     gutterBottom
@@ -348,7 +331,7 @@ const DetailModel = () => {
                                                                     sx={{
                                                                         fontWeight: 400,
                                                                         m: 1,
-                                                                        fontSize: 20,
+                                                                        fontSize: 15,
                                                                     }}
                                                                     variant="h5"
                                                                     gutterBottom
@@ -372,8 +355,8 @@ const DetailModel = () => {
                                                         <Typography
                                                             sx={{
                                                                 fontWeight: 500,
-                                                                m: 1,
-                                                                fontSize: 30,
+                                                                
+                                                                fontSize: 20,
                                                             }}
                                                             variant="h3"
                                                             gutterBottom
@@ -385,7 +368,7 @@ const DetailModel = () => {
                                                                 sx={{
                                                                     fontWeight: 400,
                                                                     m: 1,
-                                                                    fontSize: 20,
+                                                                    fontSize: 15,
                                                                 }}
                                                                 variant="h5"
                                                                 gutterBottom
@@ -404,7 +387,7 @@ const DetailModel = () => {
                                                                 sx={{
                                                                     fontWeight: 400,
                                                                     m: 1,
-                                                                    fontSize: 20,
+                                                                    fontSize: 15,
                                                                 }}
                                                                 variant="h5"
                                                                 gutterBottom
@@ -423,7 +406,7 @@ const DetailModel = () => {
                                                                 sx={{
                                                                     fontWeight: 400,
                                                                     m: 1,
-                                                                    fontSize: 20,
+                                                                    fontSize: 15,
                                                                 }}
                                                                 variant="h5"
                                                                 gutterBottom
@@ -443,8 +426,8 @@ const DetailModel = () => {
                                                             <Typography
                                                                 sx={{
                                                                     fontWeight: 500,
-                                                                    m: 1,
-                                                                    fontSize: 30,
+                                                                  
+                                                                    fontSize: 20,
                                                                 }}
                                                                 variant="h3"
                                                                 gutterBottom
@@ -456,7 +439,7 @@ const DetailModel = () => {
                                                                     sx={{
                                                                         fontWeight: 400,
                                                                         m: 1,
-                                                                        fontSize: 20,
+                                                                        fontSize: 15,
                                                                     }}
                                                                     variant="h5"
                                                                     gutterBottom
@@ -477,7 +460,7 @@ const DetailModel = () => {
                                                                     sx={{
                                                                         fontWeight: 400,
                                                                         m: 1,
-                                                                        fontSize: 20,
+                                                                        fontSize: 15,
                                                                     }}
                                                                     variant="h5"
                                                                     gutterBottom
@@ -497,7 +480,7 @@ const DetailModel = () => {
                                                                     sx={{
                                                                         fontWeight: 400,
                                                                         m: 1,
-                                                                        fontSize: 20,
+                                                                        fontSize: 15,
                                                                     }}
                                                                     variant="h5"
                                                                     gutterBottom
