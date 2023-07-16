@@ -15,6 +15,7 @@ import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 export default function TableAdmin({ theadData, tbodyData, flag }) {
@@ -219,32 +220,37 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
             type="button"
             variant="contained"
           >
+            <AddOutlinedIcon className="me-3" />
             Tambah User
           </Button>
         </div>
       ) : flag === "delete_penelitian" ? (
         <>
-          {" "}
-          <Button
-            href="/new-penelitian"
-            className="w-25 mb-4"
-            type="button"
-            variant="contained"
-          >
-            Tambah Penelitian
-          </Button>
+          <div className="d-flex justify-content-start">
+            <Button
+              onClick={() => tambahModal()}
+              className="mb-4 btn-add"
+              type="button"
+              variant="contained"
+            >
+              <AddOutlinedIcon className="me-3" />
+              Tambah Penelitian
+            </Button>
+          </div>
         </>
       ) : flag === "delete_model" ? (
         <>
-          {" "}
-          <Button
-            href="/new-model"
-            className="w-25 mb-4"
-            type="button"
-            variant="contained"
-          >
-            Tambah Model
-          </Button>{" "}
+          <div className="d-flex justify-content-start">
+            <Button
+              onClick={() => tambahModal()}
+              className="mb-4 btn-add"
+              type="button"
+              variant="contained"
+            >
+              <AddOutlinedIcon className="me-3" />
+              Tambah Program Model
+            </Button>
+          </div>
         </>
       ) : (
         <></>
