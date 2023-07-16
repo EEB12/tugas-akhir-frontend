@@ -129,9 +129,10 @@ const DetailModel = () => {
                     Authorization: `Bearer ${token}`,
                 },
             }).then((data) => data);
-            const filteredData = response.data.filter(item => item.id === 4);
+            // console.log(int(params.id))
+            const filteredData = response.data.filter(item =>parseInt(params.id));
             console.log(filteredData);
-            setData(response.data);
+            setData(filteredData);
         };
 
         getModel();
@@ -200,7 +201,7 @@ const DetailModel = () => {
                         <div className="container bg-white my-4 rounded-5 p-4 h-100">
                             <div className="row d-flex justify-content-between align-items-center">
                                 <div className="col-auto">
-                                    <h4>{data.title}</h4>
+                                    <h4>{data[0]?.title}</h4>
                                     <p className="text-title">Status : {data.status}</p>
                                 </div>
 
@@ -213,39 +214,14 @@ const DetailModel = () => {
                             <div className="border-line">
                                 <h5 className="mb-4">Detail Penelitian</h5>
                                 <div className="row">
-                                    <div className="col-4 col-md-2">
-                                        <h6 className="fw-normal grey">Tipe Anotasi</h6>
-                                    </div>
-                                    <div className="col-8 col-md-10">
-                                        <h6>: {data.type_anotasi}</h6>
-                                    </div>
-                                    <div className="col-4 col-md-2">
-                                        <h6 className="fw-normal grey">Author</h6>
-                                    </div>
-                                    <div className="col-8 col-md-10">
-                                        <h6>: {data.author}</h6>
-                                    </div>
-                                    <div className="col-4 col-md-2">
-                                        <h6 className="fw-normal grey">Anotator</h6>
-                                    </div>
-                                    <div className="col-8 col-md-10">
-                                        <h6>: {data.anotator}</h6>
-                                    </div>
+                                    
                                     <div className="col-4 col-md-2">
                                         <h6 className="fw-normal grey">Deskripsi</h6>
                                     </div>
                                     <div className="col-8 col-md-10">
-                                        <h6>: {data.desc}</h6>
+                                        <h6>: {data[0]?.desc}</h6>
                                     </div>
-                                    <div className="col-4 col-md-2">
-                                        <h6 className="fw-normal grey">Target</h6>
-                                    </div>
-                                    <div className="col-8 col-md-10">
-                                        {data.target &&
-                                            data.target.map((item, index) => (
-                                                <h6 key={index}>: {item}</h6>
-                                            ))}
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div className="border-line">
@@ -279,7 +255,7 @@ const DetailModel = () => {
                                         </>
                                     ) : (
                                         <>
-                                            {/* <div className="container-fluid">
+                                            <div className="container-fluid">
                                                 <div className="row">
                                                     <div className="col-6">
                                                         <Typography
@@ -306,7 +282,7 @@ const DetailModel = () => {
                                                                 F1-Score
                                                             </Typography>
                                                             <ProgressBar
-                                                                value={data.model.detail.accuracy["f1-score"]}
+                                                                value={data[0]?.detail.accuracy["f1-score"]}
                                                                 maxValue={1}
                                                                 color="#0285F1"
                                                             />
@@ -340,7 +316,7 @@ const DetailModel = () => {
                                                                 </Typography>
                                                                 <ProgressBar
                                                                     value={
-                                                                        data.model.detail["macro avg"]["f1-score"]
+                                                                        data[0]?.detail["macro avg"]["f1-score"]
                                                                     }
                                                                     maxValue={1}
                                                                     color="#0285F1"
@@ -361,7 +337,7 @@ const DetailModel = () => {
                                                                 </Typography>
                                                                 <ProgressBar
                                                                     value={
-                                                                        data.model.detail["macro avg"]["precision"]
+                                                                        data[0]?.detail["macro avg"]["precision"]
                                                                     }
                                                                     maxValue={1}
                                                                     color="#0285F1"
@@ -381,7 +357,7 @@ const DetailModel = () => {
                                                                 </Typography>
                                                                 <ProgressBar
                                                                     value={
-                                                                        data.model.detail["macro avg"]["recall"]
+                                                                        data[0]?.detail["macro avg"]["recall"]
                                                                     }
                                                                     maxValue={1}
                                                                     color="#0285F1"
@@ -417,7 +393,7 @@ const DetailModel = () => {
                                                                 F1-Score
                                                             </Typography>
                                                             <ProgressBar
-                                                                value={data.model.detail.negative["f1-score"]}
+                                                                value={data[0]?.detail.negative["f1-score"]}
                                                                 maxValue={1}
                                                                 color="#0285F1"
                                                             />
@@ -436,7 +412,7 @@ const DetailModel = () => {
                                                                 Precision
                                                             </Typography>
                                                             <ProgressBar
-                                                                value={data.model.detail.negative["precision"]}
+                                                                value={data[0]?.detail.negative["precision"]}
                                                                 maxValue={1}
                                                                 color="#0285F1"
                                                             />
@@ -455,7 +431,7 @@ const DetailModel = () => {
                                                                 Recall
                                                             </Typography>
                                                             <ProgressBar
-                                                                value={data.model.detail.negative["recall"]}
+                                                                value={data[0]?.detail.negative["recall"]}
                                                                 maxValue={1}
                                                                 color="#0285F1"
                                                             />
@@ -489,7 +465,7 @@ const DetailModel = () => {
                                                                 </Typography>
                                                                 <ProgressBar
                                                                     value={
-                                                                        data.model.detail["positive"]["f1-score"]
+                                                                        data[0]?.detail["positive"]["f1-score"]
                                                                     }
                                                                     maxValue={1}
                                                                     color="#0285F1"
@@ -510,7 +486,7 @@ const DetailModel = () => {
                                                                 </Typography>
                                                                 <ProgressBar
                                                                     value={
-                                                                        data.model.detail["positive"]["precision"]
+                                                                        data[0]?.detail["positive"]["precision"]
                                                                     }
                                                                     maxValue={1}
                                                                     color="#0285F1"
@@ -530,7 +506,7 @@ const DetailModel = () => {
                                                                 </Typography>
                                                                 <ProgressBar
                                                                     value={
-                                                                        data.model.detail["positive"]["recall"]
+                                                                        data[0]?.detail["positive"]["recall"]
                                                                     }
                                                                     maxValue={1}
                                                                     color="#0285F1"
@@ -539,7 +515,7 @@ const DetailModel = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> */}
+                                            </div>
                                         </>
                                     )}
                                 </div>

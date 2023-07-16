@@ -190,9 +190,9 @@ const NewModel = () => {
             }}
           >
             <Toolbar />
-            <div className="container bg-white my-4 rounded-5 p-4 w-75 h-50">
+            <div className="container bg-white my-4 rounded-5 p-4 ">
               <div className="mb-4 d-flex justify-content-between   profile-title ">
-                <h3 style={{ color: "#0285F1" }}>Buat Penelitian</h3>
+                <h3 style={{ color: "#0285F1" }}>Buat Model</h3>
                 {/* <button type="button" class="btn btn-custom shadow">
                   <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
                   Tutorial
@@ -225,7 +225,7 @@ const NewModel = () => {
                     <div class="col-lg-8">
                       <input
                         type="file"
-                        onChange={handleFilesChange}
+                        onChange={handleVectorizerChange}
                       />
                     </div>
                   </div>
@@ -255,7 +255,7 @@ const NewModel = () => {
                 <Button
                   type="button"
                   variant="contained"
-
+                  onClick={handleSubmit}
                   className="ms-2 mt-3 w-25"
                 >
                   Submit
