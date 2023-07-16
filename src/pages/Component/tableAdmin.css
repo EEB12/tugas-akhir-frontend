@@ -1,46 +1,48 @@
+.table-wrapper {
+  box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+}
 
-.table-wrapper{
-   
-    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+.btn-add {
+  background-color: #1878f2 !important;
+  border-color: #1878f2 !important;
+  color: #ffffff;
+  box-shadow: 0 0.3125rem 0.625rem rgb(24 120 242 / 40%);
 }
 
 .fl-tableAdmin {
-   
-    font-size: 12px;
-    font-weight: normal;
-    border: none;
-   
-    width: 100%;
-    white-space: wrap;
-    background-color: white;
-    /* border-collapse:separate !important; */
-    /* border:solid black 1px !important; */
-    /* border-radius:6px !important; */
+  font-size: 12px;
+  font-weight: normal;
+  border: none;
+
+  width: 100%;
+  white-space: wrap;
+  background-color: white;
+  /* border-collapse:separate !important; */
+  /* border:solid black 1px !important; */
+  /* border-radius:6px !important; */
 }
 
-.fl-tableAdmin td, .fl-tableAdmin th {
-    text-align: center;
-    padding: 10px;
-    /* border-radius: 5px; */
+.fl-tableAdmin td,
+.fl-tableAdmin th {
+  text-align: center;
+  padding: 10px;
+  /* border-radius: 5px; */
 }
 
 .fl-tableAdmin td {
-    border-bottom: 2px solid #9e9a9a !important;
-    border-top: 2px solid #9e9a9a !important;
-    font-size: 12px;
-    padding: 14px;
-    white-space:pre-wrap; word-wrap:break-word
+  border-bottom: 2px solid #9e9a9a !important;
+  border-top: 2px solid #9e9a9a !important;
+  font-size: 12px;
+  padding: 14px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .fl-tableAdmin thead th {
-     color: #ffffff;
-    background: #0285F1 !important;
+  color: #ffffff;
+  background: #0285f1 !important;
 }
-
-
-
 
 .fl-tableAdmin tr:nth-child(even) {
-    background: #d7d5d5 !important;
+  background: #d7d5d5 !important;
 }
-

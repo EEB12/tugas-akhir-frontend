@@ -1,5 +1,7 @@
 import React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
@@ -44,9 +46,6 @@ const bull = (
 );
 
 const ListUser = () => {
-  // const getHeadings = () => {
-  //     return Object.keys(contoh[0]);
-  // }
   const [data, setData] = useState([]);
   const [header, setHeader] = useState([]);
 
@@ -82,6 +81,7 @@ const ListUser = () => {
   const getHeadings = (header) => {
     return Object.keys(header).reverse();
   };
+
   useEffect(() => {
     var token = localStorage.getItem("tokenAccess");
 
@@ -118,78 +118,43 @@ const ListUser = () => {
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
           <Navbar />
-
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
               width: "100%",
               height: "100%",
-              overflowX: "initial",
+              overflowX: "hidden",
+              position: "fixed",
+              backgroundColor: "#f5f5f5",
+              overflowY: "auto",
             }}
           >
             <Toolbar />
-            <Container
-              maxWidth="100vh"
-              sx={{
-                mr: 80,
-                p: 2,
-                display: "flex",
-
-                alignItems: "center",
-              }}
-            >
-              <Grid container spacing={1}>
-                {/* Chart */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      display: "flex",
-
-                      height: "100vh",
-                      width: "100%",
-                      pb: 10,
-                      flexDirection: "column",
-                      backgroundColor: "#f5f5f5",
-                    }}
-                  >
-                    <div className="container-fluid">
-                      <div className="row mb-5">
-                        <Typography
-                          sx={{
-                            color: "#0285F1",
-                            fontWeight: 600,
-                            m: 1,
-                            fontSize: 60,
-                          }}
-                          variant="h3"
-                          gutterBottom
-                        >
-                          List User
-                        </Typography>
-                      </div>
-                      <div className="row">
-                        <div className="col"></div>
-                        <div className="col-10">
-                          <TableAdmin
-                            theadData={header}
-                            tbodyData={data}
-                            flag="users"
-                          ></TableAdmin>
-                        </div>
-
-                        <div className="col"></div>
-                      </div>
-                    </div>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Container>
+            <div className="container mt-4">
+              <div className="mb-4 d-flex justify-content-between">
+                <h3>Daftar Pengguna</h3>
+                <button type="button" class="btn btn-light shadow">
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    size="lg"
+                    className="pe-2"
+                  />
+                  Tutorial
+                </button>
+              </div>
+            </div>
+            <div className="container">
+              <div className="card my-4 h-100 bg-white rounded-5 p-4">
+                  <div className="card-body">
+                    <TableAdmin
+                      theadData={header}
+                      tbodyData={data}
+                      flag="users"
+                    ></TableAdmin>
+                  </div>
+              </div>
+            </div>
+           
           </Box>
         </Box>
       </ThemeProvider>

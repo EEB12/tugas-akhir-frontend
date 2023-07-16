@@ -130,8 +130,8 @@ const Navbar = () => {
 
                   </> : data == '"admin"' ?
                     <>
-                      <li><a class="dropdown-item" href="/admin/list-penelitian">Manajemen Penelitian</a></li>
-                      <li><a class="dropdown-item" href="/admin/list-model">Manajemen Program Model</a></li>
+                      <li><a class="dropdown-item" href="/admin/list-penelitian">Kelola Penelitian</a></li>
+                      <li><a class="dropdown-item" href="/admin/list-model">Kelola Program Model</a></li>
                     </>
                     : <></>
 
@@ -205,7 +205,7 @@ const Navbar = () => {
                   </Typography>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="/admin/list-user">Detail User</a></li>
+                  <li><a class="dropdown-item" href="/admin/list-user">Kelola User</a></li>
                   {/* <li><a class="dropdown-item" href="#">List Model</a></li> */}
 
                 </ul>
