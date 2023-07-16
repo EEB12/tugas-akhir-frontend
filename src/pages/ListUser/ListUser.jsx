@@ -111,11 +111,60 @@ const ListUser = () => {
     getPenelitian();
   }, []);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => { }, [data]);
 
   return (
     <>
       <ThemeProvider theme={mdTheme}>
+        <div
+          class="modal"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <Toolbar />
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style={{ color: "#02a9f1" }}>
+                <FontAwesomeIcon
+                  icon={faCircleQuestion}
+                  size="lg"
+                  className="pe-2"
+                />
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Tutorial
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div className="px-2">
+                  <ol>
+                    <li>Tekan tombol edit untuk melakukan perubahan pada pengguna</li>
+                    <li>
+                      Tekan tombol delete untuk menghapus pengguna
+                    </li>
+
+                  </ol>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <Box sx={{ display: "flex" }}>
           <Navbar />
           <Box
@@ -133,7 +182,12 @@ const ListUser = () => {
             <div className="container mt-4">
               <div className="mb-4 d-flex justify-content-between">
                 <h3>Daftar Pengguna</h3>
-                <button type="button" class="btn btn-light shadow">
+                <button
+                  type="button"
+                  class="btn btn-light shadow"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
                   <FontAwesomeIcon
                     icon={faCircleQuestion}
                     size="lg"
@@ -145,16 +199,16 @@ const ListUser = () => {
             </div>
             <div className="container">
               <div className="card my-4 h-100 bg-white rounded-5 p-4">
-                  <div className="card-body">
-                    <TableAdmin
-                      theadData={header}
-                      tbodyData={data}
-                      flag="users"
-                    ></TableAdmin>
-                  </div>
+                <div className="card-body">
+                  <TableAdmin
+                    theadData={header}
+                    tbodyData={data}
+                    flag="users"
+                  ></TableAdmin>
+                </div>
               </div>
             </div>
-           
+
           </Box>
         </Box>
       </ThemeProvider>

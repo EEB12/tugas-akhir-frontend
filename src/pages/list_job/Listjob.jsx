@@ -32,7 +32,7 @@ const Listjob = () => {
   // }
   const [data, setData] = useState([]);
   const [role, setRole] = useState("");
-  
+
   const [filteredData, setFilteredData] = useState([]);
   const [statusFilters, setStatusFilters] = useState([]);
   const [typeFilters, setTypeFilters] = useState([]);
@@ -130,6 +130,55 @@ const Listjob = () => {
   return (
     <>
       <ThemeProvider theme={mdTheme}>
+        <div
+          class="modal"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <Toolbar />
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style={{ color: "#02a9f1" }}>
+                <FontAwesomeIcon
+                  icon={faCircleQuestion}
+                  size="lg"
+                  className="pe-2"
+                />
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Tutorial
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div className="px-2">
+                  <ol>
+                    <li>Tentukan Job mana yang akan dianoatasi</li>
+                    <li>
+                      Pilih job dengan klik pada card yang sudah untuk melakukan anotasi
+                    </li>
+                    
+                  </ol>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <Box sx={{ display: "flex" }}>
           <Navbar />
 
@@ -162,13 +211,13 @@ const Listjob = () => {
                       <div class="card-body p-2">
                         <form>
                           <label class="form-check">
-                            <input class="form-check-input" type="checkbox"  value="finished" onChange={handleStatusChange} />
+                            <input class="form-check-input" type="checkbox" value="finished" onChange={handleStatusChange} />
                             <span class="form-check-label">
                               Finished
                             </span>
                           </label>
                           <label class="form-check">
-                            <input class="form-check-input" type="checkbox"  value="progress" onChange={handleStatusChange}/>
+                            <input class="form-check-input" type="checkbox" value="progress" onChange={handleStatusChange} />
                             <span class="form-check-label">
                               Progress
                             </span>
@@ -193,7 +242,7 @@ const Listjob = () => {
                             </span>
                           </label>
                           <label class="form-check">
-                            <input class="form-check-input" type="checkbox"  value="manual" onChange={handleTypeChange} />
+                            <input class="form-check-input" type="checkbox" value="manual" onChange={handleTypeChange} />
                             <span class="form-check-label">
                               Manual
                             </span>
@@ -205,10 +254,73 @@ const Listjob = () => {
                     </div>
 
                   </div>
-                  <button type="button" class="btn btn-custom shadow">
-                    <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2" />
+                  <button
+                    type="button"
+                    class="btn btn-light shadow"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    <FontAwesomeIcon
+                      icon={faCircleQuestion}
+                      size="lg"
+                      className="pe-2"
+                    />
                     Tutorial
                   </button>
+
+                  <div
+                    class="modal"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <Toolbar />
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style={{ color: "#02a9f1" }}>
+                          <FontAwesomeIcon
+                            icon={faCircleQuestion}
+                            size="lg"
+                            className="pe-2"
+                          />
+                          <h5 class="modal-title" id="exampleModalLabel">
+                            Tutorial
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div className="px-2">
+                            <ol>
+                              <li>Memilih dropdown pada kolom result</li>
+                              <li>
+                                Melakukan save edit pada row untuk konfirmasi
+                                perubahan pada row tersebut
+                              </li>
+                              <li>
+                                Klik "Save Dataset" untuk menyimpan perubahan pada
+                                tabel
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -225,21 +337,21 @@ const Listjob = () => {
                           </h5>
 
                           <p class="card-text text-center">
-                            Klik "Buat Penelitian" untuk membuat penelitian
+                            Harap peneliti untuk memberikan pekerjaan kepada anda
                           </p>
                           <div className="w-100 d-flex justify-content-center">
-                            <a
+                            {/* <a
                               href="/new-penelitian"
                               type="button"
                               class="btn btn-primary w-25"
                             >
                               Buat Penelitian
-                            </a>
+                            </a> */}
                           </div>
-                          <p className="mt-3 text-center text-danger">
+                          {/* <p className="mt-3 text-center text-danger">
                             ( Siapkan dataset penelitian sebelum
                             membuat penelitian )
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>

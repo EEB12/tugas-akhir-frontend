@@ -145,7 +145,7 @@ const EditPenelitian = () => {
             })
                 .then((value) => {
 
-                    window.location.href = `/list-penelitian`;
+                    window.location.href = document.referrer;
                 });
 
             swal("Failed", response.data.error, "error");

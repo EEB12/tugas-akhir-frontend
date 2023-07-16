@@ -154,7 +154,7 @@ const UpgradeRole = () => {
 
                             <div className="row mt-5">
                                 <button
-                                    type="button" class="btn btn-primary ms-2 mt-3 w-25"
+                                    type="button" onClick={UploadFiles} class="btn btn-primary ms-2 mt-3 w-25"
                                    
 
                                 >

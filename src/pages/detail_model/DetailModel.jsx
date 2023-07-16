@@ -123,7 +123,7 @@ const DetailModel = () => {
         const getModel = async (event) => {
             const response = await axios({
                 method: "get",
-                url: "https://backend-ta.ndne.id/api/list_model",
+                url: "https://backend-ta.ndne.id/api/my_list_model",
 
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -192,10 +192,10 @@ const DetailModel = () => {
                         <Toolbar />
                         <div className="container mt-4">
                             <div className="mb-4 d-flex justify-content-start">
-                                <a href="/list-penelitian">
+                                <a href="/list-model">
                                     <ArrowBackIcon className="mt-1 me-3" />
                                 </a>
-                                <h3>Detail Informasi Penelitian</h3>
+                                <h3>Detail Informasi Model</h3>
                             </div>
                         </div>
                         <div className="container bg-white my-4 rounded-5 p-4">

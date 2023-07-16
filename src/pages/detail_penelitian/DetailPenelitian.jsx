@@ -27,6 +27,8 @@ import Pagination from "@mui/material/Pagination";
 import ProgressBar from "../Component/ProgressBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import csvDownload from 'json-to-csv-export'
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 const mdTheme = createTheme();
 
 const DetailPenelitian = () => {
@@ -42,6 +44,7 @@ const DetailPenelitian = () => {
   const [display, setDisplay] = useState("table");
   const [chartType, setChartType] = useState("pie");
   const [currentPage, setCurrentPage] = useState(1);
+  const [status, setStatus] = useState("");
   const handleClose = () => {
     setOpen(false);
   };
@@ -66,6 +69,26 @@ const DetailPenelitian = () => {
     }
     csvDownload(dataToConvert)
   }
+
+  const updateStatus = async (id, name) => {
+    var token = localStorage.getItem('tokenAccess')
+    let formData = new FormData()
+    formData.append("id_anotasi", params.id)
+    formData.append("status", status)
+    handleToggle()
+    const response = await axios({
+      method: "post",
+      url: `https://backend-ta.ndne.id/api/update_status_anotate`,
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((data) => data);
+
+    handleClose()
+    window.location.reload();
+  }
+
   const handleChangeTitle = (event) => {
     setNamefile(event.target.value);
   };
@@ -106,7 +129,9 @@ const DetailPenelitian = () => {
   };
 
   const params = useParams();
-
+  const handleStatus = (event) => {
+    setStatus(event.target.value);
+  };
   const handleSubmit = async () => { };
 
   useEffect(() => {
@@ -142,6 +167,8 @@ const DetailPenelitian = () => {
         setPreview(preview1);
         console.log(response?.data[0]);
         setData(response?.data[0]);
+        console.log(typeof (response.data[0].status))
+        setStatus(response.data[0].status.toUpperCase())
       } else {
         // console.log(response.data)
         const preview1 = response?.data[1].slice(0, 5);
@@ -150,6 +177,8 @@ const DetailPenelitian = () => {
         // console.log(preview1)
         setPreview(preview1);
         console.log(response?.data[0]);
+        console.log(response.data[0].status)
+        setStatus(response.data[0].status.toUpperCase())
         setData(response?.data[0]);
       }
 
@@ -167,7 +196,7 @@ const DetailPenelitian = () => {
         },
       }).then((data) => data);
       console.log(responsePagination.data)
-      const dataPagination=responsePagination?.data?.data
+      const dataPagination = responsePagination?.data?.data
       setPreview(dataPagination)
       handleClose();
     };
@@ -332,10 +361,38 @@ const DetailPenelitian = () => {
                 <div className="row mt-2  d-flex justify-content-center">
                   {display === "table" ? (
                     <>
-                      <div className="col-12 p-0 mb-3">
+                      <div className="d-flex flex-column mb-3">
+
+                        <div>
+                          {data.status === "progress" ?
+
+                            <>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                className="mb-3"
+                                value={status}
+                                sx={{
+                                  height: "38px",
+                                  width: 200,
+
+                                }}
+                                onChange={handleStatus}
+                              >
+                                <MenuItem value={"PROGRESS"}>Progress</MenuItem>
+                                <MenuItem value={"FINISHED"}>Finished</MenuItem>
+                              </Select>
+                              <button onClick={() => updateStatus()} type="button" class="btn btn-primary ms-5 mb-1" >Update Status</button>
+                            </>
+                            :
+                            <></>
+                          }
+
+
+                        </div>
+
+
                         <button onClick={() => download(data.id_anotasi, data.title)} type="button" class="btn btn-primary w-25" >Download .CSV</button>
-
-
                       </div>
 
                       <Table

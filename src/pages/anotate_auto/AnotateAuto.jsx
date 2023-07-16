@@ -133,7 +133,7 @@ const AnotateAuto = () => {
     const handleSubmit = async (event) => {
       const response = await axios({
         method: "get",
-        url: "https://backend-ta.ndne.id/api/list_model",
+        url: "https://backend-ta.ndne.id/api/my_list_model",
 
         headers: {
           Authorization: `Bearer ${token}`,

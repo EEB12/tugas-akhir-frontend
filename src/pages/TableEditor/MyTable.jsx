@@ -185,13 +185,13 @@ const MyTable = () => {
     // console.log(typeof (tbodyData))
     // console.log(typeof (theadData))
     return (
-      <table className="fl-table    ">
+      <table className="table table-hover table-striped ">
         <thead>
           <tr>
             {theadData?.map((heading) => {
               return (
                 <>
-                  <th style={{ width: "30%" }} key={heading}>
+                  <th  class="table-secondary" style={{ width: "30%" }} key={heading}>
                     {heading}
                   </th>
                 </>

@@ -149,6 +149,55 @@ const MyListmodel = () => {
   return (
     <>
       <ThemeProvider theme={mdTheme}>
+        <div
+          class="modal"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <Toolbar />
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style={{ color: "#02a9f1" }}>
+                <FontAwesomeIcon
+                  icon={faCircleQuestion}
+                  size="lg"
+                  className="pe-2"
+                />
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Tutorial
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div className="px-2">
+                  <ol>
+                    <li>Tentukan Model mana yang akan dilihat detail atau dilakukan perubahan pada model</li>
+                    <li>
+                      Pilih Model dengan klik pada card yang sudah untuk melihat detail atau untuk melakukan perubahan pada model
+                    </li>
+
+                  </ol>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <Box sx={{ display: "flex" }}>
           <Navbar />
 
@@ -167,8 +216,17 @@ const MyListmodel = () => {
             <div className="container bg-white my-4 rounded-5 p-4 h-100">
               <div className="mb-4 d-flex justify-content-between">
                 <h3 style={{ color: "#0285F1" }}>My List Model</h3>
-                <button type="button" class="btn btn-custom shadow">
-                <FontAwesomeIcon icon={faCircleQuestion} size="lg" className="pe-2"/>
+                <button
+                  type="button"
+                  class="btn btn-light shadow"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    size="lg"
+                    className="pe-2"
+                  />
                   Tutorial
                 </button>
               </div>
@@ -189,7 +247,7 @@ const MyListmodel = () => {
                           </p>
                           <div className="w-100 d-flex justify-content-center">
                             <a
-                              href="/new-penelitian"
+                              href="/new-model"
                               type="button"
                               class="btn btn-primary w-25"
                             >
@@ -209,7 +267,7 @@ const MyListmodel = () => {
                     {data.map((item, index) => (
                       <>
                         <div className="col-4 mb-4">
-                        <a href={`/detail-model/` +item.id}>
+                          <a href={`/detail-model/` + item.id}>
                             <div class="card card-penelitian">
                               <img
                                 src="/loginregister.jpg"
@@ -228,16 +286,16 @@ const MyListmodel = () => {
                                 <h5 class="card-title text-title  ">
                                   {item.title}
                                 </h5>
-                                
+
                                 {item.desc.length > 10 ? (
                                   <>
                                     <p className="card-text text-desc fw-normal d-block text-start">
-                                      {item.desc.slice(0, 40)}... 
+                                      {item.desc.slice(0, 40)}...
                                     </p>
                                   </>
                                 ) : (
                                   <p className="card-text text-desc fw-normal d-block text-start">
-                                    {item.desc} 
+                                    {item.desc}
                                   </p>
                                 )}
                               </div>
