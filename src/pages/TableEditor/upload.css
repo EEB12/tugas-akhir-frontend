@@ -55,3 +55,8 @@ body {
 .button-submit{
     margin-left: 1px !important;
 }
+
+.table-container {
+    border-radius: 30px; /* Adjust the value as needed */
+    overflow: hidden; /* Ensures the table doesn't overflow the rounded corners */
+  }

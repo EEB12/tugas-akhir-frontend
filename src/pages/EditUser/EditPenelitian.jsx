@@ -146,6 +146,7 @@ const EditPenelitian = () => {
                 .then((value) => {
 
                     window.location.href = document.referrer;
+                    handleClose()
                 });
 
             swal("Failed", response.data.error, "error");

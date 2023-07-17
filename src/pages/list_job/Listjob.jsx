@@ -337,7 +337,7 @@ const Listjob = () => {
                           </h5>
 
                           <p class="card-text text-center">
-                            Harap peneliti untuk memberikan pekerjaan kepada anda
+                            Harap tunggu peneliti untuk memberikan pekerjaan kepada anda
                           </p>
                           <div className="w-100 d-flex justify-content-center">
                             {/* <a

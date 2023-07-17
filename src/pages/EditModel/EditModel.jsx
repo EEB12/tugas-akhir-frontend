@@ -53,10 +53,10 @@ const EditModel = () => {
     const [inputValue, setInputValue] = useState("");
     const [dataAnotator, setDataAnotator] = useState([]);
     const [myValue, setMyValue] = useState("");
-    const [accfile, setAccfile] = useState(null);
+    const [accfile, setAccfile] = useState();
 
-    const [vectorizer, setVectorizer] = useState(null);
-    const [filesToUpload, setFilesToUpload] = useState(null);
+    const [vectorizer, setVectorizer] = useState();
+    const [filesToUpload, setFilesToUpload] = useState();
     const download = async (id, name) => {
         var token = localStorage.getItem('tokenAccess')
         let formData = new FormData()
@@ -115,9 +115,10 @@ const EditModel = () => {
     };
 
     const handleChangeAcc = (e) => {
+        console.log(e.target.files[0])
         setAccfile(e.target.files[0]);
     };
-    
+
     const handleVectorizerChange = (e) => {
         // Update chosen files
         console.log(e.target.files[0]);
@@ -166,7 +167,7 @@ const EditModel = () => {
     const uploadFiles = async () => {
         // Create a form and post it to server
         handleToggle()
-        
+
         var token = localStorage.getItem("tokenAccess");
         // Perform any necessary actions with the form data
         let formData = new FormData();
@@ -174,23 +175,50 @@ const EditModel = () => {
 
         // const [vectorizer, setVectorizer] = useState();
         // const [filesToUpload, setFilesToUpload] = useState();
-        formData.append("title_model",namefile);
+        formData.append("title_model", namefile);
         formData.append("desc", desc);
 
         formData.append("file_vectorizer", vectorizer);
         formData.append("file_accuracy", accfile);
-        // console.log(accfile);
+        
         formData.append("file", filesToUpload);
 
-        const response = await axios({
-            method: "post",
-            url: `https://backend-ta.ndne.id/api/update_model/${params.id}`,
-            data: formData,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }).then((data) => data);
-        handleClose();
+
+
+        try {
+            const response = await axios({
+                method: "post",
+                url: `https://backend-ta.ndne.id/api/update_model/${params.id}`,
+                data: formData,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then((data) => data);
+
+
+            swal("Success", "Data Model berhasil diedit", "success", {
+                buttons: false,
+                timer: 2000,
+            })
+                .then((value) => {
+
+                    window.location.href = document.referrer;
+                    handleClose()
+                });
+
+            
+
+
+        } catch (error) {
+            // Handle the error
+            swal("Failed", error.response.data.error, "error");
+            handleClose()
+            console.error(error);
+        }
+        
+       
+
+        
     };
 
     useEffect(() => {
@@ -201,7 +229,7 @@ const EditModel = () => {
         // Update the document title using the browser API
     }, [age]);
 
-   
+
 
 
 
@@ -270,7 +298,7 @@ const EditModel = () => {
                                     <div class="row mb-4">
                                         <label for="nama" class="col-lg-4 col-form-label">Judul Model</label>
                                         <div class="col-lg-8">
-                                            <input type="text" class="form-control" id="nama"value={data[0]?.title} onChange={handleChangeTitle} />
+                                            <input type="text" class="form-control" id="nama" value={namefile} onChange={handleChangeTitle} />
                                         </div>
                                     </div>
 
@@ -307,7 +335,7 @@ const EditModel = () => {
 
                                 <div className="col-6">
                                     <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" value={data[0]?.desc} onChange={handleDesc} id="exampleFormControlTextarea1" rows="9"></textarea>
+                                    <textarea class="form-control" value={desc} onChange={handleDesc} id="exampleFormControlTextarea1" rows="9"></textarea>
                                 </div>
                             </div>
 
