@@ -182,38 +182,42 @@ const MyTable = () => {
   const cancel = () => {};
 
   function Table({ theadData, tbodyData }) {
-    // console.log(typeof (tbodyData))
-    // console.log(typeof (theadData))
+    console.log(tbodyData);
+    console.log(theadData);
+  
+    const save = (value, index) => {
+      // Handle save logic here
+    };
+  
+    const cancel = () => {
+      // Handle cancel logic here
+    };
+  
     return (
-      <table className="table table-hover table-striped ">
+      <table className="table table-hover table-striped">
         <thead>
           <tr>
-            {theadData?.map((heading) => {
-              return (
-                <>
-                  <th  class="table-secondary" style={{ width: "30%" }} key={heading}>
-                    {heading}
-                  </th>
-                </>
-              );
-            })}
+            {theadData?.map((heading) => (
+              <th className="table-secondary" style={{ width: "30%" }} key={heading}>
+                {heading}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {tbodyData?.map((row, indexL) => {
-            return (
-              <tr key={indexL}>
-                {row[indexL]}
-                {theadData?.map((key, index) => {
+          {tbodyData?.map((row, indexL) => (
+            <tr key={indexL}>
+              {theadData?.map((key, index) => {
+                if (key === "result") {
                   return (
                     <td className="ml-5" key={row[key]}>
                       <EasyEdit
                         value={row[key]}
                         type="select"
                         onSave={(value) => save(value, indexL)}
-                        options={options.map((options) => ({
-                          label: options,
-                          value: options,
+                        options={options.map((option) => ({
+                          label: option,
+                          value: option,
                         }))}
                         onCancel={cancel}
                         saveButtonLabel="Save Edit"
@@ -222,10 +226,12 @@ const MyTable = () => {
                       />
                     </td>
                   );
-                })}
-              </tr>
-            );
-          })}
+                } else {
+                  return <td className="ml-5" key={row[key]}>{row[key]}</td>;
+                }
+              })}
+            </tr>
+          ))}
         </tbody>
       </table>
     );
