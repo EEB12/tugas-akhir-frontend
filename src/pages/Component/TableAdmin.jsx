@@ -263,7 +263,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
             {theadData.map((heading) => {
               return (
                 <>
-                  <th key={heading} style={{ textTransform: "uppercase" }}>
+                  <th className=''key={heading} style={{ textTransform: "uppercase" }}>
                     {heading}
                   </th>
                 </>

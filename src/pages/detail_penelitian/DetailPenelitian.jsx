@@ -346,7 +346,7 @@ const DetailPenelitian = () => {
                   ) : (
                     <>
                       <select
-                        className="form-select ms-2 menu-data"
+                        className="form-select ms-3 menu-data"
                         value={display}
                         onChange={handleSelectChange}
                       >
@@ -363,30 +363,25 @@ const DetailPenelitian = () => {
                     <>
                       <div className="d-flex flex-column mb-3">
 
-                        <div>
-                          {data.status === "progress" ?
+                        <div className="pb-4">
 
-                            <>
-                              <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                className="mb-3"
-                                value={status}
-                                sx={{
-                                  height: "38px",
-                                  width: 200,
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            className="mb-3"
+                            value={status}
+                            sx={{
+                              height: "38px",
+                              width: 200,
 
-                                }}
-                                onChange={handleStatus}
-                              >
-                                <MenuItem value={"PROGRESS"}>Progress</MenuItem>
-                                <MenuItem value={"FINISHED"}>Finished</MenuItem>
-                              </Select>
-                              <button onClick={() => updateStatus()} type="button" class="btn btn-primary ms-5 mb-1" >Update Status</button>
-                            </>
-                            :
-                            <></>
-                          }
+                            }}
+                            onChange={handleStatus}
+                          >
+                            <MenuItem value={"PROGRESS"}>Progress</MenuItem>
+                            <MenuItem value={"FINISHED"}>Finished</MenuItem>
+                          </Select>
+                          <button onClick={() => updateStatus()} type="button" class="btn btn-primary ms-5 " >Update Status</button>
+
 
 
                         </div>
