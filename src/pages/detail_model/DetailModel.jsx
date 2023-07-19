@@ -123,7 +123,7 @@ const DetailModel = () => {
         const getModel = async (event) => {
             const response = await axios({
                 method: "get",
-                url: "https://backend-ta.ndne.id/api/my_list_model",
+                url: `https://backend-ta.ndne.id/api/get_detail_model/${params.id}`,
 
                 headers: {
                     Authorization: `Bearer ${token}`,
