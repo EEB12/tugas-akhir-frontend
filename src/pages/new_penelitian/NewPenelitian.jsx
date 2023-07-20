@@ -349,7 +349,7 @@ const NewPenelitian = () => {
                 <button
                   type="button" class="btn btn-primary ms-2 mt-3 w-25"
                   onClick={uploadFiles}
-
+                  disabled={namefile === "" || desc === ""}
                 >
                   Submit
                 </button>
