@@ -144,7 +144,7 @@ const NewModel = () => {
     console.log("ini vectorizer", vectorizer);
     var token = localStorage.getItem("tokenAccess");
     console.log(token);
-
+    var role = localStorage.getItem("role");
     const response = await axios({
       method: "post",
       url: "https://backend-ta.ndne.id/api/upload_model",
@@ -160,7 +160,13 @@ const NewModel = () => {
         buttons: false,
         timer: 2000,
       }).then((value) => {
-        window.location.href = "/list-job";
+
+        if(role=='"admin"'){
+          window.location.href = "/admin/list-model";
+        }else{
+          window.location.href = "/mylist-model";
+        }
+        
       });
     } else {
       swal("Failed", "Model Upload Failed", "error");

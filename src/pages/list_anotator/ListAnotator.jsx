@@ -41,7 +41,7 @@ const ListAnotator = () => {
     formData.append("id_anotasi", params.id);
 
     var token = localStorage.getItem("tokenAccess");
-    console.log(token);
+    var role = localStorage.getItem("role");
     const response = await axios({
       method: "post",
       url: "https://backend-ta.ndne.id/api/add-anotator",
@@ -60,7 +60,13 @@ const ListAnotator = () => {
         buttons: false,
         timer: 2000,
       }).then((value) => {
-        window.location.href = "/list-penelitian";
+     
+        if(role=='"admin"'){
+          window.location.href = "/admin/list-penelitian";
+        }else{
+          window.location.href = "/list-penelitian";
+        }
+        // "/admin/list-penelitian"
       });
     } else {
       swal("Failed", "Anotator gagal diassign", "error");
@@ -69,6 +75,8 @@ const ListAnotator = () => {
 
   useEffect(() => {
     var token = localStorage.getItem("tokenAccess");
+    var role = localStorage.getItem("role");
+    console.log(role);
     console.log(token);
 
     const handleSubmit = async (event) => {

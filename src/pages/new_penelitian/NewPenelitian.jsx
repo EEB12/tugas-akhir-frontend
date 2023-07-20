@@ -186,6 +186,7 @@ const NewPenelitian = () => {
           handleClose();
     
           window.location.href = `/list-anotator/${response.data.id_anotasi}`;
+          
         });
       } else {
         swal("Failed", response.data.message, "error");

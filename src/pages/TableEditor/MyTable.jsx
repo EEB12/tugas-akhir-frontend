@@ -185,13 +185,7 @@ const MyTable = () => {
     console.log(tbodyData);
     console.log(theadData);
 
-    const save = (value, index) => {
-      // Handle save logic here
-    };
-
-    const cancel = () => {
-      // Handle cancel logic here
-    };
+    
 
     return (
       <div className="table-container">

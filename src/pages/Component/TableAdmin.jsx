@@ -193,12 +193,12 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
       },
     }).then((data) => data);
     // Close the modal and reset the form fields
-    setIsModalOpen(false);
+    setIsModelOpen(false);
     // setUsername('');
     // setEmail('');
     // setPassword('');
     // setRole('');
-    // window.location.reload();
+    window.location.reload();
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -222,14 +222,14 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
             variant="contained"
           >
             <AddOutlinedIcon className="me-3" />
-            Tambah User
+            Tambah User{console.log(flag)}
           </Button>
         </div>
       ) : flag === "delete_penelitian" ? (
         <>
           <div className="d-flex justify-content-start">
             <Button
-              onClick={() => tambahModal()}
+              href="/new-penelitian"
               className="mb-4 btn-add"
               type="button"
               variant="contained"
@@ -243,7 +243,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
         <>
           <div className="d-flex justify-content-start">
             <Button
-              onClick={() => tambahModal()}
+             href="/new-model"
               className="mb-4 btn-add"
               type="button"
               variant="contained"
@@ -612,7 +612,7 @@ export default function TableAdmin({ theadData, tbodyData, flag }) {
                   Model Program
                 </Typography>
 
-                <input type="file" accept=".pkl" onChange={handleFilesChange} />
+                <input type="file" onChange={handleFilesChange} />
               </Box>
 
               <Box

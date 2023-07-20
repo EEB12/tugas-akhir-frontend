@@ -193,7 +193,7 @@ const AnotateAuto = () => {
             <Toolbar />
             <div className="container mt-4">
               <div className="mb-4 d-flex justify-content-between">
-                <h3>Anotasi Manual</h3>
+                <h3>Anotasi Otomatis</h3>
                 <button
                   type="button"
                   class="btn btn-light shadow"

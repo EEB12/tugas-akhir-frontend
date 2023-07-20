@@ -165,7 +165,7 @@ const DetailPenelitian = () => {
         setDataBig(response?.data[1]);
         // console.log(preview1)
         setPreview(preview1);
-        console.log(response?.data[0]);
+        // console.log(response?.data[0].model.detail.Accuracy);
         setData(response?.data[0]);
         console.log(typeof (response.data[0].status))
         setStatus(response.data[0].status.toUpperCase())
@@ -287,7 +287,7 @@ const DetailPenelitian = () => {
                 <h3>Detail Informasi Penelitian</h3>
               </div>
             </div>
-            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+            <div className="container bg-white my-4 rounded-5 p-4">
               <div className="row d-flex justify-content-between align-items-center">
                 <div className="col-auto">
                   <h4>{data.title}</h4>
@@ -352,7 +352,8 @@ const DetailPenelitian = () => {
                       >
                         <option value="table">Table</option>
                         <option value="chart">Chart</option>
-                        <option value="accuracy">Accuracy</option>
+                        {data.type_anotasi=="manual"? <></>:<> <option value="accuracy">Accuracy</option></>}
+                       
                       </select>
 
                     </>
@@ -483,28 +484,47 @@ const DetailPenelitian = () => {
                         </Button>
                       </div>
                     </>
-                  ) : (
+                  ) : 
+                    
                     <>
-                      <div className="container-fluid">
+                      <div className="container-fluid border-line">
                         <div className="row">
                           <div className="col-6">
                             <Typography
                               sx={{
                                 fontWeight: 500,
-                                m: 1,
-                                fontSize: 30,
+
+                                fontSize: 20,
                               }}
                               variant="h3"
                               gutterBottom
                             >
-                              Accuracy
+                              Akurasi Model
                             </Typography>
                             <div>
                               <Typography
                                 sx={{
                                   fontWeight: 400,
                                   m: 1,
-                                  fontSize: 20,
+                                  fontSize: 15,
+                                }}
+                                variant="h5"
+                                gutterBottom
+                              >
+                                Accuracy Score
+                              </Typography>
+                              <ProgressBar
+                                value={data?.model?.detail?.Accuracy}
+                                maxValue={1}
+                                color="#0285F1"
+                              />
+                            </div>
+                            <div>
+                              <Typography
+                                sx={{
+                                  fontWeight: 400,
+                                  m: 1,
+                                  fontSize: 15,
                                 }}
                                 variant="h5"
                                 gutterBottom
@@ -512,129 +532,17 @@ const DetailPenelitian = () => {
                                 F1-Score
                               </Typography>
                               <ProgressBar
-                                value={data.model.detail.accuracy["f1-score"]}
+                                value={data?.model?.detail["F-score"]}
                                 maxValue={1}
                                 color="#0285F1"
                               />
                             </div>
-                          </div>
-
-                          <div className="col-6">
-                            <div>
-                              <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  m: 1,
-                                  fontSize: 30,
-                                }}
-                                variant="h3"
-                                gutterBottom
-                              >
-                                Macro Avg
-                              </Typography>
-                              <div>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 400,
-                                    m: 1,
-                                    fontSize: 20,
-                                  }}
-                                  variant="h5"
-                                  gutterBottom
-                                >
-                                  F1-Score
-                                </Typography>
-                                <ProgressBar
-                                  value={
-                                    data.model.detail["macro avg"]["f1-score"]
-                                  }
-                                  maxValue={1}
-                                  color="#0285F1"
-                                />
-                              </div>
-
-                              <div>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 400,
-                                    m: 1,
-                                    fontSize: 20,
-                                  }}
-                                  variant="h5"
-                                  gutterBottom
-                                >
-                                  Precision
-                                </Typography>
-                                <ProgressBar
-                                  value={
-                                    data.model.detail["macro avg"]["precision"]
-                                  }
-                                  maxValue={1}
-                                  color="#0285F1"
-                                />
-                              </div>
-                              <div>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 400,
-                                    m: 1,
-                                    fontSize: 20,
-                                  }}
-                                  variant="h5"
-                                  gutterBottom
-                                >
-                                  Recall
-                                </Typography>
-                                <ProgressBar
-                                  value={
-                                    data.model.detail["macro avg"]["recall"]
-                                  }
-                                  maxValue={1}
-                                  color="#0285F1"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="row mt-5">
-                          <div className="col-6">
-                            <Typography
-                              sx={{
-                                fontWeight: 500,
-                                m: 1,
-                                fontSize: 30,
-                              }}
-                              variant="h3"
-                              gutterBottom
-                            >
-                              Negative
-                            </Typography>
                             <div>
                               <Typography
                                 sx={{
                                   fontWeight: 400,
                                   m: 1,
-                                  fontSize: 20,
-                                }}
-                                variant="h5"
-                                gutterBottom
-                              >
-                                F1-Score
-                              </Typography>
-                              <ProgressBar
-                                value={data.model.detail.negative["f1-score"]}
-                                maxValue={1}
-                                color="#0285F1"
-                              />
-                            </div>
-
-                            <div>
-                              <Typography
-                                sx={{
-                                  fontWeight: 400,
-                                  m: 1,
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 }}
                                 variant="h5"
                                 gutterBottom
@@ -642,7 +550,7 @@ const DetailPenelitian = () => {
                                 Precision
                               </Typography>
                               <ProgressBar
-                                value={data.model.detail.negative["precision"]}
+                                value={data?.model?.detail["Precision"]}
                                 maxValue={1}
                                 color="#0285F1"
                               />
@@ -653,7 +561,7 @@ const DetailPenelitian = () => {
                                 sx={{
                                   fontWeight: 400,
                                   m: 1,
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 }}
                                 variant="h5"
                                 gutterBottom
@@ -661,93 +569,21 @@ const DetailPenelitian = () => {
                                 Recall
                               </Typography>
                               <ProgressBar
-                                value={data.model.detail.negative["recall"]}
+                                value={data?.model?.detail["Recall"]}
                                 maxValue={1}
                                 color="#0285F1"
                               />
                             </div>
+
                           </div>
 
-                          <div className="col-6">
-                            <div>
-                              <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  m: 1,
-                                  fontSize: 30,
-                                }}
-                                variant="h3"
-                                gutterBottom
-                              >
-                                Positive
-                              </Typography>
-                              <div>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 400,
-                                    m: 1,
-                                    fontSize: 20,
-                                  }}
-                                  variant="h5"
-                                  gutterBottom
-                                >
-                                  F1-Score
-                                </Typography>
-                                <ProgressBar
-                                  value={
-                                    data.model.detail["positive"]["f1-score"]
-                                  }
-                                  maxValue={1}
-                                  color="#0285F1"
-                                />
-                              </div>
 
-                              <div>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 400,
-                                    m: 1,
-                                    fontSize: 20,
-                                  }}
-                                  variant="h5"
-                                  gutterBottom
-                                >
-                                  Precision
-                                </Typography>
-                                <ProgressBar
-                                  value={
-                                    data.model.detail["positive"]["precision"]
-                                  }
-                                  maxValue={1}
-                                  color="#0285F1"
-                                />
-                              </div>
-                              <div>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 400,
-                                    m: 1,
-                                    fontSize: 20,
-                                  }}
-                                  variant="h5"
-                                  gutterBottom
-                                >
-                                  Recall
-                                </Typography>
-                                <ProgressBar
-                                  value={
-                                    data.model.detail["positive"]["recall"]
-                                  }
-                                  maxValue={1}
-                                  color="#0285F1"
-                                />
-                              </div>
-                            </div>
-                          </div>
                         </div>
+
+
                       </div>
                     </>
-                  )}
+                  }
                 </div>
               </div>
               {/* <Button type="button" variant="contained" onClick={handleSubmit} className="ms-2 mt-3 w-25">Upload</Button> */}

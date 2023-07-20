@@ -199,19 +199,19 @@ const DetailModel = () => {
                             </div>
                         </div>
                         <div className="container bg-white my-4 rounded-5 p-4">
-                           
-                                <div className="row mb-4 d-flex justify-content-between align-items-center">
-                                    <div className="col-auto">
-                                        <h4>{data[0]?.title}</h4>
-                                     
-                                    </div>
 
-                                    <div className="col-2">
-                                        <a href={`/admin/edit-model/${data[0]?.id}`}><button type="button" class="btn btn-primary w-75" >Edit</button></a>
-                                    </div>
+                            <div className="row mb-4 d-flex justify-content-between align-items-center">
+                                <div className="col-auto">
+                                    <h4>{data[0]?.title}</h4>
 
                                 </div>
-                           
+
+                                <div className="col-2">
+                                    <a href={`/admin/edit-model/${data[0]?.id}`}><button type="button" class="btn btn-primary w-75" >Edit</button></a>
+                                </div>
+
+                            </div>
+
                             <div className="border-line">
                                 <h5 className="mb-4">Detail Penelitian</h5>
                                 <div className="row mb-4">
@@ -224,7 +224,7 @@ const DetailModel = () => {
                                     </div>
 
                                 </div>
-                            
+
 
 
                                 <div className="row mt-2  d-flex justify-content-center">
@@ -238,20 +238,38 @@ const DetailModel = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <div className="container-fluid">
+                                            <div className="container-fluid border-line">
                                                 <div className="row">
                                                     <div className="col-6">
                                                         <Typography
                                                             sx={{
                                                                 fontWeight: 500,
-                                                               
+                                                                
                                                                 fontSize: 20,
                                                             }}
                                                             variant="h3"
                                                             gutterBottom
                                                         >
-                                                            Accuracy
+                                                            Akurasi Model
                                                         </Typography>
+                                                        <div>
+                                                            <Typography
+                                                                sx={{
+                                                                    fontWeight: 400,
+                                                                    m: 1,
+                                                                    fontSize: 15,
+                                                                }}
+                                                                variant="h5"
+                                                                gutterBottom
+                                                            >
+                                                                Accuracy Score
+                                                            </Typography>
+                                                            <ProgressBar
+                                                                value={data[0]?.detail.Accuracy}
+                                                                maxValue={1}
+                                                                color="#0285F1"
+                                                            />
+                                                        </div>
                                                         <div>
                                                             <Typography
                                                                 sx={{
@@ -265,14 +283,51 @@ const DetailModel = () => {
                                                                 F1-Score
                                                             </Typography>
                                                             <ProgressBar
-                                                                value={data[0]?.detail.accuracy["f1-score"]}
+                                                                value={data[0]?.detail["F-score"]}
+                                                                maxValue={1}
+                                                                color="#0285F1"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <Typography
+                                                                sx={{
+                                                                    fontWeight: 400,
+                                                                    m: 1,
+                                                                    fontSize: 15,
+                                                                }}
+                                                                variant="h5"
+                                                                gutterBottom
+                                                            >
+                                                                Precision
+                                                            </Typography>
+                                                            <ProgressBar
+                                                                value={data[0]?.detail["Precision"]}
+                                                                maxValue={1}
+                                                                color="#0285F1"
+                                                            />
+                                                        </div>
+
+                                                        <div>
+                                                            <Typography
+                                                                sx={{
+                                                                    fontWeight: 400,
+                                                                    m: 1,
+                                                                    fontSize: 15,
+                                                                }}
+                                                                variant="h5"
+                                                                gutterBottom
+                                                            >
+                                                                Precision
+                                                            </Typography>
+                                                            <ProgressBar
+                                                                value={data[0]?.detail["Recall"]}
                                                                 maxValue={1}
                                                                 color="#0285F1"
                                                             />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-6">
+                                                    {/* <div className="col-6">
                                                         <div>
                                                             <Typography
                                                                 sx={{
@@ -283,7 +338,7 @@ const DetailModel = () => {
                                                                 variant="h3"
                                                                 gutterBottom
                                                             >
-                                                                Macro Avg
+                                                                F1-Score
                                                             </Typography>
                                                             <div>
                                                                 <Typography
@@ -347,157 +402,10 @@ const DetailModel = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
 
-                                                <div className="row mt-5">
-                                                    <div className="col-6">
-                                                        <Typography
-                                                            sx={{
-                                                                fontWeight: 500,
-                                                                
-                                                                fontSize: 20,
-                                                            }}
-                                                            variant="h3"
-                                                            gutterBottom
-                                                        >
-                                                            Negative
-                                                        </Typography>
-                                                        <div>
-                                                            <Typography
-                                                                sx={{
-                                                                    fontWeight: 400,
-                                                                    m: 1,
-                                                                    fontSize: 15,
-                                                                }}
-                                                                variant="h5"
-                                                                gutterBottom
-                                                            >
-                                                                F1-Score
-                                                            </Typography>
-                                                            <ProgressBar
-                                                                value={data[0]?.detail.negative["f1-score"]}
-                                                                maxValue={1}
-                                                                color="#0285F1"
-                                                            />
-                                                        </div>
 
-                                                        <div>
-                                                            <Typography
-                                                                sx={{
-                                                                    fontWeight: 400,
-                                                                    m: 1,
-                                                                    fontSize: 15,
-                                                                }}
-                                                                variant="h5"
-                                                                gutterBottom
-                                                            >
-                                                                Precision
-                                                            </Typography>
-                                                            <ProgressBar
-                                                                value={data[0]?.detail.negative["precision"]}
-                                                                maxValue={1}
-                                                                color="#0285F1"
-                                                            />
-                                                        </div>
-
-                                                        <div>
-                                                            <Typography
-                                                                sx={{
-                                                                    fontWeight: 400,
-                                                                    m: 1,
-                                                                    fontSize: 15,
-                                                                }}
-                                                                variant="h5"
-                                                                gutterBottom
-                                                            >
-                                                                Recall
-                                                            </Typography>
-                                                            <ProgressBar
-                                                                value={data[0]?.detail.negative["recall"]}
-                                                                maxValue={1}
-                                                                color="#0285F1"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="col-6">
-                                                        <div>
-                                                            <Typography
-                                                                sx={{
-                                                                    fontWeight: 500,
-                                                                  
-                                                                    fontSize: 20,
-                                                                }}
-                                                                variant="h3"
-                                                                gutterBottom
-                                                            >
-                                                                Positive
-                                                            </Typography>
-                                                            <div>
-                                                                <Typography
-                                                                    sx={{
-                                                                        fontWeight: 400,
-                                                                        m: 1,
-                                                                        fontSize: 15,
-                                                                    }}
-                                                                    variant="h5"
-                                                                    gutterBottom
-                                                                >
-                                                                    F1-Score
-                                                                </Typography>
-                                                                <ProgressBar
-                                                                    value={
-                                                                        data[0]?.detail["positive"]["f1-score"]
-                                                                    }
-                                                                    maxValue={1}
-                                                                    color="#0285F1"
-                                                                />
-                                                            </div>
-
-                                                            <div>
-                                                                <Typography
-                                                                    sx={{
-                                                                        fontWeight: 400,
-                                                                        m: 1,
-                                                                        fontSize: 15,
-                                                                    }}
-                                                                    variant="h5"
-                                                                    gutterBottom
-                                                                >
-                                                                    Precision
-                                                                </Typography>
-                                                                <ProgressBar
-                                                                    value={
-                                                                        data[0]?.detail["positive"]["precision"]
-                                                                    }
-                                                                    maxValue={1}
-                                                                    color="#0285F1"
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <Typography
-                                                                    sx={{
-                                                                        fontWeight: 400,
-                                                                        m: 1,
-                                                                        fontSize: 15,
-                                                                    }}
-                                                                    variant="h5"
-                                                                    gutterBottom
-                                                                >
-                                                                    Recall
-                                                                </Typography>
-                                                                <ProgressBar
-                                                                    value={
-                                                                        data[0]?.detail["positive"]["recall"]
-                                                                    }
-                                                                    maxValue={1}
-                                                                    color="#0285F1"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </>
                                     )}
