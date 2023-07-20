@@ -262,6 +262,7 @@ const NewModel = () => {
                   type="button"
                   variant="contained"
                   onClick={handleSubmit}
+                  disabled={namefile === "" || descfile === ""}
                   className="ms-2 mt-3 w-25"
                 >
                   Submit
