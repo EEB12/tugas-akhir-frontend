@@ -256,10 +256,12 @@ const DetailPenelitian = () => {
   const handleChartTypeChange = (event) => {
     setChartType(event.target.value);
   };
-  const uniqueResults = [...new Set(dataBig.map((review) => review.result))];
+  var uniqueResults = [...new Set(dataBig.map((review) => review.result))];
+  uniqueResults = uniqueResults.filter((result) => result !== "-");
   const dataValues = uniqueResults.map(
     (result) => dataBig.filter((review) => review.result === result).length
   );
+  console.log(uniqueResults)
   const progressPercentage = (0.86 / 1) * 100;
 
   return (
