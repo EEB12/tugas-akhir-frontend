@@ -194,7 +194,7 @@ const Listjob = () => {
             }}
           >
             <Toolbar />
-            <div className="container bg-white my-4 rounded-5 p-4 h-100">
+            <div className="container bg-white my-4 rounded-5 p-4">
               <div className="mb-4 d-flex justify-content-between">
                 <h3 style={{ color: "#0285F1" }}>My Job</h3>
                 <div>
