@@ -424,12 +424,13 @@ const Listpenelitian = () => {
                                     penelitian
                                   </p>
                                   <div className="w-100 d-flex justify-content-center">
-                                    <button
+                                    <a
                                       type="button"
                                       class="btn btn-primary w-25"
+                                      href="/new-penelitian"
                                     >
                                       Buat Penelitian
-                                    </button>
+                                    </a>
                                   </div>
                                 </div>
                               </div>
