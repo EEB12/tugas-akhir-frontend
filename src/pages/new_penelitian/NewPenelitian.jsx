@@ -189,11 +189,11 @@ const NewPenelitian = () => {
           
         });
       } else {
-        swal("Failed", response.data.message, "error");
+        swal("Failed", response.data.error, "error");
         handleClose();
       }
     } catch (error) {
-      swal("Failed", error.response.data.message, "error");
+      swal("Failed", error.response.data.error, "error");
       handleClose();
     }
     handleClose();
