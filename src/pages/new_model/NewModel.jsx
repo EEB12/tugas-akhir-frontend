@@ -145,33 +145,41 @@ const NewModel = () => {
     var token = localStorage.getItem("tokenAccess");
     console.log(token);
     var role = localStorage.getItem("role");
-    const response = await axios({
-      method: "post",
-      url: "https://backend-ta.ndne.id/api/upload_model",
-      data: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((data) => data);
 
-    console.log(response);
-    if (response.data.message == "Data created successfully") {
-      swal("Success", "Model Uploaded", "success", {
-        buttons: false,
-        timer: 2000,
-      }).then((value) => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: "https://backend-ta.ndne.id/api/upload_model",
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((data) => data);
 
-        if(role=='"admin"'){
-          window.location.href = "/admin/list-model";
-        }else{
-          window.location.href = "/mylist-model";
-        }
-        
-      });
-    } else {
-      swal("Failed", "Model Upload Failed", "error");
-      handleClose();
+      console.log(response);
+      if (response.data.message == "Data created successfully") {
+        swal("Success", "Model Uploaded", "success", {
+          buttons: false,
+          timer: 2000,
+        }).then((value) => {
+
+          if (role == '"admin"') {
+            window.location.href = "/admin/list-model";
+          } else {
+            window.location.href = "/mylist-model";
+          }
+
+        });
+      } else {
+        swal("Failed", "Model Upload Failed", "error");
+        handleClose();
+      }
     }
+    catch (error) {
+      swal("Failed", error.response.data.error, "error");
+      handleClose();
+     }
+
   };
 
   useEffect(() => {
@@ -213,9 +221,9 @@ const NewModel = () => {
                       <input type="text" class="form-control" id="nama" onChange={handleChangeTitle} />
                     </div>
                   </div>
-                  
 
-                  
+
+
 
                   <div class="row mb-4">
                     <label for="email" class="col-lg-4 col-form-label">Model</label>
