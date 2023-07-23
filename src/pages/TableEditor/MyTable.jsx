@@ -38,6 +38,7 @@ const MyTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [options, setOptions] = useState([]);
   const [detail, setDetail] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
   const getHeadings = () => {
     return Object.keys(jsonData[0]);
   };
@@ -295,7 +296,9 @@ const MyTable = () => {
           id_anotasi: params.id,
         },
       }).then((data) => data);
-
+      
+      console.log("tes",response.data.total_pages)
+      setTotalPage(response.data.total_pages)
       // setJsonData(response.data)
 
       // console.log(response.data.data)
@@ -502,7 +505,7 @@ const MyTable = () => {
                   {/* <button onClick={() => buttonhandler()}>upload</button> */}
 
                   <Pagination
-                    count={40} // Total number of pages
+                    count={totalPage} // Total number of pages
                     page={currentPage} // Current active page
                     onChange={handlePageChange} // Callback function for page change
                   />

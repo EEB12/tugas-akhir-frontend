@@ -45,6 +45,7 @@ const DetailPenelitian = () => {
   const [chartType, setChartType] = useState("pie");
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("");
+  const [totalPage, setTotalPage] = useState(0);
   const handleClose = () => {
     setOpen(false);
   };
@@ -195,6 +196,8 @@ const DetailPenelitian = () => {
           id_anotasi: params.id,
         },
       }).then((data) => data);
+      console.log("tes",responsePagination.data.total_pages)
+      setTotalPage(responsePagination.data.total_pages)
       console.log(responsePagination.data)
       const dataPagination = responsePagination?.data?.data
       setPreview(dataPagination)
@@ -399,7 +402,7 @@ const DetailPenelitian = () => {
                       ></Table>
 
                       <Pagination
-                        count={20} // Total number of pages
+                        count={totalPage} // Total number of pages
                         page={currentPage} // Current active page
                         onChange={handlePageChange} // Callback function for page change
                       />
