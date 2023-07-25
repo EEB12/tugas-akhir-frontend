@@ -182,6 +182,12 @@ const MyTable = () => {
 
   const cancel = () => {};
 
+  const updatedOptions = [
+    { label: "Pilih Target", value: "-" },
+    ...options.map((option) => ({ label: option, value: option })), // Copy existing options
+     // Add the "-" option
+  ];
+
   function Table({ theadData, tbodyData }) {
     // console.log(tbodyData);
     // console.log(theadData);
@@ -210,13 +216,10 @@ const MyTable = () => {
                     return (
                       <td className="ml-5" key={row[key]}>
                         <EasyEdit
-                          value={row[key]}
+                          value={row[key]==="-"?(<p className="text-title">Pilih Target</p>):(row[key])}
                           type="select"
                           onSave={(value) => save(value, indexL)}
-                          options={options.map((option) => ({
-                            label: option,
-                            value: option,
-                          }))}
+                          options={updatedOptions}
                           onCancel={cancel}
                           saveButtonLabel="Save Edit"
                           cancelButtonLabel="Cancel Edit"
