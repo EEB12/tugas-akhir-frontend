@@ -8,6 +8,7 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Table from "../Component/Table";
+import swal from "sweetalert";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -26,7 +27,7 @@ import html2canvas from "html2canvas";
 import Pagination from "@mui/material/Pagination";
 import ProgressBar from "../Component/ProgressBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import csvDownload from 'json-to-csv-export'
+import csvDownload from "json-to-csv-export";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 const mdTheme = createTheme();
@@ -46,49 +47,105 @@ const DetailPenelitian = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("");
   const [totalPage, setTotalPage] = useState(0);
+  const [totalDataFill, setTotalDataFill] = useState(0);
+  const [totalDataRecord, setTotalRecord] = useState(0);
   const handleClose = () => {
     setOpen(false);
   };
   const handleToggle = () => {
     setOpen(!open);
   };
-
-
+  const XLSX = require("xlsx");
+  function downloadExcelFile(data, filename) {
+    const blob = new Blob([data], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    const url = URL.createObjectURL(blob);
+  
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+  
+    // Membersihkan setelah download
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, 0);
+  }
+  
   const download = async (id, name) => {
-    var token = localStorage.getItem('tokenAccess')
+    var token = localStorage.getItem("tokenAccess");
     // let formData = new FormData()
     // formData.append("id_anotasi", id)
-    console.log(dataBig)
-    console.log(name)
-    const dataDownload = dataBig
-    var headers = Object.keys(dataDownload[0])
-    const dataToConvert = {
-      data: dataDownload,
-      filename: `${name}`,
-      delimiter: ',',
-      headers: headers
+    console.log(dataBig);
+    console.log(name);
+    try {
+      // Assuming dataBig is available with your actual data
+      const dataDownload = dataBig;
+  
+      // Calculate headers for the Excel file
+      const headers = Object.keys(dataDownload[0]);
+  
+      // Prepare the worksheet
+      const worksheet = XLSX.utils.json_to_sheet(dataDownload, {
+        header: headers,
+      });
+  
+      // Prepare the workbook and add the worksheet to it
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  
+      // Convert the workbook to a buffer
+      const buffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
+  
+      // Generate the filename (optional, you can customize it as needed)
+      const filename = `${name}.xlsx`;
+  
+      // Trigger the download
+      downloadExcelFile(buffer, filename);
+    } catch (error) {
+      console.error(error);
+      // Handle the error as needed
     }
-    csvDownload(dataToConvert)
-  }
+  };
 
   const updateStatus = async (id, name) => {
-    var token = localStorage.getItem('tokenAccess')
-    let formData = new FormData()
-    formData.append("id_anotasi", params.id)
-    formData.append("status", status)
-    handleToggle()
-    const response = await axios({
-      method: "post",
-      url: `https://backend-ta.ndne.id/api/update_status_anotate`,
-      data: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((data) => data);
-
-    handleClose()
-    window.location.reload();
-  }
+    var token = localStorage.getItem("tokenAccess");
+    let formData = new FormData();
+    formData.append("id_anotasi", params.id);
+    formData.append("status", status);
+    handleToggle();
+    try {
+      const response = await axios({
+        method: "post",
+        url: `https://backend-ta.ndne.id/api/update_status_anotate`,
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    
+      if (response.data.message === "Research status updated successfully") {
+        swal("Success", "Data Penelitian berhasil diupdate", "success", {
+          buttons: false,
+          timer: 2000,
+        }).then(() => {
+          handleClose();
+          window.location.reload();
+        });
+      } else {
+        const errorMessage = response.error.response.data.message;
+        swal("Failed", errorMessage, "error");
+        handleClose();
+      }
+    } catch (error) {
+      const errorMessage = error.response.data.message;
+      swal("Failed", errorMessage, "error");
+      handleClose();
+    }
+  };
 
   const handleChangeTitle = (event) => {
     setNamefile(event.target.value);
@@ -133,7 +190,7 @@ const DetailPenelitian = () => {
   const handleStatus = (event) => {
     setStatus(event.target.value);
   };
-  const handleSubmit = async () => { };
+  const handleSubmit = async () => {};
 
   useEffect(() => {
     var token = localStorage.getItem("tokenAccess");
@@ -160,16 +217,15 @@ const DetailPenelitian = () => {
           },
         }).then((data) => data);
 
-
         const preview1 = response?.data[1].slice(0, 5);
-        console.log(response.data)
+        console.log(response.data);
         setDataBig(response?.data[1]);
         // console.log(preview1)
         setPreview(preview1);
         // console.log(response?.data[0].model.detail.Accuracy);
         setData(response?.data[0]);
-        console.log(typeof (response.data[0].status))
-        setStatus(response.data[0].status.toUpperCase())
+        console.log(typeof response.data[0].status);
+        setStatus(response.data[0].status.toUpperCase());
       } else {
         // console.log(response.data)
         const preview1 = response?.data[1].slice(0, 5);
@@ -178,8 +234,8 @@ const DetailPenelitian = () => {
         // console.log(preview1)
         setPreview(preview1);
         console.log(response?.data[0]);
-        console.log(response.data[0].status)
-        setStatus(response.data[0].status.toUpperCase())
+        console.log(response.data[0].status);
+        setStatus(response.data[0].status.toUpperCase());
         setData(response?.data[0]);
       }
 
@@ -196,11 +252,13 @@ const DetailPenelitian = () => {
           id_anotasi: params.id,
         },
       }).then((data) => data);
-      console.log("tes",responsePagination.data.total_pages)
-      setTotalPage(responsePagination.data.total_pages)
-      console.log(responsePagination.data)
-      const dataPagination = responsePagination?.data?.data
-      setPreview(dataPagination)
+      console.log("tes", responsePagination.data.total_pages);
+      setTotalPage(responsePagination.data.total_pages);
+      setTotalDataFill(responsePagination.data.data_fill);
+      setTotalRecord(responsePagination.data.total_records);
+      console.log(responsePagination.data);
+      const dataPagination = responsePagination?.data?.data;
+      setPreview(dataPagination);
       handleClose();
     };
 
@@ -264,7 +322,7 @@ const DetailPenelitian = () => {
   const dataValues = uniqueResults.map(
     (result) => dataBig.filter((review) => review.result === result).length
   );
-  console.log(uniqueResults)
+  console.log(uniqueResults);
   const progressPercentage = (0.86 / 1) * 100;
 
   return (
@@ -300,9 +358,12 @@ const DetailPenelitian = () => {
                 </div>
 
                 <div className="col-2">
-                  <a href={`/admin/editUser/${data.id_anotasi}`}><button type="button" class="btn btn-primary w-75" >Edit</button></a>
+                  <a href={`/admin/editUser/${data.id_anotasi}`}>
+                    <button type="button" class="btn btn-primary w-75">
+                      Edit
+                    </button>
+                  </a>
                 </div>
-
               </div>
 
               <div className="border-line">
@@ -357,10 +418,15 @@ const DetailPenelitian = () => {
                       >
                         <option value="table">Table</option>
                         <option value="chart">Chart</option>
-                        {data.type_anotasi=="manual"? <></>:<> <option value="accuracy">Accuracy</option></>}
-                       
+                        {data.type_anotasi == "manual" ? (
+                          <></>
+                        ) : (
+                          <>
+                            {" "}
+                            <option value="accuracy">Accuracy</option>
+                          </>
+                        )}
                       </select>
-
                     </>
                   )}
                 </div>
@@ -368,9 +434,7 @@ const DetailPenelitian = () => {
                   {display === "table" ? (
                     <>
                       <div className="d-flex flex-column mb-3">
-
                         <div className="pb-4">
-
                           <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -379,21 +443,33 @@ const DetailPenelitian = () => {
                             sx={{
                               height: "38px",
                               width: 200,
-
                             }}
                             onChange={handleStatus}
                           >
                             <MenuItem value={"PROGRESS"}>Progress</MenuItem>
                             <MenuItem value={"FINISHED"}>Finished</MenuItem>
                           </Select>
-                          <button onClick={() => updateStatus()} type="button" class="btn btn-primary ms-5 " >Update Status</button>
-
-
-
+                          <button
+                            onClick={() => updateStatus()}
+                            type="button"
+                            class="btn btn-primary ms-5 "
+                          >
+                            Update Status
+                          </button>
                         </div>
 
-
-                        <button onClick={() => download(data.id_anotasi, data.title)} type="button" class="btn btn-primary w-25" >Download .CSV</button>
+                        <button
+                          onClick={() => download(data.id_anotasi, data.title)}
+                          type="button"
+                          class="btn btn-primary w-25"
+                        >
+                          Download File Excel
+                        </button>
+                        <div className="mt-4 d-flex justify-content-start gap-2">
+                          <h6 className="text-title">
+                            Data Terisi : {totalDataFill}/{totalDataRecord}
+                          </h6>
+                        </div>
                       </div>
 
                       <Table
@@ -489,8 +565,7 @@ const DetailPenelitian = () => {
                         </Button>
                       </div>
                     </>
-                  ) : 
-                    
+                  ) : (
                     <>
                       <div className="container-fluid border-line">
                         <div className="row">
@@ -579,16 +654,11 @@ const DetailPenelitian = () => {
                                 color="#0285F1"
                               />
                             </div>
-
                           </div>
-
-
                         </div>
-
-
                       </div>
                     </>
-                  }
+                  )}
                 </div>
               </div>
               {/* <Button type="button" variant="contained" onClick={handleSubmit} className="ms-2 mt-3 w-25">Upload</Button> */}

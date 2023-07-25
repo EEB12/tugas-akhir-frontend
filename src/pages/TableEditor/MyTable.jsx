@@ -39,6 +39,8 @@ const MyTable = () => {
   const [options, setOptions] = useState([]);
   const [detail, setDetail] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
+  const [totalDataFill, setTotalDataFill] = useState(0);
+  const [totalDataRecord, setTotalRecord] = useState(0);
   const getHeadings = () => {
     return Object.keys(jsonData[0]);
   };
@@ -62,8 +64,6 @@ const MyTable = () => {
 
   const save = (value, index) => {
     updateData(index, value);
-    //    console.log(value,index)
-    // console.log(value)
   };
 
   const convertToCSV = (data) => {
@@ -113,7 +113,7 @@ const MyTable = () => {
             },
           }
         );
-        console.log("berhasil");
+        // console.log("berhasil");
         swal("Berhasil", "Data berhasil diupdate", "success");
       } catch (error) {
         swal("Error", "Ada kesalahan pada server", "error");
@@ -180,13 +180,11 @@ const MyTable = () => {
     }).then((data) => data);
   };
 
-  const cancel = () => { };
+  const cancel = () => {};
 
   function Table({ theadData, tbodyData }) {
-    console.log(tbodyData);
-    console.log(theadData);
-
-    
+    // console.log(tbodyData);
+    // console.log(theadData);
 
     return (
       <div className="table-container">
@@ -194,7 +192,11 @@ const MyTable = () => {
           <thead>
             <tr>
               {theadData?.map((heading) => (
-                <th className="table-secondary" style={{ width: "30%" }} key={heading}>
+                <th
+                  className="table-secondary"
+                  style={{ width: "30%" }}
+                  key={heading}
+                >
                   {heading}
                 </th>
               ))}
@@ -223,7 +225,11 @@ const MyTable = () => {
                       </td>
                     );
                   } else {
-                    return <td className="ml-5" key={row[key]}>{row[key]}</td>;
+                    return (
+                      <td className="ml-5" key={row[key]}>
+                        {row[key]}
+                      </td>
+                    );
                   }
                 })}
               </tr>
@@ -231,7 +237,6 @@ const MyTable = () => {
           </tbody>
         </table>
       </div>
-
     );
   }
 
@@ -247,7 +252,7 @@ const MyTable = () => {
   }
 
   useEffect(() => {
-    console.log(jsonData);
+    // console.log(jsonData);
   }, [jsonData]);
 
   // data getter
@@ -270,7 +275,7 @@ const MyTable = () => {
       }).then((data) => data);
 
       setJsonData(sortObjects(response.data.data));
-      console.log(response.data.data);
+      // console.log(response.data.data);
       // setDataResult([...dataResult, ...jsonData]);
     };
     dataRetriever();
@@ -296,15 +301,17 @@ const MyTable = () => {
           id_anotasi: params.id,
         },
       }).then((data) => data);
-      
-      console.log("tes",response.data.total_pages)
-      setTotalPage(response.data.total_pages)
+
+      // console.log("tes", response.data);
+      setTotalPage(response.data.total_pages);
+      setTotalDataFill(response.data.data_fill);
+      setTotalRecord(response.data.total_records);
       // setJsonData(response.data)
 
       // console.log(response.data.data)
       setHeaders(Object.keys(response?.data.data[0]).reverse());
       const preview1 = response?.data?.data.slice(0, 10);
-      console.log(preview1);
+      // console.log(preview1);
       const responseBaseData = await axios({
         method: "get",
         url: `https://backend-ta.ndne.id/api/get-data-progress/${params.id}`,
@@ -323,15 +330,15 @@ const MyTable = () => {
         },
       }).then((data) => data);
       setDetail(responsedetail.data[0]);
-      console.log(responsedetail.data[0]);
-      console.log(responseBaseData);
-      console.log(sortObjects(responseBaseData?.data[0]));
+      // console.log(responsedetail.data[0]);
+      // console.log(responseBaseData);
+      // console.log(sortObjects(responseBaseData?.data[0]));
 
       setOptions(response.data.target);
       setJsonData(sortObjects(preview1));
       // setDataResult(sortObjects(preview1));
       setData(sortObjects(responseBaseData?.data[0]));
-      console.log(headers);
+      // console.log(headers);
     };
 
     handleSubmit();
@@ -499,6 +506,11 @@ const MyTable = () => {
                   >
                     Save Dataset
                   </button>
+                </div>
+                <div className="mt-4 d-flex justify-content-start gap-2">
+                  <h6 className="text-title">
+                    Data Terisi : {totalDataFill}/{totalDataRecord}
+                  </h6>
                 </div>
                 <div className="row mt-4">
                   <Table theadData={getHeadings()} tbodyData={jsonData}></Table>
