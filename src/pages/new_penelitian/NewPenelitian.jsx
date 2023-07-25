@@ -279,7 +279,7 @@ const NewPenelitian = () => {
                         }}
                         onChange={handleChange}
                       >
-                        <MenuItem value={"AUTO"}>Auto</MenuItem>
+                        <MenuItem value={"AUTO"}>Otomatis</MenuItem>
                         <MenuItem value={"MANUAL"}>Manual</MenuItem>
                       </Select>
                     </div>
