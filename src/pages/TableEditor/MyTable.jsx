@@ -151,6 +151,8 @@ const MyTable = () => {
           }
         );
         swal("Berhasil", "Data berhasil diupdate", "success");
+        window.location.reload();
+
       } catch (error) {
         swal("Error", "Ada kesalahan pada proses anotasi", "error");
       }
